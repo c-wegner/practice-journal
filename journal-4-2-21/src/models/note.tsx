@@ -1,3 +1,5 @@
+export const notePath = 'notes'
+
 export class Note{
     id: string = '';
     clientId: string ='';
@@ -21,6 +23,12 @@ export class Note{
     deleted: boolean = false;
 }
 
+export class Notes{
+    notes: {[id: string]: Note}
+}
+
+
+export const quickTaskPath = 'tasks'
 
 export class QuickTask{
     id: string = '';
@@ -36,4 +44,8 @@ export class QuickTask{
 
     hasReminder: boolean = false;
     reminderOn: number = -1;
+}
+
+export class ToDoList{
+    tasks: {[id: string]: QuickTask}
 }
