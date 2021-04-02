@@ -39,11 +39,10 @@ export const ClientsProvider = ({ children }) => {
           c._timer.lastTimerUpdate = 0;
         }
 
-      console.table('Client')
+  
         book.clients[c.id] = c;
       });
       setClients(book.clients);
-      console.log(book)
 
     });
   };
