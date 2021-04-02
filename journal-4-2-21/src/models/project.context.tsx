@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ClientsContext} from './client.context';
 import {Project, Projects, projectPath } from './projects';
-export {Project}
 import firebase, { app } from '../globals/firebase';
 
-export const ProjectContext = createContext(new Projects())
+export {Project, Projects}
+
+export const ProjectsContext = createContext(new Projects())
 
 const modelProject = new Project()
 
-export const ProjectProvider = ({ children }) => {
+export const ProjectsProvider = ({ children }) => {
   const [projects, setProjects] = useState({})
   const book = useContext(ClientsContext)
   const list = new Projects()
@@ -38,9 +39,9 @@ export const ProjectProvider = ({ children }) => {
 
 
   return (
-    <ProjectContext.Provider value={list.update(projects, book)}>
+    <ProjectsContext.Provider value={list.update(projects, book)}>
       {children}
-    </ProjectContext.Provider>
+    </ProjectsContext.Provider>
 
   )
 }

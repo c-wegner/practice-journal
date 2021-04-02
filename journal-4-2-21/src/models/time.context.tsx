@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Time, TimeSheet, timePath } from "./times";
+
 import firebase, { app } from '../globals/firebase';
 
-export const ProjectContext = createContext(new TimeSheet())
+export const TimeContext = createContext(new TimeSheet())
 
-export const ProjectProvider = ({ children }) => {
+export const TimeProvider = ({ children }) => {
   const [entries, setEntries] = useState({})
   const timeSheet= new TimeSheet()
 
@@ -32,9 +33,9 @@ export const ProjectProvider = ({ children }) => {
 
 
   return (
-    <ProjectContext.Provider value={timeSheet.update(entries)}>
+    <TimeContext.Provider value={timeSheet.update(entries)}>
       {children}
-    </ProjectContext.Provider>
+    </TimeContext.Provider>
 
   )
 }
