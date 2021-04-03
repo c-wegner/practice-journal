@@ -1,5 +1,5 @@
-import {Client, Clients, ClientsContext, ClientsProvider} from './client.context'
-import {Project, Projects, ProjectsContext, ProjectsProvider} from './project.context'
+import {Client, Clients, ClientsContext, ClientsProvider} from './_client.context'
+import {Project, Projects, ProjectsContext, ProjectsProvider} from './_project.context'
 import { TimeContext, TimeProvider } from "./time.context";
 import {Time, TimeSheet, } from './times'
 

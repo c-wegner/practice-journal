@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { ClientsContext} from './client.context';
+import { ClientsContext} from './_client.context';
 import {Project, Projects, projectPath } from './projects';
 import firebase, { app } from '../globals/firebase';
 
