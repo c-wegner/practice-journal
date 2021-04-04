@@ -18,6 +18,7 @@ export class Time{
     paidOn: number = -1;
     voided: boolean = false;
     flagged: boolean = false;
+    
     lastSave: number = -1;
 
     createdOn: number = -1;
