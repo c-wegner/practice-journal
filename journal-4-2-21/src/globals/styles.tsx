@@ -52,7 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     
       input, textarea{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: ${styleVariables.fontSize}
+        font-size: ${styleVariables.fontSize};
         min-height: ${styleVariables.inputHeight};
         padding: ${styleVariables.padding};
         background-color: ${styleVariables.backgroundColor};
