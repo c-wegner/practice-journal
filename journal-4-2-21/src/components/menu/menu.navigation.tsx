@@ -12,10 +12,10 @@ const LogoStyle = styled.img `
     height: 45px;
 `
 
-export const Menu= ({children})=>{
+export const Menu= ({children })=>{
     return(
         <MenuBarStyle>
-            <LogoStyle src={Logo}/>
+            <LogoStyle src={Logo} />
             <MenuOptionsStyle>
                 {children}
             </MenuOptionsStyle>

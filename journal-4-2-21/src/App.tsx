@@ -14,7 +14,7 @@ function App() {
         <ProjectsProvider>
           <TimeProvider>
             <GlobalStyle />
-      <Main />
+        <Main />
       <TestDB/>
       </TimeProvider>
         </ProjectsProvider>
