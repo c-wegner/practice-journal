@@ -54,9 +54,6 @@ export const Main = ({ }) => {
                           </Link>
                         </OptionStyle>
                     </Menu>
-                    <span onClick={()=>setDialog('Testing')}>
-                        ddd
-                    </span>
                 </Stage>
             </Router>
             <Dialog id='Testing' current={dialog} onExit={()=>setDialog('')}>
