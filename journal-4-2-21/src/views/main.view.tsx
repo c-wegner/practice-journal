@@ -11,6 +11,8 @@ import {
     useParams
 } from "react-router-dom";
 import { Menu, OptionStyle } from "../components";
+import { useState } from "react";
+import { Dialog } from "../components/dialog/dialog";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -25,6 +27,7 @@ const Stage = styled.div`
 
 
 export const Main = ({ }) => {
+  const [dialog, setDialog]= useState('')
     return (
         <Wrapper>
             <Router>
@@ -51,8 +54,14 @@ export const Main = ({ }) => {
                           </Link>
                         </OptionStyle>
                     </Menu>
+                    <span onClick={()=>setDialog('Testing')}>
+                        ddd
+                    </span>
                 </Stage>
             </Router>
+            <Dialog id='Testing' current={dialog} onExit={()=>setDialog('')}>
+              Hello
+            </Dialog>
         </Wrapper>
     )
 }

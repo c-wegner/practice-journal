@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-export const styleVariables = {
+export const values = {
     color: '#222',
     backgroundColor: '#FFF',
     secondaryColor: 'grey',
@@ -29,10 +29,10 @@ export const styleVariables = {
 export const GlobalStyle = createGlobalStyle`
     :root{
         font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif; 
-        font-size: ${styleVariables.fontSize};
-        background-color: ${styleVariables.backgroundColor};
-        color: ${styleVariables.color}; 
-        font-weight: ${styleVariables.fontWeight};
+        font-size: ${values.fontSize};
+        background-color: ${values.backgroundColor};
+        color: ${values.color}; 
+        font-weight: ${values.fontWeight};
     }
 
     body, html {
@@ -52,11 +52,11 @@ export const GlobalStyle = createGlobalStyle`
     
       input, textarea{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: ${styleVariables.fontSize};
-        min-height: ${styleVariables.inputHeight};
-        padding: ${styleVariables.padding};
-        background-color: ${styleVariables.backgroundColor};
-        border-radius: ${styleVariables.borderRadius};
+        font-size: ${values.fontSize};
+        min-height: ${values.inputHeight};
+        padding: ${values.padding};
+        background-color: ${values.backgroundColor};
+        border-radius: ${values.borderRadius};
       }
 `;
 
@@ -69,7 +69,7 @@ const RowStyle = styled.div<{justifyContent: string, alignItems: string}> `
       display: flex;
       flex-direction: column;
 
-      @media(min-width: ${styleVariables.screen.md}){
+      @media(min-width: ${values.screen.md}){
           flex-direction: row;
           justify-content: ${p=>p.justifyContent};
           align-items: ${p=>p.alignItems};
@@ -89,7 +89,7 @@ const ColStyle = styled.div<{justifyContent: string, alignItems: string, width: 
     flex-direction: column;
     width: 100%;
 
-    @media(min-width: ${styleVariables.screen.md}){
+    @media(min-width: ${values.screen.md}){
         width: ${p=>p.width};
         flex-grow: ${p=>p.flexGrow};
         justify-content: ${p=>p.justifyContent};
