@@ -13,6 +13,7 @@ import {
 import { Menu, OptionStyle } from "../components";
 import { useState } from "react";
 import { Dialog } from "../components/dialog/dialog";
+import { Practice } from "./view.proto";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -54,6 +55,8 @@ export const Main = ({ }) => {
                           </Link>
                         </OptionStyle>
                     </Menu>
+
+                    <Practice />
                 </Stage>
             </Router>
             <Dialog id='Testing' current={dialog} onExit={()=>setDialog('')}>

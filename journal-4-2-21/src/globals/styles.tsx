@@ -104,3 +104,4 @@ export const Col=({width= '100%', flexGrow = '1', alignItems='center', justifyCo
         {children}
     </ColStyle>
 )
+
