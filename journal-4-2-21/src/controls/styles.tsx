@@ -37,6 +37,7 @@ export const Styles = {
     padding: ${common.values.padding};
     margin: ${common.values.margin};
 
+
     @media (min-width: ${common.values.screen.md}) {
       width: ${p => p.width};
       justify-content: ${p => p.justifyContent};

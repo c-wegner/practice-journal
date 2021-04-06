@@ -57,6 +57,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: ${values.padding};
         background-color: ${values.backgroundColor};
         border-radius: ${values.borderRadius};
+        width: 100%;
       }
 `;
 
