@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+import { Fragment } from 'react';
 import { useState } from 'react';
 
 const initialState = {
@@ -14,12 +15,22 @@ const initialState = {
 
 export const OptionsContext = createContext(initialState)
 
-export const OptionsForm = ({children})=>{
+export const OptionsProvider = ({children})=>{
   const [currentOptions, setCurrentOptions] = useState(initialState)
 
   return(
     <OptionsContext.Provider value={currentOptions}>
       {children}
     </OptionsContext.Provider>
+  )
+}
+
+
+export const OptionsForm = ({})=>{
+
+  return(
+    <Fragment>
+      Hello
+    </Fragment>
   )
 }
