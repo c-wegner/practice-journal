@@ -1,0 +1,25 @@
+import React, { createContext } from 'react';
+import { useState } from 'react';
+
+const initialState = {
+  showFirmRelated: false,
+
+  displaySmallCards: false,
+  displayLargeCards: false,
+
+  displayActiveClients: true,
+  displayAtClientLane: true,
+  displayAtThirdPartyLane: true,
+}
+
+export const OptionsContext = createContext(initialState)
+
+export const OptionsForm = ({children})=>{
+  const [currentOptions, setCurrentOptions] = useState(initialState)
+
+  return(
+    <OptionsContext.Provider value={currentOptions}>
+      {children}
+    </OptionsContext.Provider>
+  )
+}
