@@ -49,6 +49,11 @@ export const GlobalStyle = createGlobalStyle`
       a{
         text-decoration: none;
       }
+
+      label{
+        font-size: .9rem;
+        text-align: left;
+      }
     
       input, textarea{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -5,6 +5,7 @@ export class IFormContext{
   objectState: object;
   update: any;
   submit: any;
+  edit: any;
 }
 
 export const FormContext = createContext(new IFormContext())
@@ -35,6 +36,9 @@ export const FormProvider =({obj = new Object(), path='', children, nextObject= 
       }
       }
     },
+    edit: (val, prop) =>{
+      editObject(state, path, val, prop)
+    }
   }
 
   return(
@@ -74,4 +78,14 @@ function validateObject(obj:any, required:string[]){
     }
   }
   return true
+}
+
+export function editObject(obj, path, val, prop){
+  obj.id = obj.id.toString()
+  const updatedPropVal = {
+    [prop] : val
+  }
+  
+  const db = firebase.firestore(app);
+  db.collection(path).doc(obj.id).update(updatedPropVal)
 }

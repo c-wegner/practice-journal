@@ -53,7 +53,7 @@ export const Container = ({
   flexGrow=0,
   justifyContent='flex-start'
 })=>(
-  <Styles.Container width={width} flexGrow={flexGrow} justifyContent={justifyContent} alignItems='center'>
+  <Styles.Container width={width} flexGrow={flexGrow} justifyContent={justifyContent} alignItems='flex-start'>
     {children}
   </Styles.Container>
 )

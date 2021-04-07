@@ -25,12 +25,3 @@ export const OptionsProvider = ({children})=>{
   )
 }
 
-
-export const OptionsForm = ({})=>{
-
-  return(
-    <Fragment>
-      Hello
-    </Fragment>
-  )
-}
