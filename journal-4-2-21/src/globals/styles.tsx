@@ -63,6 +63,7 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${values.backgroundColor};
         border-radius: ${values.borderRadius};
         width: 100%;
+        box-sizing: border-box;
       }
 `;
 
@@ -79,8 +80,8 @@ const RowStyle = styled.div<{justifyContent: string, alignItems: string}> `
           flex-direction: row;
           justify-content: ${p=>p.justifyContent};
           align-items: ${p=>p.alignItems};
+          width: 100%;
 
-          border: 1px solid;
       }
 `
 

@@ -43,6 +43,8 @@ export const Styles = {
       justify-content: ${p => p.justifyContent};
       align-items: ${p => p.alignItems};
       flex-grow: ${p => p.flexGrow};
+      box-sizing: border-box;
+      margin: 0 auto;
     }
   `
 };
@@ -50,7 +52,7 @@ export const Styles = {
 export const Container = ({
   children,
   width='100%',
-  flexGrow=0,
+  flexGrow=1,
   justifyContent='flex-start'
 })=>(
   <Styles.Container width={width} flexGrow={flexGrow} justifyContent={justifyContent} alignItems='flex-start'>

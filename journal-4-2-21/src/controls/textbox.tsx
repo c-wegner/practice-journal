@@ -36,6 +36,8 @@ export const TextBox =({
 
 const Input = styled.input<{border: boolean}>`
   border: ${p => (p.border ? common.values.border : "none")};
+  flex-grow: 1;
+  width: 100%;
 `;
 
 export const LegacyTextBox = ({
@@ -68,3 +70,62 @@ function cloneObject(obj) {
   }
   return temp;
 }
+
+///////////////////////////////
+
+const TextAreaInputStyle = styled.textarea<{border: boolean}>`
+  border: ${p => (p.border ? common.values.border : "none")};
+  resize: none;
+`;
+export const TextArea =({
+  label,
+  prop,
+  width = "100%",
+  flexGrow = 0,
+  readOnly = false,
+rows=3
+})=>{
+  const formContext: IFormContext = useContext(FormContext)
+
+  const getValue=()=>{
+    const val = formContext.objectState[prop]
+    if(val===undefined){return ''}
+    return val
+  }
+
+  return(
+    <LegacyTextArea
+      value={getValue()}
+      onChange={val=>formContext.update(val, prop)}
+      label={label}
+      width={width}
+      flexGrow={flexGrow}
+      readOnly= {readOnly}
+    />
+  )
+}
+
+
+
+export const LegacyTextArea = ({
+  label,
+  value,
+  onChange,
+  width = "100%",
+  flexGrow = 0,
+  readOnly = false,
+  rows=3
+}) => (
+  <Fragment>
+    <Container width={width} flexGrow={flexGrow}>
+      <label>{label}</label>
+      <TextAreaInputStyle
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        readOnly={readOnly}
+        border={!readOnly}
+        rows={rows}
+      />
+    </Container>
+  </Fragment>
+);
