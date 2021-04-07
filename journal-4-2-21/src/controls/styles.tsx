@@ -44,7 +44,7 @@ export const Styles = {
       align-items: ${p => p.alignItems};
       flex-grow: ${p => p.flexGrow};
       box-sizing: border-box;
-      margin: 0 auto;
+
     }
   `
 };

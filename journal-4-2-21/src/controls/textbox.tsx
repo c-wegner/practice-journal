@@ -101,6 +101,7 @@ rows=3
       width={width}
       flexGrow={flexGrow}
       readOnly= {readOnly}
+      rows={rows}
     />
   )
 }

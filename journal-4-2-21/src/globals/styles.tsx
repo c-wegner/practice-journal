@@ -85,7 +85,7 @@ const RowStyle = styled.div<{justifyContent: string, alignItems: string}> `
       }
 `
 
-export const Row=({children, justifyContent ='justify-start', alignItems ='flex-start'})=>(
+export const Row=({children, justifyContent ='flex-start', alignItems ='flex-start'})=>(
     <RowStyle alignItems={alignItems} justifyContent={justifyContent}>
         {children}
     </RowStyle>

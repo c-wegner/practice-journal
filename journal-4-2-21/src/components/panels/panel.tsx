@@ -14,6 +14,7 @@ const Styles = {
     right: 0;
     overflow: hidden;
     z-index: 2;
+    min-height: 100vh;
 
     box-shadow: ${p => (p.width === "0" ? "none" : common.values.shadow.hover)};
   `,

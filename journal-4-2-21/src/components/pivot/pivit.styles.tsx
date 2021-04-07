@@ -17,9 +17,10 @@ export const PivotStyles = {
   MenuOption: styled.div<{color: string, borderColor: string}>  `
     color: ${p=>p.color};
     margin: 5px 0 5px 15px;
-    border-bottom: 3px solid;
+    border-bottom: 2px solid;
     border-bottom-color: ${p=>p.borderColor};
     padding-bottom: 4px;
     cursor: pointer;
+    font-size: .9rem;
   `
 }

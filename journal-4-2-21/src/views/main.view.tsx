@@ -18,6 +18,7 @@ import { Practice } from "./view.proto";
 const Wrapper = styled.div`
   overflow-x: hidden;
   position: relative;
+  min-height: 100vh;
 `;
 
 

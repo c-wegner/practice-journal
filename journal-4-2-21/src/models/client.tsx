@@ -21,7 +21,7 @@ export class Client {
     billType: string = '';
     billRate: number = 375;
     billTerms: string = '';
-    initialEstimate: number = -1;
+    initialEstimate: number = 0;
 
     followUpPhone: boolean = false;
     followUpSendEmail: boolean = false

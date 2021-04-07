@@ -73,7 +73,7 @@ const Label = styled.div`
   margin: 0 10px;
 `;
 
-export const LegacyCheckbox = ({
+export function LegacyCheckbox({
   label,
   onChange,
   value,
@@ -81,7 +81,7 @@ export const LegacyCheckbox = ({
   width = "inherit",
   right = false,
   readOnly = false,
-}) => {
+}) {
   const handleClick=()=>{
     if(readOnly){}else{
       onChange(!value)
