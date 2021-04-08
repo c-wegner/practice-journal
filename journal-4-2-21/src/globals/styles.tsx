@@ -81,7 +81,6 @@ const RowStyle = styled.div<{justifyContent: string, alignItems: string}> `
           justify-content: ${p=>p.justifyContent};
           align-items: ${p=>p.alignItems};
           width: 100%;
-
       }
 `
 
@@ -102,7 +101,6 @@ const ColStyle = styled.div<{justifyContent: string, alignItems: string, width: 
         justify-content: ${p=>p.justifyContent};
         align-items: ${p=>p.alignItems};
 
-        border: 1px solid;
     }
 `
 

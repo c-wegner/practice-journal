@@ -14,6 +14,7 @@ const Styles={
     cursor: pointer;
     color: blue;
     border-color: blue;
+    width: 100%;
   `,
 }
 
@@ -23,7 +24,7 @@ export const Button=({
   width= '100%'
 })=>{
   return(
-    <Container width={width}>
+    <Container width={width} flexGrow={0}>
       <label>&nbsp;</label>
       <Styles.Btn onClick={()=>onClick()}>
         {label}
