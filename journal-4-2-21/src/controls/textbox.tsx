@@ -18,6 +18,11 @@ export const TextBox =({
   const getValue=()=>{
     const val = formContext.objectState[prop]
     if(val===undefined){return ''}
+    if(inputType==='number'){
+      if(val === -1){
+        return 0
+      }
+    }
     return val
   }
 
@@ -34,10 +39,11 @@ export const TextBox =({
   )
 }
 
-const Input = styled.input<{border: boolean}>`
+const Input = styled.input<{border: boolean, alignment: string}>`
   border: ${p => (p.border ? common.values.border : "none")};
   flex-grow: 1;
   width: 100%;
+  text-align: ${p=>p.alignment};
 `;
 
 export const LegacyTextBox = ({
@@ -48,7 +54,14 @@ export const LegacyTextBox = ({
   flexGrow = 0,
   readOnly = false,
   inputType = 'text'
-}) => (
+}) => {
+  
+  const getAlignment=()=>{
+    if(inputType==='number') return 'right'
+    return 'left'
+  }
+  
+  return (
   <Fragment>
     <Container width={width} flexGrow={flexGrow}>
       <label>{label}</label>
@@ -58,10 +71,11 @@ export const LegacyTextBox = ({
         readOnly={readOnly}
         border={!readOnly}
         type={inputType}
+        alignment={getAlignment()}
       />
     </Container>
   </Fragment>
-);
+)};
 
 function cloneObject(obj) {
   let temp = new Object();
@@ -116,7 +130,10 @@ export const LegacyTextArea = ({
   flexGrow = 0,
   readOnly = false,
   rows=3
-}) => (
+}) => { 
+
+  
+  return(
   <Fragment>
     <Container width={width} flexGrow={flexGrow}>
       <label>{label}</label>
@@ -129,4 +146,4 @@ export const LegacyTextArea = ({
       />
     </Container>
   </Fragment>
-);
+)};

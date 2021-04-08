@@ -9,6 +9,7 @@ export const values = {
     borderRadius: '3px',
     padding: '7px',
     margin: '7px',
+    doublePadding: '10px',
     inputHeight: '2.2rem',
     
     fontWeight: '500',
@@ -100,6 +101,7 @@ const ColStyle = styled.div<{justifyContent: string, alignItems: string, width: 
         flex-grow: ${p=>p.flexGrow};
         justify-content: ${p=>p.justifyContent};
         align-items: ${p=>p.alignItems};
+        height: 100%;
 
     }
 `

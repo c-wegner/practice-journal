@@ -8,6 +8,7 @@ import { FormProvider } from '../controls/forms.context'
 import { Row } from '../globals/styles'
 import { Client } from '../models'
 import { ClientForm } from '../forms/client.forms'
+import { ProjectForm } from '../forms/project.forms'
 
 
 const BS = styled.div`
@@ -22,9 +23,15 @@ export const Practice = () => {
     <FormProvider obj={new Client()} nextObject={new Client()}>
     
       <span onClick={() => setPanelTest('tuba')}>Here</span>
+      <br />
+      <span onClick={() => setPanelTest('Player')}>There</span>
  
       <Panel id='tuba' current={panelTest} onExit={() => setPanelTest('')}>
         <ClientForm />
+      </Panel>
+
+      <Panel id='Player' current={panelTest} onExit={()=>setPanelTest('')}>
+        <ProjectForm/>
       </Panel>
     </FormProvider>
   )

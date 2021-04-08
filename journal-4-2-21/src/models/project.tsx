@@ -8,9 +8,9 @@ export class Project {
     id: string = '';
     projectId: string = '';
     clientId: string = '';
-    _clientName: string = '';
-    _clientDisplay: string = '';
-    _clientShortName: string = '';
+    clientName: string = '';
+    clientDisplay: string = '';
+    clientShortName: string = '';
     title: string = '';
     open: boolean = true;
     notes: string = '';

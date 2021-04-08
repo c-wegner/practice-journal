@@ -34,8 +34,8 @@ export const Styles = {
     display: flex;
     flex-direction: column;
     width: 95%;
-    padding: ${common.values.padding};
-    margin: ${common.values.margin};
+    padding: ${common.values.doublePadding};
+
 
 
     @media (min-width: ${common.values.screen.md}) {
@@ -52,8 +52,10 @@ export const Styles = {
 export const Container = ({
   children,
   width='100%',
-  flexGrow=1,
-  justifyContent='flex-start'
+  flexGrow=0,
+  justifyContent='flex-start', 
+  looseRightMargin = false,
+
 })=>(
   <Styles.Container width={width} flexGrow={flexGrow} justifyContent={justifyContent} alignItems='flex-start'>
     {children}

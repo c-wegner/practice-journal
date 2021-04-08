@@ -5,10 +5,10 @@ import { useState } from "react";
 import { common } from '../globals';
 import { PivotPage, PivotProvider } from '../components/pivot/pivot.main';
 import { FormContext, FormProvider } from '../controls/forms.context';
-import { Client } from '../models';
-import { clientPath } from '../models/client';
+import { Client, ClientsContext, Project, Projects, ProjectsContext } from '../models';
+import { projectPath } from '../models/project';
 import { Col, Row } from '../globals/styles';
-import { Button, ConditionalContent, RadioCheck, TextArea, TextBox } from '../controls';
+import { Button, ConditionalContent, Dropdown, RadioCheck, TextArea, TextBox } from '../controls';
 import { Checkbox } from '../controls/checkbox';
 
 const FormStyle = styled.div`
@@ -21,52 +21,55 @@ const FormStyle = styled.div`
   }
 `
 
-export const ClientForm = ({
-  obj = new Client(),
+export const ProjectForm = ({
+  obj = new Project(),
 }) => {
+  const book = useContext(ClientsContext);
+
   return (
     <FormStyle>
-      <FormProvider obj={obj} nextObject={new Client()} path={clientPath}>
+      <FormProvider obj={obj} nextObject={new Project()} path={projectPath}>
         <Row justifyContent='flex-end'>
-          <Checkbox label='Flag client' prop='flagged' right/>
+          <Checkbox label='Flag project' prop='flagged' right/>
         </Row>
+
+      
         <PivotProvider>
           <PivotPage id='General'>
+            <Row justifyContent='flex-end' >
+              <Checkbox label='Open' prop='open' right />
+            </Row>
+            <Row>
+  
+              <Dropdown
+                label='Lane'
+                prop='lane'
+                options={Projects.listLanesForDropDown}
+                width='30%'
+              />
+          </Row>
+          <Row>
+              <Dropdown
+                label='Client'
+                prop='clientDisplay'
+                options={book._clients}
+                width='30%'
+              />
+
+              <TextBox label='Description' prop='name' width='70%'/>
+              </Row>
+
+
+            <Row>
+              <TextBox label='Current task' prop='task' />
+            </Row>
+
+            
             <Row justifyContent='flex-end'>
-              <Checkbox label='Business client' prop='isBusiness' right />
+              <TextBox label='Current contact' prop='laneContact' width='30%' />
             </Row>
             <Row>
-              <TextBox label='Name' prop='name' />
-            </Row>
-            <ConditionalContent prop='isBusiness' conditionState={true}>
-              <TextBox width='70%' label='Contact name' prop='contact' />
-              <TextBox width='30%' label='Contact position' prop='contactTitle' />
-            </ConditionalContent>
-            <Row>
-              <TextBox width='50%' label='Phone number' prop='phone' />
-              <TextBox width='50%' label='Email address' prop='email' />
-            </Row>
-            <Row>
-              <TextArea label='Address' prop='address' rows={4} />
-            </Row>
-
-            <Row>
-              <TextArea label='General notes' prop='notes' rows={2} />
-            </Row>
-          </PivotPage>
-          <PivotPage id='Related'>
-            <Row>
-              <TextArea
-                width='50%'
-                label='Related individuals'
-                prop='relatedIndividuals'
-              />
-
-              <TextArea
-                width='50%'
-                label='Related companies'
-                prop='relatedBusinesses'
-              />
+              <TextArea label='Notes' prop='notes' rows={4} />
             </Row>
           </PivotPage>
           <PivotPage id='Follow up'>
@@ -110,7 +113,7 @@ export const ClientForm = ({
           <PivotPage id='Options'>
             <Row>
               <Col alignItems='flex-end'>
-                <Checkbox label='Archived' prop='archived' right />
+                <Checkbox label='Urgent' prop='urgent' right />
                 <Checkbox label='Firm related' prop='firmRelated' right />
               </Col>
               <Col alignItems='flex-end'>
@@ -121,24 +124,13 @@ export const ClientForm = ({
                 />
 
                 <Checkbox
-                  label='Use alternate name'
-                  prop='useAltName'
+                  label='Bill reminder'
+                  prop='billReminder'
                   right
                 />
               </Col>
             </Row>
-            <ConditionalContent prop='useAltName' conditionState={true}>
-              <TextBox label='Alternate name' prop='altName' />
-            </ConditionalContent>
 
-            <ConditionalContent prop='isBusiness' conditionState={true}>
-              <Checkbox label='Serve as registered agent' prop='registeredAgent' right/>
-            </ConditionalContent>
-
-            <ConditionalContent prop='registeredAgent' conditionState={true}>
-              <TextBox label='State' prop='registeredAgentState' width='50%'/>
-              <TextBox label='Annual report date' prop='registeredAgentDate' width='50%' inputType='date'/>
-            </ConditionalContent>
           </PivotPage>
 
         </PivotProvider>
@@ -152,12 +144,24 @@ export const ClientForm = ({
 
 function SubmitButton() {
   const formContext = useContext(FormContext)
+  const book = useContext(ClientsContext)
+  const list = useContext(ProjectsContext)
 
   const handleSubmit = () => {
     const submitState = formContext.objectState
+    const projectClient = book.getClientByName(submitState['clientDisplay'])
+    submitState['clientId'] = projectClient.id
+    submitState['clientShortName'] = projectClient.shortName;
+    submitState['clientName'] = projectClient.name
+
     if (submitState['lastSave'] === -1 || submitState['lastSave'] === undefined) {
       submitState['id'] = new Date().getTime().toString()
     }
+
+    if(submitState['projectId']===undefined || submitState['projectId']===''){
+      submitState['projectId'] = list.getNextProjectId()
+    }
+    submitState['lastSave'] = new Date().getTime()
     formContext.submit(submitState)
   }
 
