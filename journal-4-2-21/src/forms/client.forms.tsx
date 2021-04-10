@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { useState } from "react";
 import { common } from '../globals';
-import { PivotPage, PivotProvider } from '../components/pivot/pivot.main';
+import { PivotContext, PivotPage, PivotProvider } from '../components/pivot/pivot.main';
 import { FormContext, FormProvider } from '../controls/forms.context';
 import { Client } from '../models';
 import { clientPath } from '../models/client';
@@ -140,10 +140,10 @@ export const ClientForm = ({
               <TextBox label='Annual report date' prop='registeredAgentDate' width='50%' inputType='date'/>
             </ConditionalContent>
           </PivotPage>
-
+          <SubmitButton />
         </PivotProvider>
 
-        <SubmitButton />
+
       </FormProvider>
     </FormStyle>
   )
@@ -152,12 +152,16 @@ export const ClientForm = ({
 
 function SubmitButton() {
   const formContext = useContext(FormContext)
+  const pivotContext = useContext(PivotContext)
 
   const handleSubmit = () => {
     const submitState = formContext.objectState
     if (submitState['lastSave'] === -1 || submitState['lastSave'] === undefined) {
       submitState['id'] = new Date().getTime().toString()
     }
+
+    submitState['lastSave'] = new Date().getTime()
+    pivotContext.reset()
     formContext.submit(submitState)
   }
 

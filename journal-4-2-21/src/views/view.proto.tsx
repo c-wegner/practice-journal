@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { useState } from 'react'
 import { Panel } from '../components/panels/panel'
 import { PivotPage, PivotProvider } from '../components/pivot/pivot.main'
 import { Dropdown, TextArea, TextBox } from '../controls'
 import { FormProvider } from '../controls/forms.context'
-import { Row } from '../globals/styles'
-import { Client } from '../models'
+import { Col, Row } from '../globals/styles'
+import { Client, ClientsContext } from '../models'
 import { ClientForm } from '../forms/client.forms'
 import { ProjectForm } from '../forms/project.forms'
+import { useContext } from 'react'
+import { ClientCard } from '../components/card/client.card'
+
 
 
 const BS = styled.div`
@@ -18,21 +21,41 @@ const BS = styled.div`
 
 export const Practice = () => {
   const [panelTest, setPanelTest] = useState('Hi')
+  const [currentClient, setCurrentClient] = useState(new Client())
+
+  const book = useContext(ClientsContext)
+
+  const handleClientSelect=(client)=>{
+    if(currentClient.id === client.id){
+      setCurrentClient(new Client())
+    }else{
+      setCurrentClient(client)
+    }
+  }
 
   return (
-    <FormProvider obj={new Client()} nextObject={new Client()}>
-    
-      <span onClick={() => setPanelTest('tuba')}>Here</span>
-      <br />
-      <span onClick={() => setPanelTest('Player')}>There</span>
- 
-      <Panel id='tuba' current={panelTest} onExit={() => setPanelTest('')}>
-        <ClientForm />
-      </Panel>
+<Fragment>
+<Row>
+      <Col>
+        {
+          book._clients.map(x=>{
+            return(
+              <ClientCard client={x} currentClient={currentClient} onSelectClient={()=>handleClientSelect(x)}/>
+            )
+          })
+        }
+      </Col>
+<Col>
 
-      <Panel id='Player' current={panelTest} onExit={()=>setPanelTest('')}>
-        <ProjectForm/>
-      </Panel>
-    </FormProvider>
+</Col>
+      <Col>
+      
+      </Col>
+    </Row>
+
+    <Row>
+      <ClientForm obj={currentClient}/>
+    </Row>
+</Fragment>
   )
 }
