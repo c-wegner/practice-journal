@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { ClientCard } from '../components/card/client.card'
 import { cpuUsage } from 'node:process'
 import { ProjectCard } from '../components/card/project.card'
+import { ADDRCONFIG } from 'node:dns'
 
 
 
@@ -49,6 +50,10 @@ export const Practice = () => {
     }
   }
 
+  const addClient=()=>{
+    setPanelTest('Add client')
+  }
+
   return (
 <Fragment>
   <Row>
@@ -80,9 +85,14 @@ export const Practice = () => {
     </Col>
   
 
-    <Col>
+    <Col> 
+    <span onClick={()=>addClient()}>Add here</span>
     </Col>
   </Row>
+
+  <Panel id='Add client' current={panelTest} onExit={()=>setPanelTest('')}>
+    <ClientForm />
+  </Panel>
 </Fragment>
   )
 }

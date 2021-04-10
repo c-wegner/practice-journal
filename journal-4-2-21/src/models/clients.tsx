@@ -4,6 +4,8 @@ export {Client, clientPath}
 export class Clients{
   clients: {[id: string]: Client} ={}
 
+
+
   updateClients(clients: {[id:string]: Client}):Clients{
     this.clients = {}
     for(const [k, c] of Object.entries(clients)){
@@ -26,6 +28,14 @@ export class Clients{
     let temp = Object.values(this.clients)
     temp.sort((x,y)=>compareClients(x,y))
     return temp
+  }
+
+  getCurrentClientsForDropDown(includeFirmRelated = false){
+    if(includeFirmRelated===false){
+    return this._clients.filter(x=>x.active && !x.firmRelated)
+    }else{
+      return this._clients.filter(x=>x.active)
+    }
   }
 }
 

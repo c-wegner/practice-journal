@@ -9,6 +9,7 @@ import { Client, Clients, ClientsContext, Project, Projects, ProjectsContext, Ti
 import { Col, Row } from '../globals/styles';
 import { Button, ConditionalContent, Dropdown, RadioCheck, TextArea, TextBox } from '../controls';
 import { Checkbox } from '../controls/checkbox';
+import { ClientMatterPicker } from '../controls/client.matter.picker';
 
 const FormStyle = styled.div`
   width: 800px;
@@ -34,22 +35,7 @@ export const TimeForm = ({
         </Row>
         <PivotProvider>
           <PivotPage id='Time entry'>
-
-            <Row>
-              <Dropdown
-                label='Client'
-                prop='clientDisplay'
-                options={book._clients}
-                width='50%'
-              />
-
-<Dropdown
-                label='Project'
-                prop='projectDisplay'
-                options={list._projects}
-                width='50%'
-              />
-            </Row>
+          <ClientMatterPicker />
 
             <Row>
               <TextBox label='Description' prop='description' />

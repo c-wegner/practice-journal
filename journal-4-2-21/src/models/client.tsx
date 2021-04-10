@@ -1,4 +1,4 @@
-import { Project } from ".";
+import { Project, Time } from ".";
 import firebase, { app } from "../globals/firebase";
 
 export const clientPath = 'contacts'
@@ -114,6 +114,15 @@ export class Client {
 
     createProject(){
       const temp = new Project()
+      temp.clientDisplay = this.display
+      temp.clientId = this.id
+      temp.clientName = this.name
+      temp.clientShortName = this.shortName
+      return temp
+    }
+
+    createTimeEntry(){
+      const temp = new Time()
       temp.clientDisplay = this.display
       temp.clientId = this.id
       temp.clientName = this.name

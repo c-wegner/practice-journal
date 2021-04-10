@@ -90,7 +90,7 @@ export const ClientCard = ({
       </Panel>
 
       <Dialog id='New time entry' onExit={()=>setShowPanel('')} current={showPanel}>
-        <TimeForm />
+        <TimeForm obj={client.createTimeEntry()}/>
       </Dialog>
     </Fragment>
   )

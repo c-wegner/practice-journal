@@ -61,6 +61,14 @@ export class Projects {
         }
     }
 
+    getProjectsForDropDown(clientDisplay = '', includeFirmRelated = false){
+      if(clientDisplay===''){
+        return this._projects.filter(x=>x.open)
+      }else{
+        return this._projects.filter(x=>x.open && x.clientDisplay === clientDisplay)
+      }
+    }
+
     static listLanesForDropDown = [
         { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
         { value: '@Client', display: '@Client', active: true },
