@@ -1,3 +1,4 @@
+import { Project } from ".";
 import firebase, { app } from "../globals/firebase";
 
 export const clientPath = 'contacts'
@@ -109,6 +110,15 @@ export class Client {
 
     edit(prop: string, val: string) {
         editObject(this, prop, val, clientPath)
+    }
+
+    createProject(){
+      const temp = new Project()
+      temp.clientDisplay = this.display
+      temp.clientId = this.id
+      temp.clientName = this.name
+      temp.clientShortName = this.shortName
+      return temp
     }
 
     static billTypes = ["Hourly", "Fixed", "Subscription", "None"];

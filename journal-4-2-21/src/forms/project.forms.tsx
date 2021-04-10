@@ -56,7 +56,7 @@ export const ProjectForm = ({
                 width='30%'
               />
 
-              <TextBox label='Description' prop='name' width='70%'/>
+              <TextBox label='Description' prop='title' width='70%'/>
               </Row>
 
 
