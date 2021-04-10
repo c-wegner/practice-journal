@@ -20,6 +20,17 @@ export const ProjectCard = ({
 
   useEffect(() => {
 
+    
+    switch (currentProject.id) {
+      case undefined:
+      case '':
+        setExpanded(false)
+        setShowPanel('')
+        setOpacity(1)
+        break;
+ 
+    }
+
     switch (currentClient.id) {
       case undefined:
       case '':
@@ -39,15 +50,6 @@ export const ProjectCard = ({
         }
     }
 
-    switch (currentProject.id) {
-      case undefined:
-      case '':
-        setExpanded(false)
-        setShowPanel('')
-        setOpacity(1)
-        break;
- 
-    }
   }, [currentClient, currentProject])
 
   const handleClick = () => {
@@ -62,7 +64,8 @@ export const ProjectCard = ({
           <Title onClick={() => handleClick()}>
             {project.display}
           </Title>
-
+          <Text>
+          </Text>
         </Line>
         <Line
           expanded={expanded}>

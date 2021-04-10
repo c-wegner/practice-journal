@@ -81,6 +81,10 @@ export class Project {
     get display(): string {
         return this.projectId + ' ' + this.title
     }
+
+    get active(): boolean{
+      return this.open
+    }
 }
 
 export function submitObject(obj, path) {

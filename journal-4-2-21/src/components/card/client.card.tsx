@@ -7,6 +7,8 @@ import * as Icons from '../icons'
 import { Panel } from '../panels/panel';
 import { ProjectForm } from '../../forms/project.forms';
 import { ClientForm } from '../../forms/client.forms';
+import { Dialog } from '../dialog/dialog';
+import { TimeForm } from '../../forms/time.forms';
 
 export const ClientCard = ({
   client = new Client(),
@@ -76,7 +78,7 @@ export const ClientCard = ({
           <Text>
             <Icons.Pen display size='1.2rem' onClick={() => setShowPanel('Edit client')} />
             <Icons.FolderPlus display size='1.2rem' onClick={() => setShowPanel('Add project')} />
-            <Icons.ClockDashed display size='1.2rem' />
+            <Icons.ClockDashed display size='1.2rem' onClick={()=>setShowPanel('New time entry')} />
           </Text>
         </Line>
       </Card>
@@ -86,6 +88,10 @@ export const ClientCard = ({
       <Panel id='Add project' current={showPanel} onExit={() => setShowPanel('')}>
         <ProjectForm obj={client.createProject()} />
       </Panel>
+
+      <Dialog id='New time entry' onExit={()=>setShowPanel('')} current={showPanel}>
+        <TimeForm />
+      </Dialog>
     </Fragment>
   )
 }

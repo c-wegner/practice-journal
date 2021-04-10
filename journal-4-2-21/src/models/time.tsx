@@ -22,7 +22,7 @@ export class Time{
     lastSave: number = -1;
 
     createdOn: number = -1;
-    billTo: number = -1;
+    billTo: string = new Date().toDateString();
 
     convertToObject() {
         return JSON.parse(JSON.stringify(this));
