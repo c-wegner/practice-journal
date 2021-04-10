@@ -19,6 +19,7 @@ export const ProjectCard = ({
   const [opacity, setOpacity] = useState(1)
 
   useEffect(() => {
+
     switch (currentClient.id) {
       case undefined:
       case '':
@@ -26,13 +27,15 @@ export const ProjectCard = ({
         setShowPanel('')
         setOpacity(1)
         break;
+
       default:
         if (currentClient.id === project.clientId) {
           setOpacity(1)
         } else {
+
           setExpanded(false)
           setShowPanel('')
-          setOpacity(.7)
+          setOpacity(.6)
         }
     }
 
@@ -45,7 +48,7 @@ export const ProjectCard = ({
         break;
  
     }
-  }, [currentClient, currentClient])
+  }, [currentClient, currentProject])
 
   const handleClick = () => {
     setExpanded(!expanded);

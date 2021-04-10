@@ -52,6 +52,10 @@ export const Practice = () => {
   return (
 <Fragment>
   <Row>
+    {currentClient.display}
+    {currentProject.display}
+  </Row>
+  <Row>
     <Col>
     {
       book._clients.map(x=>{
