@@ -41,6 +41,9 @@ export class Time{
     update(propToUpdate, updateValue) {
         updateObject(this, propToUpdate, updateValue, timePath)
     }
+
+  
+
 }
 
 
