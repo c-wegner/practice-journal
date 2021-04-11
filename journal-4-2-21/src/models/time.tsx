@@ -1,3 +1,4 @@
+
 import firebase, { app } from "../globals/firebase";
 
 export const timePath = 'time'
@@ -11,6 +12,7 @@ export class Time{
     projectId: string = '';
     description: string = '';
     rate: number = 375;
+    billable = true;
     quantity: number = .1;
     billed: boolean = false;
     billedOn: number = -1;
@@ -22,7 +24,7 @@ export class Time{
     lastSave: number = -1;
 
     createdOn: number = -1;
-    billTo: string = new Date().toDateString();
+    billTo: string = convertToDateString(new Date().getTime());
 
     convertToObject() {
         return JSON.parse(JSON.stringify(this));
@@ -59,4 +61,21 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
         [propToUpdate]: updateValue,
         lastSave: lastSaveTime
     })
+}
+
+
+function convertToDateString(date:number){
+  const temp = new Date(date)
+  let monthDate = temp.getMonth() + 1
+  let monthDateString = monthDate.toString()
+  if(monthDate <10){
+    monthDateString = '0' + monthDateString
+  }
+
+  let dayDate = temp.getDate()
+  let dayDateString = dayDate.toString()
+  if(dayDate<10){
+    dayDateString = '0' + dayDateString
+  }
+  return temp.getFullYear() + '-' + monthDateString + '-' + dayDateString
 }

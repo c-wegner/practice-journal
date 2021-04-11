@@ -61,11 +61,11 @@ export class Projects {
         }
     }
 
-    getProjectsForDropDown(clientDisplay = '', includeFirmRelated = false){
-      if(clientDisplay===''){
+    getProjectsForDropDown(clientId = '', includeFirmRelated = false){
+      if(clientId===''){
         return this._projects.filter(x=>x.open)
       }else{
-        return this._projects.filter(x=>x.open && x.clientDisplay === clientDisplay)
+        return this._projects.filter(x=>x.open && x.clientId === clientId)
       }
     }
 

@@ -24,8 +24,7 @@ const FormStyle = styled.div`
 export const TimeForm = ({
   obj = new Time(),
 }) => {
-  const book = useContext(ClientsContext)
-  const list = useContext(ProjectsContext)
+
 
   return (
     <FormStyle>
@@ -51,37 +50,14 @@ export const TimeForm = ({
           </PivotPage>
           <PivotPage id='Expense'>
             <Row>
-              <TextArea
-                width='50%'
-                label='Related individuals'
-                prop='relatedIndividuals'
-              />
-
-              <TextArea
-                width='50%'
-                label='Related companies'
-                prop='relatedBusinesses'
-              />
+              <TextBox label='Description' prop='description' width='70%'/>
+              <TextBox label = 'Amount' prop='charge' width='30%' inputType='number'/>
             </Row>
           </PivotPage>
           <PivotPage id='Options'>
             <Row>
 
-              <Checkbox label='Call' prop='followUpPhone' />
-              <Checkbox label='Send email' prop='followUpSendEmail' />
-              <Checkbox
-                label='Read email'
-                prop='followUpReadEmail'
-        
-              />
-
-              <Checkbox
-                label='Flag'
-                prop='flagged'
-
-              />
-            </Row><Row>
-              <TextArea label='Notes' prop='followUpNotes' />
+              <Checkbox label='Billable' prop='billable' right />
 
             </Row>
           </PivotPage><SubmitButton />
@@ -105,6 +81,8 @@ function SubmitButton() {
     }
 
     submitState['lastSave'] = new Date().getTime()
+
+
     pivotContext.reset()
     formContext.submit(submitState)
   }

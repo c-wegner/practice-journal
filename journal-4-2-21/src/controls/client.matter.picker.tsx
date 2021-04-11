@@ -19,12 +19,11 @@ export const ClientMatterPicker =({
 
   return(
     <Row>
-      <Dropdown label='Client' prop={clientPropName} width='30%' options={book.getCurrentClientsForDropDown(false)}/>
-      <Dropdown label='Project' prop={projectPropName} width= '70%' options={list.getProjectsForDropDown(currentClient.display)}/>
 
-      {
-        subjectState['clientDisplay']
-      }
+      <Dropdown label='Client' prop={clientPropName} width='30%' options={book.getCurrentClientsForDropDown(false)}/>
+      <Dropdown label='Project' prop={projectPropName} width= '70%' options={list.getProjectsForDropDown(subjectState.objectState['clientId'])}/>
+
+   
     </Row>
   )
 }
