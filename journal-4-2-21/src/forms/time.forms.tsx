@@ -71,8 +71,13 @@ function SubmitButton() {
   const formContext = useContext(FormContext)
   const pivotContext = useContext(PivotContext)
 
+  const list = useContext(ProjectsContext);
+
   const handleSubmit = () => {
     const submitState = formContext.objectState
+    const proj = list.getProjectByDisplay(submitState['projectDisplay'])
+
+    submitState['projectId'] = proj.id
     if (submitState['lastSave'] === -1 || submitState['lastSave'] === undefined) {
       submitState['id'] = new Date().getTime().toString()
     }

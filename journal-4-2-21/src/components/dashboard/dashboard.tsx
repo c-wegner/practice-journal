@@ -19,3 +19,11 @@ const LandHeadStyle = styled.div `
 const LaneHeadingStyle = styled.div `
 
 `
+
+export const Dashboard=()=>{
+  return(
+    <Stage>
+      
+    </Stage>
+  )
+}

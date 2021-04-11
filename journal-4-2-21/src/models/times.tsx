@@ -15,4 +15,13 @@ export class TimeSheet{
       }
       return this
     }
+
+    prepareClient(clientId){
+      const temp = {currentHours: 0, outsandingHours: 0, totalHours:0, nonBillableHours: 0}
+      for(let t of this._times){
+        if(t.clientId === clientId){
+          
+        }
+      }
+    }
 }

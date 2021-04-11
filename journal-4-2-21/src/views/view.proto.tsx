@@ -15,14 +15,6 @@ import { ClientCard } from '../components/card/client.card'
 import { ProjectCard } from '../components/card/project.card'
 
 
-
-
-
-const BS = styled.div`
-  width: 50%;
-`
-
-
 export const Practice = () => {
   const [panelTest, setPanelTest] = useState('Hi')
   const [currentClient, setCurrentClient] = useState(new Client())
@@ -30,7 +22,6 @@ export const Practice = () => {
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
-  const timeSheet = useContext(TimeContext)
 
   const handleClientSelect=(client)=>{
     if(currentClient.id === client.id){
@@ -61,10 +52,6 @@ export const Practice = () => {
   return (
 <Fragment>
   <Row>
-    {currentClient.display}
-    {currentProject.display}
-  </Row>
-  <Row>
     <Col>
     {
       book._clients.map(x=>{
@@ -77,7 +64,7 @@ export const Practice = () => {
 
     <Col>
       {
-        list._projects.map(x=>{
+        list.getProjectByLane('@Wegner Law PLLC').map(x=>{
           return(
             <ProjectCard project={x} onSelectProject={handleProjectSelect} currentClient={currentClient} currentProject={currentProject} key={x.id}/>
           )
@@ -86,6 +73,13 @@ export const Practice = () => {
     </Col>
 
     <Col>
+    {
+        list.getProjectByLane('@Client').map(x=>{
+          return(
+            <ProjectCard project={x} onSelectProject={handleProjectSelect} currentClient={currentClient} currentProject={currentProject} key={x.id}/>
+          )
+        })
+      }
     </Col>
   
 

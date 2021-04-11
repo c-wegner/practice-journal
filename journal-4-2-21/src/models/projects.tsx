@@ -91,6 +91,16 @@ export class Projects {
       return temp
     }
 
+    getProjectByLane(laneId='', includeClosedProjects= false, includeFirmRelatedProjects = false){
+      let temp: Project[] = []
+      for(let p of this._projects){
+        if(p.lane === laneId && p.open && !p.firmRelated){
+          temp.push(p)
+        }
+      }
+      return temp
+    }
+
     static listLanesForDropDown = [
         { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
         { value: '@Client', display: '@Client', active: true },

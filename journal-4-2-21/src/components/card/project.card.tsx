@@ -68,14 +68,21 @@ export const ProjectCard = ({
           </Text>
         </Line>
         <Line
-          expanded={expanded}>
+          expanded={expanded}
+          displayWhenCollapsed
+          >
           <Text>
             {project.task}
-          </Text>
+          </Text>&nbsp;
 
         </Line>
+        <Line expanded={expanded} justifyContent='flex-end'>
+          <Text>
+          <Icons.Pen display color='blue' size='1.2rem' onClick={()=>setShowPanel('Edit project')}/>
+          </Text>
+        </Line>
       </Card>
-      <Panel id='Edit Project' current={showPanel} onExit={() => setShowPanel('')}>
+      <Panel id='Edit project' current={showPanel} onExit={() => setShowPanel('')}>
         <ProjectForm obj={project} />
       </Panel>
 
