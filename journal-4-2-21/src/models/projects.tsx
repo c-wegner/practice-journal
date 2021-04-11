@@ -77,6 +77,20 @@ export class Projects {
       return new Project()
     }
 
+    prepareClient(clientId){
+      const temp = {open: 0, closed: 0}
+      for(let p of this._projects){
+        if(p.clientId === clientId){
+          if(p.open){
+            temp.open ++
+          }else{
+            temp.closed ++
+          }
+        }
+      }
+      return temp
+    }
+
     static listLanesForDropDown = [
         { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
         { value: '@Client', display: '@Client', active: true },

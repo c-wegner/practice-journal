@@ -1,3 +1,4 @@
+import { Projects, TimeSheet } from '.'
 import {Client, clientPath} from './client'
 export {Client, clientPath}
 
@@ -13,6 +14,7 @@ export class Clients{
     }
     return this
   }
+
 
   getClientByName(target: string):Client{
     for(const c of Object.values(this.clients)){

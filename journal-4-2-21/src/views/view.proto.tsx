@@ -6,13 +6,14 @@ import { PivotPage, PivotProvider } from '../components/pivot/pivot.main'
 import { Dropdown, TextArea, TextBox } from '../controls'
 import { FormProvider } from '../controls/forms.context'
 import { Col, Row } from '../globals/styles'
-import { Client, ClientsContext, Project, ProjectsContext } from '../models'
+import { Client, ClientsContext, Project, ProjectsContext, TimeContext } from '../models'
 import { ClientForm } from '../forms/client.forms'
 import { ProjectForm } from '../forms/project.forms'
 import { useContext } from 'react'
 import { ClientCard } from '../components/card/client.card'
 
 import { ProjectCard } from '../components/card/project.card'
+
 
 
 
@@ -29,6 +30,7 @@ export const Practice = () => {
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
+  const timeSheet = useContext(TimeContext)
 
   const handleClientSelect=(client)=>{
     if(currentClient.id === client.id){
@@ -53,6 +55,8 @@ export const Practice = () => {
   const addClient=()=>{
     setPanelTest('Add client')
   }
+
+
 
   return (
 <Fragment>

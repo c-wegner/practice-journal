@@ -36,9 +36,6 @@ export const TimeForm = ({
           <PivotPage id='Time entry'>
           <ClientMatterPicker />
 
-            <Row>
-              <TextBox label='Description' prop='description' />
-            </Row>
             <Row justifyContent='flex-end'>
             <TextBox inputType='date' width='50%' label='Billing date' prop='billTo'/>
               <TextBox inputType='number' width='50%' label='Time' prop='time'/>

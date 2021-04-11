@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { Client } from '../../models';
+import { Client, ProjectsContext } from '../../models';
 import { Card, DisplayIcons, Line, Text, Title } from './styles';
 import * as Icons from '../icons'
 import { Panel } from '../panels/panel';
@@ -9,6 +9,7 @@ import { ProjectForm } from '../../forms/project.forms';
 import { ClientForm } from '../../forms/client.forms';
 import { Dialog } from '../dialog/dialog';
 import { TimeForm } from '../../forms/time.forms';
+import { useContext } from 'react';
 
 export const ClientCard = ({
   client = new Client(),
@@ -18,6 +19,13 @@ export const ClientCard = ({
   const [showPanel, setShowPanel] = useState('')
   const [expanded, setExpanded] = useState(false);
   const [opacity, setOpacity] = useState(1)
+
+  const list = useContext(ProjectsContext)
+
+  const temp = list.prepareClient(client.id)
+  client._projects.open = temp.open;
+  client._projects.closed = temp.closed
+
   useEffect(() => {
     switch (currentClient.id) {
       case undefined:
@@ -42,6 +50,8 @@ export const ClientCard = ({
     setExpanded(!expanded);
     onSelectClient(client)
   }
+  
+  
 
   return (
     <Fragment>
@@ -53,10 +63,11 @@ export const ClientCard = ({
 
         </Line>
         <Line
+        displayWhenCollapsed
           expanded={expanded}>
           <Text>
             {client.contact}
-          </Text>
+          </Text>&nbsp;
           <Text>
             {client.contactTitle}
           </Text>
@@ -71,6 +82,11 @@ export const ClientCard = ({
             <a href={'mailTo:' + client.email}>
               {client.email}
             </a>
+          </Text>
+        </Line>
+        <Line expanded={expanded}>
+          <Text>
+            Current projects: {client._projects.open}
           </Text>
         </Line>
 

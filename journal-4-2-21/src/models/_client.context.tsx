@@ -39,6 +39,8 @@ export const ClientsProvider = ({ children }) => {
           c._timer.lastTimerUpdate = 0;
         }
 
+        c._projects.open = 0;
+        c._projects.closed = 0;
   
         book.clients[c.id] = c;
       });

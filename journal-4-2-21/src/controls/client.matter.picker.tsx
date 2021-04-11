@@ -5,6 +5,7 @@ import { Row } from '../globals/styles';
 import { Client, ClientsContext, Project, ProjectsContext } from '../models';
 
 import {Dropdown, FormContext} from './'
+import { TextBox } from './textbox';
 
 export const ClientMatterPicker =({
   clientPropName = 'clientDisplay',
@@ -14,6 +15,7 @@ export const ClientMatterPicker =({
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
+
   const subjectState = useContext(FormContext)
 
   useEffect(()=>{
@@ -22,6 +24,7 @@ export const ClientMatterPicker =({
     if(currentTask.task !=='' && subjectState.objectState['description']===''){
       subjectState.objectState['description'] = currentTask.task
     }
+    setCurrentProject(currentTask)
   }, [subjectState.objectState[projectPropName]])
 
   return(
@@ -33,7 +36,7 @@ export const ClientMatterPicker =({
       <Dropdown label='Project' prop={projectPropName} width= '60%' options={list.getProjectsForDropDown(subjectState.objectState['clientId'])}/>
     </Row>
     <Row>
-
+      <TextBox label='Description' prop='description'/>
     </Row>
     </Fragment>
   )
