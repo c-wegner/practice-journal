@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client, ProjectsContext } from '../../models';
-import { Card, DisplayIcons, Line, Text, Title } from './styles';
+import { Card, DisplayIcons, Line, Text, Title, _DisplayIcons } from './styles';
 import * as Icons from '../icons'
 import { Panel } from '../panels/panel';
 import { ProjectForm } from '../../forms/project.forms';
@@ -60,7 +60,13 @@ export const ClientCard = ({
           <Title onClick={() => handleClick()}>
             {client.display}
           </Title>
-
+          <_DisplayIcons
+            archived={client.archived}
+            envelopeOpen= {client.followUpReadEmail}
+            replyAll ={client.followUpSendEmail}
+            flag = {client.flagged}
+            cash = {client.billReminder}
+          />
         </Line>
         <Line
         displayWhenCollapsed

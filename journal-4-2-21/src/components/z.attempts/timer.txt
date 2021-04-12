@@ -47,20 +47,24 @@ export const Timer: React.FC<ITimekeeper> = ({
 
   const handleRecord = () => {
     if(!timerRunning){
-    localStorage.removeItem("wegnerTimerData");
-    obj.resetTimer()
-    if (obj.classType === "project") {
-      const cid = obj["clientId"];
-      const c = book.clients[cid];
-
+      localStorage.removeItem("wegnerTimerData");
+      obj.resetTimer()
+      if (obj.classType === "project") {
+        const cid = obj["clientId"];
+        const c = book.clients[cid];
+  
       c._projectTime = c._projectTime + convertSecondsToHours(timerTime);
       c.save();
 
-      obj.addTime(convertSecondsToHours(timerTime));
-      obj.save();
+      const te = obj.createTimeEntry()
+      
+
+      te.time = convertSecondsToHours(timerTime)
+      te.save();
     } else {
-      obj.addTime(convertSecondsToHours(timerTime));
-      obj.save();
+      const te = obj.createTimeEntry()
+      te.time = convertSecondsToHours(timerTime)
+      te.save();
     }
     }
   };
