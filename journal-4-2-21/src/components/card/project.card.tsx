@@ -74,7 +74,9 @@ export const ProjectCard = ({
           <Text>
             {project.task}
           </Text>&nbsp;
-
+          <Text>
+            {project.clientShortName}
+          </Text>
         </Line>
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>
