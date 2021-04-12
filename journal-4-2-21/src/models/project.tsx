@@ -1,3 +1,4 @@
+import { Time } from ".";
 import firebase, { app } from "../globals/firebase";
 
 export const projectPath = 'projects'
@@ -76,6 +77,18 @@ export class Project {
 
     update(propToUpdate, updateValue) {
         updateObject(this, propToUpdate, updateValue, projectPath)
+    }
+
+    createTimeEntry(){
+      const temp = new Time()
+      temp.clientDisplay = this.clientDisplay
+      temp.clientId = this.clientId
+      temp.clientName = this.clientName
+      temp.clientShortName = this.clientShortName
+      temp.description = this.task
+      temp.projectId = this.id
+      temp.projectDisplay = this.display
+      return temp
     }
 
     get display(): string {

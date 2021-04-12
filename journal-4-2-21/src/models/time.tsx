@@ -10,6 +10,7 @@ export class Time{
     clientDisplay: string = ''
     clientShortName: string = ''
     projectId: string = '';
+    projectDisplay: string='';
     description: string = '';
     rate: number = 375;
     billable = true;
