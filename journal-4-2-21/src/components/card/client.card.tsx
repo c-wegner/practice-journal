@@ -71,10 +71,10 @@ export const ClientCard = ({
         <Line
         displayWhenCollapsed
           expanded={expanded}>
-          <Text>
+          <Text >
             {client.contact}
           </Text>&nbsp;
-          <Text>
+          <Text right>
             {client.contactTitle}
           </Text>
         </Line>
@@ -83,7 +83,7 @@ export const ClientCard = ({
             <Icons.Phone color='blue' display size='.8rem' margin='0 4px 0 0' />
             {client.phone}
           </Text>
-          <Text>
+          <Text right>
             <Icons.Envelope color='blue' display size='.8rem' margin='0 4px 0 0' />
             <a href={'mailTo:' + client.email}>
               {client.email}

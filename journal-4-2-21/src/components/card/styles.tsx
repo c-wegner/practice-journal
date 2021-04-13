@@ -42,13 +42,15 @@ export const Styles = {
       padding: 0 7px;
   `,
 
-  Text: styled.div<{fontSize?: string; fontWeight?:string, color?:string}> `
+  Text: styled.div<{fontSize?: string; fontWeight?:string, color?:string, justifyContent: string}> `
     display: flex;
     align-items: center;
     font-size: ${p=>p.fontSize};
     font-weight: ${p=>p.fontWeight};
     color: ${p=>p.color};
           padding: 0 7px;
+          flex-grow:1;
+          justify-content: ${p=>p.justifyContent};
   `,
 
   IconBoxes: styled.div `
@@ -58,8 +60,8 @@ export const Styles = {
   `,
 }
 
-export const Text =({children, fontSize='.9rem', fontWeight = 'inherit', color='inherit'})=>(
-  <Styles.Text fontSize={fontSize} fontWeight={fontWeight} color={color}>
+export const Text =({children, fontSize='.9rem', fontWeight = 'inherit', color='inherit', right= false})=>(
+  <Styles.Text fontSize={fontSize} fontWeight={fontWeight} color={color} justifyContent={right? 'flex-end': 'flex-start'}>
     {children}
   </Styles.Text>
 )
