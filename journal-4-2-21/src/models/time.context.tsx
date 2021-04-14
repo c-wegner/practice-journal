@@ -19,16 +19,19 @@ export const TimeProvider = ({ children }) => {
         if (t.lastSave === undefined || t.lastSave === 0) {
           t.lastSave = new Date().getTime()
         }
-    
-       timeSheet[t.id] = t
+
+       timeSheet.times[t.id] = t
 
       })
       setEntries(timeSheet.times)
+      console.table(timeSheet)
     })
 
   }
   useEffect(() => {
     loadProjects()
+
+    
   }, [])
 
 

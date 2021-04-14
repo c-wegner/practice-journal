@@ -15,6 +15,21 @@ export class Clients{
     return this
   }
 
+  getClientsForBoard(includeFirmRelated= false, includeArchive = false){
+    let temp = this._clients;
+    let tempReturn = []
+    const l = temp.length;
+    for(let i=0; i<l; i++){
+      const c = this._clients[i]
+      if(includeFirmRelated || !c.firmRelated){
+        if(includeArchive || !c.archived){
+          tempReturn.push(c)
+        }
+      }
+    }
+    return tempReturn
+  }
+
 
   getClientByName(target: string):Client{
     for(const c of Object.values(this.clients)){

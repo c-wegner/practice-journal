@@ -14,7 +14,7 @@ export class Time{
     description: string = '';
     rate: number = 375;
     billable = true;
-    quantity: number = .1;
+    time: number = .1;
     billed: boolean = false;
     billedOn: number = -1;
     paid: boolean = false;

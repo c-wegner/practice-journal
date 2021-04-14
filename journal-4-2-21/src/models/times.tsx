@@ -12,6 +12,8 @@ export class TimeSheet{
       this.times = {}
       for (const [k, p] of Object.entries(entries)) {
         this.times[k] = p
+
+        console.log('p')
       }
       return this
     }

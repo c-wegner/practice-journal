@@ -15,6 +15,8 @@ import { useState } from "react";
 import { Dialog } from "../components/dialog/dialog";
 import { Practice } from "./view.proto";
 import { Dashboard } from "../components/dashboard/dashboard";
+import { BillingSheet } from "../components/billing/billing.main";
+import { Time, TimeContext } from "../models";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -30,6 +32,8 @@ const Stage = styled.div`
 
 
 export const Main = ({ }) => {
+
+
   const [dialog, setDialog]= useState('')
     return (
         <Wrapper>
@@ -63,6 +67,10 @@ export const Main = ({ }) => {
                 <Switch>
                   <Route exact path='/'>
                     <Dashboard/>
+                  </Route>
+
+                  <Route path='/billing'>
+                    <BillingSheet />
                   </Route>
                 </Switch>
             </Router>

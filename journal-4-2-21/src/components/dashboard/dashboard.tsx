@@ -63,7 +63,7 @@ export const Dashboard = () => {
     <Stage>
       <ClientLane>
         {
-          book._clients.map(x => <ClientCard client={x} key={x.id} onSelectClient={handleSelectClient} currentClient={currentClient} />)
+          book.getClientsForBoard().map(x => <ClientCard client={x} key={x.id} onSelectClient={handleSelectClient} currentClient={currentClient} />)
         }
       </ClientLane>
       <Lane id='@Wegner Law PLLC'>
