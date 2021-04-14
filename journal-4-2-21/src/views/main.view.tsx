@@ -58,8 +58,13 @@ export const Main = ({ }) => {
                         </OptionStyle>
                     </Menu>
 
-                    <Dashboard />
+           
                 </Stage>
+                <Switch>
+                  <Route exact path='/'>
+                    <Dashboard/>
+                  </Route>
+                </Switch>
             </Router>
             <Dialog id='Testing' current={dialog} onExit={()=>setDialog('')}>
               Hello
