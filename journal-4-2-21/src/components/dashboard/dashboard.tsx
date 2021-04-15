@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { ClientForm } from '../../forms/client.forms';
-import { Client, ClientsContext, Project, ProjectsContext } from '../../models';
+import { Client, ClientsContext, Project, ProjectsContext, TimeContext } from '../../models';
 import { ClientCard } from '../card/client.card';
 import { ProjectCard } from '../card/project.card';
 import * as Icons from '../icons'
@@ -112,6 +112,7 @@ const ClientLane = ({ handleSelectClient, currentClient }) => {
 
 
   const book = useContext(ClientsContext)
+
 
 
   const handleChangeClientTypeShowing = () => {

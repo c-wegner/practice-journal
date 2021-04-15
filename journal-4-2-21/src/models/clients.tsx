@@ -65,6 +65,25 @@ export class Clients{
       return this._clients.filter(x=>x.active)
     }
   }
+
+  prepareClients(timeSheet: TimeSheet){
+    const l = this._clients.length
+    const lt = timeSheet._times.length
+    for(let i = 0; i<l; i++){
+      const c = this._clients[i]
+      c._time.billed = 0;
+      c._time.current = 0
+      for(let x= 0; x<lt; x++){
+        const t = timeSheet._times[x]
+        if(!t.billed){
+          c._time.current+= t.time
+        }else if(t.billed){
+          c._time.billed += t.time
+        }
+      }
+      this.clients[c.id]= c
+    }
+  }
 }
 
 function compareClients(x: Client, y: Client):number{

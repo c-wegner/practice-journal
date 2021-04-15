@@ -90,11 +90,7 @@ export const ClientCard = ({
             </a>
           </Text>
         </Line>
-        <Line expanded={expanded}>
-          <Text>
-            Current projects: {client._projects.open}
-          </Text>
-        </Line>
+
 
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>
