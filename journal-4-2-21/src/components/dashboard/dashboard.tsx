@@ -7,6 +7,7 @@ import { ClientCard } from '../card/client.card';
 import { ProjectCard } from '../card/project.card';
 import * as Icons from '../icons'
 import { Panel } from '../panels/panel';
+import ChangeLaneTypeImg from './changelanetype.png';
 
 const Stage = styled.div`
   display: flex;
@@ -28,7 +29,16 @@ const LandHeadStyle = styled.div`
 `;
 
 const LaneHeadingStyle = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+`
 
+const ChangeLaneIconStyle = styled.img `
+  height: 1.0rem;
+  margin-left: 10px;
+  cursor: pointer;
 `
 
 export const Dashboard = () => {
@@ -61,11 +71,7 @@ export const Dashboard = () => {
 
   return (
     <Stage>
-      <ClientLane>
-        {
-          book.getClientsForBoard().map(x => <ClientCard client={x} key={x.id} onSelectClient={handleSelectClient} currentClient={currentClient} />)
-        }
-      </ClientLane>
+      <ClientLane handleSelectClient={handleSelectClient} currentClient={currentClient} />
       <Lane id='@Wegner Law PLLC'>
           {
             list.getProjectByLane('@Wegner Law PLLC').map(x=><ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject}/>)
@@ -99,8 +105,31 @@ const Lane = ({ id = '', children }) => {
   )
 }
 
-const ClientLane = ({ children }) => {
+const ClientLane = ({  handleSelectClient, currentClient }) => {
+  const [showingClientType, setShowingClientType] = useState('Active clients')
   const [showPanel, setShowPanel] = useState('')
+
+  const book = useContext(ClientsContext)
+
+  const handleChangeClientTypeShowing=()=>{
+    let temp = '';
+    switch(showingClientType){
+      case 'Active clients': 
+        temp = 'Current clients'
+        break
+      case 'Current clients':
+        temp = 'All clients'
+        break
+      case 'All clients':
+        temp = 'Active clients'
+        break
+        default: 
+          temp = 'Active clients'
+    }
+
+    setShowingClientType(temp)
+    }
+
 
   const handleAddClient = () => {
     setShowPanel('Add client')
@@ -111,12 +140,14 @@ const ClientLane = ({ children }) => {
     <LaneStyle>
       <LandHeadStyle>
         <LaneHeadingStyle>
-          Current clients
-
+          {showingClientType}
+    <ChangeLaneIconStyle src={ChangeLaneTypeImg} onClick={()=>handleChangeClientTypeShowing()}/>
       </LaneHeadingStyle>
         <Icons.PersonPlus display size='1.3rem' onClick={() => handleAddClient()} />
       </LandHeadStyle>
-      {children}
+      {
+          book.filterClientsForBoard(showingClientType).map(x => <ClientCard client={x} key={x.id} onSelectClient={handleSelectClient} currentClient={currentClient} />)
+        }
     </LaneStyle>
     <Panel id='Add client' current={showPanel} onExit={()=>setShowPanel('')}>
       <ClientForm obj={new Client()}/>

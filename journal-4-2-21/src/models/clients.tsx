@@ -30,6 +30,17 @@ export class Clients{
     return tempReturn
   }
 
+  filterClientsForBoard(filterBy = ''){
+    switch(filterBy){
+      case 'Active clients':
+        return getActiveClients(this._clients)
+      case 'Current clients':
+        return getCurrentClients(this._clients)
+        case 'All clients':
+          return this._clients
+    }
+  }
+
 
   getClientByName(target: string):Client{
     for(const c of Object.values(this.clients)){
@@ -67,4 +78,20 @@ function compareClients(x: Client, y: Client):number{
     return -1
   }
   return x.display.localeCompare(y.display)
+}
+
+function getActiveClients(book: Client[]){
+  let temp = []
+  const l = book.length
+  for(let i=0; i<l;i++){
+    const c = book[i]
+    if(c._projects.open > 0 && !c.firmRelated){
+      temp.push(c)
+    }
+  }
+  return temp
+}
+
+function getCurrentClients(book: Client[]){
+  return book.filter(x=>x.active && !x.firmRelated)
 }

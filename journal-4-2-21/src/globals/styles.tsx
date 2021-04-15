@@ -66,6 +66,24 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         box-sizing: border-box;
       }
+
+      ::-webkit-scrollbar {
+        width: 0;
+      }
+  
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 0;
+      }
+        
+      ::-webkit-scrollbar-thumb {
+        background: lightgrey; 
+        border-radius: 5px;
+      }
+  
+      ::-webkit-scrollbar-thumb:hover {
+        background: crimson; 
+      }
 `;
 
 export const Wrapper = styled.div`
