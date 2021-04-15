@@ -107,7 +107,7 @@ const Lane = ({ id = '', children }) => {
 }
 
 const ClientLane = ({ handleSelectClient, currentClient }) => {
-  const [showingClientType, setShowingClientType] = useState('Active clients')
+  const [showingClientType, setShowingClientType] = useState('All clients')
   const [showPanel, setShowPanel] = useState('')
 
 
