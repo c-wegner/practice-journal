@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import { ClientForm } from '../../forms/client.forms';
@@ -35,7 +36,7 @@ const LaneHeadingStyle = styled.div`
   
 `
 
-const ChangeLaneIconStyle = styled.img `
+const ChangeLaneIconStyle = styled.img`
   height: 1.0rem;
   margin-left: 10px;
   cursor: pointer;
@@ -73,20 +74,20 @@ export const Dashboard = () => {
     <Stage>
       <ClientLane handleSelectClient={handleSelectClient} currentClient={currentClient} />
       <Lane id='@Wegner Law PLLC'>
-          {
-            list.getProjectByLane('@Wegner Law PLLC').map(x=><ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject}/>)
-          }
+        {
+          list.getProjectByLane('@Wegner Law PLLC').map(x => <ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject} />)
+        }
       </Lane>
       <Lane id='@Client'>
-      {
-            list.getProjectByLane('@Client').map(x=><ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject}/>)
-          }
+        {
+          list.getProjectByLane('@Client').map(x => <ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject} />)
+        }
       </Lane>
 
       <Lane id='@3rd party'>
-      {
-            list.getProjectByLane('@3rd party').map(x=><ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject}/>)
-          }
+        {
+          list.getProjectByLane('@3rd party').map(x => <ProjectCard project={x} key={x.id} onSelectProject={handleSelectProject} currentClient={currentClient} currentProject={currentProject} />)
+        }
       </Lane>
     </Stage>
   )
@@ -105,16 +106,18 @@ const Lane = ({ id = '', children }) => {
   )
 }
 
-const ClientLane = ({  handleSelectClient, currentClient }) => {
+const ClientLane = ({ handleSelectClient, currentClient }) => {
   const [showingClientType, setShowingClientType] = useState('Active clients')
   const [showPanel, setShowPanel] = useState('')
 
+
   const book = useContext(ClientsContext)
 
-  const handleChangeClientTypeShowing=()=>{
+
+  const handleChangeClientTypeShowing = () => {
     let temp = '';
-    switch(showingClientType){
-      case 'Active clients': 
+    switch (showingClientType) {
+      case 'Active clients':
         temp = 'Current clients'
         break
       case 'Current clients':
@@ -123,12 +126,12 @@ const ClientLane = ({  handleSelectClient, currentClient }) => {
       case 'All clients':
         temp = 'Active clients'
         break
-        default: 
-          temp = 'Active clients'
+      default:
+        temp = 'Active clients'
     }
 
     setShowingClientType(temp)
-    }
+  }
 
 
   const handleAddClient = () => {
@@ -137,21 +140,21 @@ const ClientLane = ({  handleSelectClient, currentClient }) => {
 
   return (
     <Fragment>
-    <LaneStyle>
-      <LandHeadStyle>
-        <LaneHeadingStyle>
-          {showingClientType}
-    <ChangeLaneIconStyle src={ChangeLaneTypeImg} onClick={()=>handleChangeClientTypeShowing()}/>
-      </LaneHeadingStyle>
-        <Icons.PersonPlus display size='1.3rem' onClick={() => handleAddClient()} />
-      </LandHeadStyle>
-      {
+      <LaneStyle>
+        <LandHeadStyle>
+          <LaneHeadingStyle>
+            {showingClientType}
+            <ChangeLaneIconStyle src={ChangeLaneTypeImg} onClick={() => handleChangeClientTypeShowing()} />
+          </LaneHeadingStyle>
+          <Icons.PersonPlus display size='1.3rem' onClick={() => handleAddClient()} />
+        </LandHeadStyle>
+        {
           book.filterClientsForBoard(showingClientType).map(x => <ClientCard client={x} key={x.id} onSelectClient={handleSelectClient} currentClient={currentClient} />)
         }
-    </LaneStyle>
-    <Panel id='Add client' current={showPanel} onExit={()=>setShowPanel('')}>
-      <ClientForm obj={new Client()}/>
-    </Panel>
+      </LaneStyle>
+      <Panel id='Add client' current={showPanel} onExit={() => setShowPanel('')}>
+        <ClientForm obj={new Client()} />
+      </Panel>
     </Fragment>
   )
 }
