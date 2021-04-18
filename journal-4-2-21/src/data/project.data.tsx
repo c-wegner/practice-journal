@@ -1,16 +1,14 @@
-import firebase, { app } from "../globals/firebase";
+import React, { createContext, Fragment, useEffect, useState } from "react";
+import firebase, { app } from "./firebase";
 
 export const projectPath = 'projects'
 
 const _projectIdLength = 5
 
-export class Project {
+export class ProjectData {
     id: string = '';
     projectId: string = '';
     clientId: string = '';
-    _clientName: string = '';
-    _clientDisplay: string = '';
-    _clientShortName: string = '';
     title: string = '';
     open: boolean = true;
     notes: string = '';
@@ -39,18 +37,10 @@ export class Project {
 
     classType = 'project'
 
-    _time = {
-        current: 0,
-        billed: 0,
-        paid: 0
-    }
-
-    _timer = {
-        hasOpenTimer: false,
-        timerIsRunning: false,
-        totalTime: 0,
-        lastTimerUpdate: -1,
-    }
+    hasOpenTime: boolean = false;
+    timerIsRunning: boolean = false;
+    lastTimerUpdate: number = 0;
+    timerTime: number = 0;
 
     addProjectId(num: number | string) {
         let temp = num.toString()
@@ -79,7 +69,7 @@ export class Project {
     }
 
     get display(): string {
-        return this.projectId + ' ' + this.title
+      return this.projectId + ' ' + this.title
     }
 }
 
@@ -101,3 +91,76 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
         lastSave: lastSaveTime
     })
 }
+
+export class ListData{
+  projects: ProjectData[] = []
+
+      update(newProjects): ListData {
+        this.projects = []
+        const l = newProjects.length;
+        for (let i =0; i<l; i++) {
+          const p = newProjects[i]
+          this.projects.push(p)
+        }
+        return this
+    }
+
+    getNextProjectId(projectIdLength = 5): string {
+        let temp = Object.values(this.projects).length.toString()
+        const l = projectIdLength - temp.length
+        for (let i = 0; i < l; i++) {
+            temp = '0' + temp
+        }
+        return temp
+    }
+
+    addProject(project){
+      this.projects.push(project)
+    }
+}
+
+export const ListDataContext = createContext(new ListData())
+
+export const ListDataProvider=({children})=>{
+   const [projects, setProjects] = useState({})
+
+  const list = new ListData()
+  
+
+  const loadProjects = () => {
+    const db = firebase.firestore(app);
+
+    db.collection(projectPath).onSnapshot(function (querySnapshot) {
+      list.projects = [];
+      querySnapshot.forEach(function (doc) {
+        const p = cloneProject(doc.data())
+        if (p.lastSave === undefined || p.lastSave === 0) {
+          p.lastSave = new Date().getTime()
+        }
+    
+        list.addProject(p)
+
+      })
+      setProjects(list.projects)
+    })
+
+  }
+  useEffect(() => {
+    loadProjects()
+  }, [])
+
+  return (
+    <ListDataContext.Provider value={list.update(projects)}>
+      {children}
+    </ListDataContext.Provider>
+
+  )
+}
+
+function cloneProject(obj: any): ProjectData {
+    const temp = new ProjectData();
+    for (let p in obj) {
+      temp[p] = obj[p];
+    }
+    return temp;
+  }
