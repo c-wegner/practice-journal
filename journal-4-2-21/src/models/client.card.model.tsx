@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { BookDataContext, ListDataContext, SheetDataContext } from '../data';
 
 import { ClientData, ProjectData, TimeData } from "./data.imports";
@@ -49,45 +49,45 @@ export class ClientCard {
 
   hasUrgentProject = false;
 
-      get display() {
-        if (this.useAltName) {
-            return this.altName;
-        }
-        if (this.isBusiness) {
-            return this.name;
-        }
-        const fullName = this.name.split(" ");
-        const l = fullName.length;
-        if (l < 2) {
-            return this.name;
-        }
-        const lastName = fullName[l - 1];
-        return lastName + ", " + this.name.replace(lastName, "").trim();
+  get display() {
+    if (this.useAltName) {
+      return this.altName;
     }
+    if (this.isBusiness) {
+      return this.name;
+    }
+    const fullName = this.name.split(" ");
+    const l = fullName.length;
+    if (l < 2) {
+      return this.name;
+    }
+    const lastName = fullName[l - 1];
+    return lastName + ", " + this.name.replace(lastName, "").trim();
+  }
 
-    get shortName() {
-        if (this.useAltName) {
-            return this.altName;
-        }
-        const fullName = this.name.split(" ");
-        const l = fullName.length;
-        if (l < 2) {
-            return this.name;
-        }
-        const lastName = fullName[l - 1];
-        if (this.isBusiness) {
-            if (checkEnding(lastName)) {
-                return this.name.replace(lastName, "").trim();
-            } else {
-                return this.name;
-            }
-        }
-        return lastName;
+  get shortName() {
+    if (this.useAltName) {
+      return this.altName;
     }
+    const fullName = this.name.split(" ");
+    const l = fullName.length;
+    if (l < 2) {
+      return this.name;
+    }
+    const lastName = fullName[l - 1];
+    if (this.isBusiness) {
+      if (checkEnding(lastName)) {
+        return this.name.replace(lastName, "").trim();
+      } else {
+        return this.name;
+      }
+    }
+    return lastName;
+  }
 
-    get active() {
-        return !this.archived;
-    }
+  get active() {
+    return !this.archived;
+  }
 
 
   static createFromClient(client: ClientData) {
@@ -161,6 +161,19 @@ export class ClientCards {
     }
     return this
   }
+
+  getClientCard(target: string):ClientCard{
+    const l = this.clients.length
+    for(let i=0; i<l; i++){
+      const c = this.clients[i]
+      if(c.useAltName && (c.altName===target)) return c
+      if(c.name===target) return c
+      if(c.display===target) return c
+      if(c.shortName===target) return c
+      if(c.id === target) return c
+    }
+    return new ClientCard()
+  }
 }
 
 const businessEndings = [".", " LL", " PA", " PL", " INC", " CORP", " LTD"];
@@ -177,7 +190,7 @@ function checkEnding(str: string): boolean {
 
 export const ClientCardsContext = createContext(new ClientCards())
 
-export const ClientCardProvider =({children})=>{
+export const ClientCardProvider = ({ children }) => {
   const cardBook = new ClientCards()
 
   const [clientCards, setClientCards] = useState([])
@@ -186,7 +199,7 @@ export const ClientCardProvider =({children})=>{
   const listData = useContext(ListDataContext)
   const sheetData = useContext(SheetDataContext)
 
-  return(
+  return (
     <ClientCardsContext.Provider value={cardBook.prepare(bookData.clients, listData.projects, sheetData.times)}>
       {children}
     </ClientCardsContext.Provider>

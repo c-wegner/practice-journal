@@ -42,6 +42,14 @@ export class ProjectData {
     lastTimerUpdate: number = 0;
     timerTime: number = 0;
 
+    currentBillableTime: number = 0;
+    currentNonBillableTime: number = 0;
+    currentExpenses: number = 0;
+
+    totalBillableTime: number = 0;
+    totalNonBillableTime: number = 0;
+    totalExpenses: number = 0;
+
     addProjectId(num: number | string) {
         let temp = num.toString()
         const l = _projectIdLength - temp.length;
