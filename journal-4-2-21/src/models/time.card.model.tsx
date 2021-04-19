@@ -29,15 +29,15 @@ export class TimeCard{
 }
 
 export class TimeCards{
-  entries: TimeCard[]
+  entries: TimeCard[] =[]
 
   prepare(timeData: SheetData, bookData: BookData, listData: ListData){
-    console.table(timeData)
+
     if(timeData.times=== undefined) return new TimeCards()
     const l = timeData.times.length
     for(let i =0; i<l; i++){
       const t = timeData.times[i]
-      const c = bookData.getClient(t.id);
+      const c = bookData.getClient(t.clientId);
       const p = listData.getProject(t.clientId)
 
       const te = cloneObject(t)
@@ -51,6 +51,7 @@ export class TimeCards{
 
       this.entries[i] = te
     }
+    console.table(this.entries)
     return this
 
   }
@@ -76,7 +77,7 @@ export const TimeCardsProvider = ({ children }) => {
   const sheetData = useContext(SheetDataContext)
 
   return (
-    <TimeCardsContext.Provider value={cardSheet.prepare(timeCards, bookData, listData)}>
+    <TimeCardsContext.Provider value={cardSheet.prepare(sheetData, bookData, listData)}>
       {children}
     </TimeCardsContext.Provider>
   )

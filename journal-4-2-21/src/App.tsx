@@ -14,7 +14,6 @@ const TestRig=()=>{
   const projectList = useContext(ProjectCardsContext)
   const timeSheet = useContext(TimeCardsContext)
 
-  console.table(timeSheet.entries)
 
   let temp = 'Tuba Tom took Tanya to Toledo today to talk to Teddy T. the third'
 
@@ -26,8 +25,8 @@ const TestRig=()=>{
     temp = temp + ' ||||| '+ projectList.projects[0].clientDisplay
   }
 
-  if(timeSheet.entries!==undefined){
-    temp = temp + ' ||| e  ' + timeSheet.entries[0].description
+  if(timeSheet.entries[0]!==undefined){
+    temp = temp + ' |||  ' + timeSheet.entries[0].clientDisplay
   }
 
   return(
