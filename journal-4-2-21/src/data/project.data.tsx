@@ -79,6 +79,8 @@ export class ProjectData {
     get display(): string {
       return this.projectId + ' ' + this.title
     }
+
+ 
 }
 
 export function submitObject(obj, path) {
@@ -120,6 +122,18 @@ export class ListData{
             temp = '0' + temp
         }
         return temp
+    }
+
+    getProject(target){
+      const l = this.projects.length
+      for(let i = 0; i<l; i++){
+        const p = this.projects[i]
+        if(p.id === target) return p
+        if(p.projectId===target) return p
+        if(p.display=== target) return p
+      }
+
+      return new ProjectData()
     }
 
     addProject(project){

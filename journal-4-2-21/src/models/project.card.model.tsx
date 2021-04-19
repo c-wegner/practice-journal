@@ -65,13 +65,13 @@ export class ProjectCards {
   projects: ProjectCard[] = []
   nextProjectNumber: number = 0;
 
-  prepare(projectCards: ProjectCard[], clientCards: ClientCard[], timeSheets: TimeData[]): ProjectCards {
+  prepare(projectCards: ProjectData[], clientCards: ClientData[], timeSheets: TimeData[]): ProjectCards {
     this.nextProjectNumber = projectCards.length
     this.projects = []
     const l = projectCards.length
     const lt = timeSheets.length
     for(let i =0; i<l; i++){
-      const p = projectCards[i]
+      const p = ProjectCard.createFromProjectData(projectCards[i])
       const c = findClient(p.clientId, clientCards)
       p.clientName = c.name
       p.clientShortName = c.shortName
@@ -79,9 +79,15 @@ export class ProjectCards {
       for(let x = 0; x<lt; x++){
         const t = timeSheets[x]
         if(t.projectId=== p.id){
-
+          if(!t.expense){
+            p.totalBillableTime += t.time
+            if(!t.billed){
+              p.currentBillableTime+=t.time
+            }
+          }
         }
       }
+      this.projects[i]= p
     }
 
 
@@ -90,7 +96,7 @@ export class ProjectCards {
 }
 
 
-function findClient(clientTarget, clientCards: ClientCard[]): ClientCard {
+function findClient(clientTarget, clientCards: ClientData[]): ClientData {
   const l = clientCards.length
 
   for (let i = 0; i < l; i++) {
@@ -102,5 +108,23 @@ function findClient(clientTarget, clientCards: ClientCard[]): ClientCard {
       case c.display: return c
     }
   }
-  return new ClientCard()
+  return new ClientData()
+}
+
+export const ProjectCardsContext = createContext(new ProjectCards())
+
+export const ProjectCardsProvider = ({ children }) => {
+  const cardList = new ProjectCards()
+
+  const [projectCards, setProjectCards] = useState([])
+
+  const bookData = useContext(BookDataContext)
+  const listData = useContext(ListDataContext)
+  const sheetData = useContext(SheetDataContext)
+
+  return (
+    <ProjectCardsContext.Provider value={cardList.prepare(listData.projects, bookData.clients,  sheetData.times)}>
+      {children}
+    </ProjectCardsContext.Provider>
+  )
 }
