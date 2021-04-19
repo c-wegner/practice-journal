@@ -32,6 +32,7 @@ export class TimeCards{
   entries: TimeCard[]
 
   prepare(timeData: SheetData, bookData: BookData, listData: ListData){
+    console.table(timeData)
     if(timeData.times=== undefined) return new TimeCards()
     const l = timeData.times.length
     for(let i =0; i<l; i++){

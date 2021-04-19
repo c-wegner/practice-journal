@@ -6,11 +6,15 @@ import {useContext} from 'react'
 import { CardProviders } from './models/card.providers.context';
 import { ClientCardsContext } from './models/client.card.model';
 import { ProjectCardsContext } from './models/project.card.model';
+import { TimeCardsContext } from './models/time.card.model';
 
 
 const TestRig=()=>{
   const clientBook = useContext(ClientCardsContext)
   const projectList = useContext(ProjectCardsContext)
+  const timeSheet = useContext(TimeCardsContext)
+
+  console.table(timeSheet.entries)
 
   let temp = 'Tuba Tom took Tanya to Toledo today to talk to Teddy T. the third'
 
@@ -20,6 +24,10 @@ const TestRig=()=>{
 
   if(projectList.projects[0]!==undefined){
     temp = temp + ' ||||| '+ projectList.projects[0].clientDisplay
+  }
+
+  if(timeSheet.entries!==undefined){
+    temp = temp + ' ||| e  ' + timeSheet.entries[0].description
   }
 
   return(

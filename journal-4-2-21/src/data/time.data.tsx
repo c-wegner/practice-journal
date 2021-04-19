@@ -115,6 +115,8 @@ export const SheetDataProvider = ({ children }) => {
        timeSheet.addTime(t)
 
       })
+
+
       setEntries(timeSheet.times)
     })
 

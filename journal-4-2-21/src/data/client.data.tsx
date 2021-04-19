@@ -178,7 +178,7 @@ export const BookDataProvider = ({ children }) => {
         book.addClient(c)
       });
       setClientsData(book.clients);
-      console.table(book)
+
     });
   };
   useEffect(() => {
