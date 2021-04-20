@@ -1,8 +1,10 @@
+import { Projects } from "../projects/projects._model";
+import { Times } from "../times/times._model";
 import { Client, clientPath } from "./client._model";
 
-export {Client, clientPath}
+export { Client, clientPath }
 
-export class Clients{
+export class Clients {
   clients: Client[] = [];
 
   getClient(target: string) {
@@ -31,7 +33,64 @@ export class Clients{
     return this
   }
 
-  prepareCards(){
-    
+  prepareCards(list: Projects, sheet: Times) {
+    const l = this.clients.length
+    const pl = list.projects.length
+    const tl = sheet.times.length
+    for (let i = 0; i < l; i++) {
+      const c = this.clients[i]
+      c.totalProjects = 0
+      c.currentProjects =0
+      c.openProjects=[]
+      for (let x = 0; x < pl; x++) {
+        const p = list.projects[x]
+        if (p.clientId === c.id) {
+          c.totalProjects++;
+          if (p.open) {
+            c.currentProjects++
+            c.openProjects.push(p.display)
+          }
+        }
+      }
+
+      c.currentTime = 0;
+      c.totalTime = 0;
+      for (let y = 0; y < tl; y++) {
+        const t = sheet.times[y]
+        if (t.clientId === c.id) {
+          if (t.subscription) {
+
+          } else if (t.flatFee) {
+
+          } else if (t.expense) {
+
+          } else {
+            c.totalTime += t.time
+            if (!t.billed) {
+              c.currentTime += t.time
+            }
+          }
+        }
+      }
+      this.clients[i] = c
+    }
+    this.clients.sort((x,y)=>compareClients(x,y))
   }
+
+}
+
+function compareClients(x:Client, y:Client){
+  if(x.firmRelated && y.firmRelated){
+    return x.display.localeCompare(y.display)
+  }
+
+  if(x.firmRelated){
+    return 1
+  }
+
+  if(y.firmRelated){
+    return -1
+  }
+
+  return x.display.localeCompare(y.display)
 }

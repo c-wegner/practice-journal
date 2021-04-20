@@ -39,6 +39,13 @@ export class Client {
   lastSave: number = 0;
   createdOn: number = 0;
 
+  totalProjects: number = 0;
+  currentProjects: number = 0;
+  openProjects: string[]=[]
+
+totalTime = 0;
+currentTime = 0;
+
   hasOpenTime: boolean = false;
   timerIsRunning: boolean = false;
   lastTimerUpdate: number = 0;

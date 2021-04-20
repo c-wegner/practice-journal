@@ -7,6 +7,7 @@ export class Time{
     id: string = '';
     clientId: string = '';
     projectId: string = '';
+
     description: string = '';
     rate: number = 375;
     billable = true;
@@ -19,7 +20,7 @@ export class Time{
     flatFee: boolean = false;
     expense: boolean = false;
 
-        lastSave: number = -1;
+    lastSave: number = -1;
 
     createdOn: number = -1;
     billTo: string = convertToDateString(new Date().getTime());

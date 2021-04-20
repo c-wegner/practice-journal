@@ -15,16 +15,11 @@ const TestRig = () => {
   let temp = ''
 
   if (book.clients[0] !== undefined) {
-    temp += '|||' + book.clients[0].display
+    console.table(book.clients[0])
+    temp += '|||cc' + book.clients[0].openProjects.toString()
   }
 
-  if (list.projects[0] !== undefined) {
-    temp += '|||' + list.projects[0].display
-  }
 
-  if (sheet.times[0] !== undefined) {
-    temp += '|T|' + sheet.times[0].description
-  }
 
   return (
     <Fragment>
@@ -39,7 +34,7 @@ function App() {
   return (
     <Fragment>
       <ModelProviders>
-        <TestRig/> cc
+        <TestRig/> 
       </ModelProviders>
       <GlobalStyle />
 
