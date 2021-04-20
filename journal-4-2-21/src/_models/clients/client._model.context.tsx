@@ -1,10 +1,10 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 import firebase, { app } from "../firebase";
-import { Clients } from "./clients._model";
+import { Clients, clientPath, Client } from "./clients._model";
 
 export const ClientsContext = createContext(new Clients())
 
-export const BookDataProvider = ({ children }) => {
+export const ClientsProvider = ({ children }) => {
   const [clientsData, setClientsData] = useState([])
   const book = new Clients()
 
@@ -32,14 +32,14 @@ export const BookDataProvider = ({ children }) => {
   }, []);
 
   return (
-    <BookDataContext.Provider value={book.updateClients(clientsData)}>
+    <ClientsContext.Provider value={book.loadClients(clientsData)}>
       {children}
-    </BookDataContext.Provider>
+    </ClientsContext.Provider>
   );
 };
 
-function cloneClient(obj: any): ClientData {
-  const temp = new ClientData();
+function cloneClient(obj: any): Client {
+  const temp = new Client();
   for (let p in obj) {
     temp[p] = obj[p];
   }

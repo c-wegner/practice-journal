@@ -30,4 +30,8 @@ export class Clients{
     }
     return this
   }
+
+  prepareCards(){
+    
+  }
 }
