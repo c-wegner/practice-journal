@@ -24,9 +24,9 @@ export class Time{
     flatFee: boolean = false;
     expense: boolean = false;
 
-    lastSave: number = -1;
+    lastSave: number = 0;
 
-    createdOn: number = -1;
+    createdOn: number = 0;
     billTo: string = convertToDateString(new Date().getTime());
 
     convertToObject() {
@@ -34,7 +34,7 @@ export class Time{
     }
 
     save() {
-        if (this.lastSave === undefined || this.lastSave === -1) {
+        if (this.lastSave === undefined || this.lastSave === 0) {
             this.id = new Date().getTime().toString()
         }
         this.lastSave = new Date().getTime()

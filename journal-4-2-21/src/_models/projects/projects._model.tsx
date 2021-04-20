@@ -75,4 +75,13 @@ export class Projects{
         this.projects[i] = p
       }
     }
+
+    static listLanesForDropDown = [
+      { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
+      { value: '@Client', display: '@Client', active: true },
+      { value: '@3rd party', display: '@3rd party', active: true },
+      { value: 'On hold', display: 'On hold', active: true },
+      { value: 'On deck', display: 'On deck', active: true },
+      {value: 'Winding down', display: 'Winding down', active: true}
+  ]
 }

@@ -19,7 +19,7 @@ export const TextBox =({
     const val = formContext.objectState[prop]
     if(val===undefined){return ''}
     if(inputType==='number'){
-      if(val === -1){
+      if(val === 0){
         return 0
       }
     }

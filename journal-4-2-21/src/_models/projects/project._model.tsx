@@ -19,7 +19,7 @@ export class Project {
     billType: string = '';
     billRate: number = 375;
     billTerms: string = '';
-    initialEstimate: number = -1;
+    initialEstimate: number = 0;
 
     followUpPhone: boolean = false;
     followUpSendEmail: boolean = false
@@ -34,9 +34,9 @@ export class Project {
     lane = '@Wegner Law PLLC';
     laneContact = '';
     task = '';
-    enteredLaneOn: number = -1;
+    enteredLaneOn: number = 0;
 
-    lastSave: number = -1;
+    lastSave: number = 0;
 
     classType = 'project'
 
@@ -63,7 +63,7 @@ export class Project {
     }
 
     save() {
-        if (this.lastSave === undefined || this.lastSave === -1) {
+        if (this.lastSave === undefined || this.lastSave === 0) {
             this.id = new Date().getTime().toString()
         }
         this.lastSave = new Date().getTime()
@@ -76,6 +76,10 @@ export class Project {
 
     get display(): string {
       return this.projectId + ' ' + this.title
+    }
+
+    get active(){
+      return this.open
     }
 }
 

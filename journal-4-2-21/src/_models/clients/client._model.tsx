@@ -102,6 +102,10 @@ currentTime = 0;
     }
     return lastName;
   }
+
+  get active(){
+    return !this.archived
+  }
 }
 
 const businessEndings = [".", " LL ", " PA ", " PL ", " INC ", " CORP ", " LTD "];
