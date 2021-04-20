@@ -24,6 +24,7 @@ const PrepareModels=({children})=>{
   const sheet = useContext(TimesContext)
 
   book.prepareCards(list, sheet)
+  list.prepareProjects(book, sheet)
 
   return(
     <Fragment>

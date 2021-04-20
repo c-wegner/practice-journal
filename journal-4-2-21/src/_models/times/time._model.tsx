@@ -6,7 +6,11 @@ export const timePath = 'times'
 export class Time{
     id: string = '';
     clientId: string = '';
+    clientName: string = '';
+    clientDisplay: string = '';
+    clientShortName: string = '';
     projectId: string = '';
+    projectDisplay: string = ''
 
     description: string = '';
     rate: number = 375;

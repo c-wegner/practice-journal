@@ -9,6 +9,9 @@ export class Project {
     id: string = '';
     projectId: string = '';
     clientId: string = '';
+    clientName: string = '';
+    clientDisplay: string = '';
+    clientShortName: string = '';
     title: string = '';
     open: boolean = true;
     notes: string = '';
@@ -42,13 +45,8 @@ export class Project {
     lastTimerUpdate: number = 0;
     timerTime: number = 0;
 
-    currentBillableTime: number = 0;
-    currentNonBillableTime: number = 0;
-    currentExpenses: number = 0;
-
-    totalBillableTime: number = 0;
-    totalNonBillableTime: number = 0;
-    totalExpenses: number = 0;
+    totalTime = 0;
+    currentTime = 0;
 
     addProjectId(num: number | string) {
         let temp = num.toString()
