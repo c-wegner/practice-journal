@@ -1,44 +1,25 @@
 import React, { Fragment } from 'react'
 import { useContext } from 'react';
+import { TextBox } from './controls';
+import { FormProvider } from './controls/forms.context';
 import { GlobalStyle } from "./globals/styles";
+import { Main } from './views/main.router';
 import { ClientsContext, ClientsProvider } from './_models/clients/client._model.context';
 import { ModelProviders } from './_models/models.providers';
 import { ProjectsContext, ProjectsProvider } from './_models/projects/project._model.context';
 import { TimesProvider, TimesContext } from "./_models/times/time._model.context";
 
 
-const TestRig = () => {
-  const book = useContext(ClientsContext)
-  const list = useContext(ProjectsContext)
-  const sheet = useContext(TimesContext)
-
-  let temp = ''
-
-  if(list.projects[0]!==undefined){
-    temp+= list.projects[0].currentTime
-  }
-
-  if(sheet.times[0]!==undefined){
-    temp += '   ' + sheet.times[0].clientShortName
-  }
-
-  return (
-    <Fragment>
-      {temp}
-    </Fragment>
-  )
-}
-
 
 function App() {
-
+  
   return (
     <Fragment>
       <ModelProviders>
-        <TestRig/> 
+
+        <Main />
       </ModelProviders>
       <GlobalStyle />
-
     </Fragment>
   );
 }

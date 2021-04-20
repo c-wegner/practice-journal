@@ -8,6 +8,7 @@ export const values = {
   border: "1px solid #222",
   borderRadius: "3px",
   padding: "7px",
+  doublePadding: '12px',
   margin: "7px",
   inputHeight: "2.2rem",
 
@@ -49,6 +50,8 @@ export const GlobalStyle = createGlobalStyle`
       font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif;  
       font-size: 1rem;
       color:#222;
+      padding: ${values.padding};
+      width: 100%;
     }
     a{
       color: blue;
@@ -73,3 +76,45 @@ export const GlobalStyle = createGlobalStyle`
       background: crimson; 
     }
   `;
+
+
+export const Wrapper = styled.div`
+  overflow-x: hidden;
+  position: relative;
+`;
+
+const RowStyle = styled.div<{justifyContent: string, alignItems: string}> `
+      display: flex;
+      flex-direction: column;
+      @media(min-width: ${values.screen.md}){
+          flex-direction: row;
+          justify-content: ${p=>p.justifyContent};
+          align-items: ${p=>p.alignItems};
+          width: 100%;
+      }
+`
+
+export const Row=({children, justifyContent ='flex-start', alignItems ='flex-start'})=>(
+    <RowStyle alignItems={alignItems} justifyContent={justifyContent}>
+        {children}
+    </RowStyle>
+)
+
+const ColStyle = styled.div<{justifyContent: string, alignItems: string, width: string, flexGrow: string}> `
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    @media(min-width: ${values.screen.md}){
+        width: ${p=>p.width};
+        flex-grow: ${p=>p.flexGrow};
+        justify-content: ${p=>p.justifyContent};
+        align-items: ${p=>p.alignItems};
+        height: 100%;
+    }
+`
+
+export const Col=({width= '100%', flexGrow = '1', alignItems='center', justifyContent ='flex-start', children})=>(
+    <ColStyle width={width} flexGrow={flexGrow} alignItems={alignItems} justifyContent={justifyContent}>
+        {children}
+    </ColStyle>
+)
