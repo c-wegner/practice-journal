@@ -1,7 +1,7 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 import firebase, { app } from "../firebase";
 
-const clientPath = 'contacts'
+export const clientPath = 'contacts'
 
 export class Client {
   id: string = '';
@@ -123,35 +123,4 @@ export function editObject(obj, propToUpdate, newPropValue, path) {
     .update({
       [propToUpdate]: newPropValue
     });
-}
-
-export class Clients {
-  clients: Client[] = [];
-
-  getClient(target: string) {
-    const l = this.clients.length
-    for (let i = 0; i < l; i++) {
-      const c = this.clients[i]
-      if (c.useAltName && (c.altName === target)) return c
-      if (c.name === target) return c
-      if (c.display === target) return c
-      if (c.shortName === target) return c
-      if (c.id === target) return c
-    }
-    return new Client()
   }
-
-
-  addClient(client) {
-    this.clients.push(client)
-  }
-
-  updateClients(updatedClients: Client[]) {
-    this.clients = []
-    const l = updatedClients.length
-    for (let i = 0; i < l; i++) {
-      this.clients.push(updatedClients[i])
-    }
-    return this
-  }
-}
