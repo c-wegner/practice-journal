@@ -18,6 +18,10 @@ const TestRig = () => {
     temp+= list.projects[0].currentTime
   }
 
+  if(sheet.times[0]!==undefined){
+    temp += '   ' + sheet.times[0].clientShortName
+  }
+
   return (
     <Fragment>
       {temp}

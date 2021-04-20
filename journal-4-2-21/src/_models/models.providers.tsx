@@ -25,6 +25,7 @@ const PrepareModels=({children})=>{
 
   book.prepareCards(list, sheet)
   list.prepareProjects(book, sheet)
+  sheet.prepareTimes(book, list)
 
   return(
     <Fragment>
