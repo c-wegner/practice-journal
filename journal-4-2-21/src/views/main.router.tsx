@@ -89,6 +89,8 @@ export const Main = ({ }) => {
             ))
           }
 
+          <TimeForm/>
+
         </Stage>
         <Switch>
           <Route exact path='/'>

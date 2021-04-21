@@ -70,11 +70,15 @@ function SubmitButton() {
   const formContext = useContext(FormContext)
   const pivotContext = useContext(PivotContext)
 
+  const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext);
 
   const handleSubmit = () => {
     const submitState = formContext.objectState
     const proj = list.getProject(submitState['projectDisplay'])
+    const c = book.getClient(submitState['clientDisplay'])
+
+    submitState['clientId'] = c.id
 
     submitState['projectId'] = proj.id
     if (submitState['lastSave'] ===0 || submitState['lastSave'] === undefined) {

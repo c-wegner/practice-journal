@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { common } from '../../globals';
 import *as Icons from '../icons'
@@ -166,3 +166,4 @@ export const _DisplayIcons=({
     </Styles.IconBoxes>
   )
 }
+

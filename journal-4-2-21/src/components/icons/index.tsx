@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const IconBoxStyle = styled.div<{ display: string, color: string, width: string, height: string, margin: string, marginRight?: string }> `
+export const IconBoxStyle = styled.div<{ display?: string, color?: string, width?: string, height?: string, margin?: string, marginRight?: string }> `
   display: ${p => p.display};
   color: ${p => p.color};
   width: ${p => p.width};
   height: ${p => p.height};
   justify-content: center;
   align-items: center;
-  margin: ${p => p.margin};
+  margin: 0;
 `
 
 export const Alarm = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 5px', onClick = () => { } }) => (
@@ -49,7 +49,7 @@ export const BookmarkStar = ({ color = 'inherit', display = false, size = '1rem'
   </IconBoxStyle>
 )
 
-export const Calendar = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 5px', onClick = () => { } }) => (
+export const Calendar = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 0', onClick = () => { } }) => (
   <IconBoxStyle display={display ? 'flex' : 'none'} color={color} width={size} height='100%' margin={margin} onClick={() => onClick()}>
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
 
@@ -59,7 +59,7 @@ export const Calendar = ({ color = 'inherit', display = false, size = '1rem', ma
   </IconBoxStyle>
 )
 
-export const CalendarOutline = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 5px', onClick = () => { } }) => (
+export const CalendarOutline = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 0', onClick = () => { } }) => (
   <IconBoxStyle display={display ? 'flex' : 'none'} color={color} width={size} height='100%' margin={margin} onClick={() => onClick()}>
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
 

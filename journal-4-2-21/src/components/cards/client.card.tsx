@@ -3,6 +3,10 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client } from '../../_models';
 import { Card, Line, Text, Title, _DisplayIcons } from './styles';
+import *as Icons from '../icons'
+import { CardTime } from './time.card';
+
+
 
 export const ClientCard=({
   client = new Client(),
@@ -58,8 +62,34 @@ export const ClientCard=({
           <Text fontSize='.9rem'>
             {client.contact} &nbsp;
           </Text>
+            <CardTime currentTime={client.currentTime}/>
+        </Line>
+        <Line expanded={expanded}>
+          <ContactItem itemType='phone' content={client.phone}/>
+          <ContactItem itemType = 'email' content = {client.email}/>
         </Line>
       </Card>
     </Fragment>
+  )
+}
+
+export const ContactItem=({itemType ='Phone', content = ''})=>{
+  if(content ===''){
+    return <Fragment>&nbsp;</Fragment>
+  }
+
+  const getIconType = ()=>{
+    if(itemType ==='Phone'){
+      return <Icons.Phone display margin='0 5px 0 0'  color = 'blue'/>
+    }else{
+      return <Icons.Envelope display color='blue'/>
+    }
+  }
+  return(
+    <Text>
+      <Icons.IconBoxStyle display='flex' color='blue'>
+      {getIconType() }
+      </Icons.IconBoxStyle>&nbsp; {content}
+    </Text>
   )
 }
