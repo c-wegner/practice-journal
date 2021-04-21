@@ -1,5 +1,5 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
-import { Time } from "..";
+import { Time, convertToDateString } from "..";
 import firebase, { app } from "../firebase";
 
 export const clientPath = 'contacts'
@@ -114,6 +114,9 @@ currentTime = 0;
     t.clientName = this.name
     t.clientDisplay = this.display
     t.clientShortName= this.shortName
+    t.rate = this.billRate
+    t.description = 'Handled various items for client.'
+    return t
   }
 }
 

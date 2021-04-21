@@ -66,7 +66,7 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
 }
 
 
-function convertToDateString(date:number){
+export function convertToDateString(date:number){
   const temp = new Date(date)
   let monthDate = temp.getMonth() + 1
   let monthDateString = monthDate.toString()

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components'
 import { Client, Project } from '../../_models';
@@ -23,7 +24,10 @@ interface ICardTime{
 }
 
 export const CardTime: React.FunctionComponent<ICardTime>=({obj})=>{
+  const [baseTime, setBaseTime] = useState(obj.currentTime)
   const [timeChange, setTimeChange] = useState(0)
+
+  useEffect(()=>{},[timeChange])
 
   const handleIncrease=()=>{
     setTimeChange(timeChange=>timeChange+.1)
@@ -53,7 +57,12 @@ export const CardTime: React.FunctionComponent<ICardTime>=({obj})=>{
 
   const handleQuickTimeEntry=()=>{
     if(timeChange>0){
-      const t = 
+      const t =  obj.createNewTimeEntry()
+      let myTimeChange = Math.round(timeChange* 10)/10
+      t.time =myTimeChange
+      t.save()
+      setBaseTime(baseTime+ timeChange)
+      setTimeChange(0)
     }
   }
 
@@ -66,10 +75,10 @@ export const CardTime: React.FunctionComponent<ICardTime>=({obj})=>{
         <Icons.Decrease display color= 'red' onClick={()=>handleDecrease()}/>
       </TimerContainerStyle>
       <TimerContainerItem>
-        {convertToTimerFormat(obj.currentTime + timeChange)}
+        {convertToTimerFormat(baseTime + timeChange)}
       </TimerContainerItem>
       <TimerContainerItem>
-        <Icons.Clock display  size={getClockSize()} color={getClockColor()}/>
+        <Icons.Clock display  size={getClockSize()} color={getClockColor()} onClick={()=>handleQuickTimeEntry()} />
       </TimerContainerItem>
     </TimerContainerStyle>
   )

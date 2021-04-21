@@ -1,4 +1,5 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
+import { convertToDateString, Time } from "..";
 import firebase, { app } from "../firebase";
 
 export const projectPath = 'projects'
@@ -80,6 +81,24 @@ export class Project {
 
     get active(){
       return this.open
+    }
+
+    createNewTimeEntry(){
+      const t = new Time()
+      t.projectId = this.id
+      t.projectDisplay = this.display
+      t.clientId=this.clientId
+      t.clientName = this.clientName
+      t.clientDisplay = this.clientDisplay
+      t.clientShortName= this.clientShortName
+      if(this.task!==''){
+        t.description = this.task
+      }else{
+        t.description = 'Handled various items for client.'
+      }
+      t.billTo = convertToDateString(new Date().getTime())
+      t.rate = this.billRate
+      return t
     }
 }
 

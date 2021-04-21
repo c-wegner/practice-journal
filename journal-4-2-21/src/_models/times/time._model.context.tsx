@@ -1,9 +1,9 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 
 import firebase, { app } from "../firebase";
-import { Time, timePath } from "./time._model";
+import { Time, timePath, convertToDateString } from "./time._model";
 import { Times } from "./times._model"
-export {Time, Times, timePath}
+export {Time, Times, convertToDateString, timePath}
 
 export const TimesContext = createContext(new Times())
 
