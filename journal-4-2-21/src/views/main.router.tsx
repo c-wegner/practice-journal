@@ -14,9 +14,10 @@ import { useState } from "react";
 import { Dialog } from "../components/dialog/dialog";
 import { OptionStyle, Menu } from "../components/menu/menu.navigation";
 import { ClientForm } from "../forms/client.forms";
-import { ClientsContext } from "../_models";
+import { Client, ClientsContext } from "../_models";
 import { ProjectForm } from "../forms/project.form";
 import { TimeForm } from "../forms/time.form";
+import { ClientCard } from "../components/cards/client.card";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -32,9 +33,17 @@ const Stage = styled.div`
 
 
 export const Main = ({ }) => {
-
+  const [currentClient, setCurrentClient] = useState(new Client())
 
   const [dialog, setDialog] = useState('')
+
+  const handleSelectClient=(client: Client)=>{
+    if(client.id===currentClient.id){
+      setCurrentClient(new Client())
+    }else{
+      setCurrentClient(client)
+    }
+  }
 
   const book = useContext(ClientsContext)
   return (
@@ -70,13 +79,15 @@ export const Main = ({ }) => {
               </Fragment>
             ))
           }
-          <ClientForm />
+          <ClientForm obj={currentClient}/>
 
           <br />
 
-          <ProjectForm />
-
-          <TimeForm/>
+          {
+            book.clients.map((x,i)=>(
+              <ClientCard client={x} currentClient={currentClient} onClientSelect={()=>handleSelectClient(x)} />
+            ))
+          }
 
         </Stage>
         <Switch>
