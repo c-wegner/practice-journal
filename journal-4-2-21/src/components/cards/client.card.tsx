@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client } from '../../_models';
-import { Card, Line, Title, _DisplayIcons } from './styles';
+import { Card, Line, Text, Title, _DisplayIcons } from './styles';
 
 export const ClientCard=({
   client = new Client(),
@@ -40,7 +40,7 @@ export const ClientCard=({
 
   return(
     <Fragment>
-      <Card boxShadow={expanded}>
+      <Card boxShadow={expanded} opacity={opacity}>
       <Line displayWhenCollapsed expanded={expanded}>
           <Title onClick={() => handleClick()}>
             {client.display}
@@ -52,6 +52,12 @@ export const ClientCard=({
             flag = {client.flagged}
             cash = {client.billReminder}
           />
+        </Line>
+
+        <Line displayWhenCollapsed expanded={expanded}>
+          <Text fontSize='.9rem'>
+            {client.contact} &nbsp;
+          </Text>
         </Line>
       </Card>
     </Fragment>

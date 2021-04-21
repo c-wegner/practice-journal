@@ -38,7 +38,8 @@ export const Styles = {
   Title: styled.div `
       cursor: pointer;
       font-weight: 630;
-      padding: 0 7px;
+      padding: 0 7px 2px 7px;
+      font-size: 1.1rem;
   `,
 
   Text: styled.div<{fontSize?: string; fontWeight?:string, color?:string, justifyContent: string}> `
@@ -47,7 +48,7 @@ export const Styles = {
     font-size: ${p=>p.fontSize};
     font-weight: ${p=>p.fontWeight};
     color: ${p=>p.color};
-          padding: 0 7px;
+          padding: 2px 7px;
           flex-grow:1;
           justify-content: ${p=>p.justifyContent};
   `,
