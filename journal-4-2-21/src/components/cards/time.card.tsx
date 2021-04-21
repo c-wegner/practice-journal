@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components'
+import { Client, Project } from '../../_models';
 import *as Icons from '../icons'
 
 const TimerContainerStyle = styled.div `
@@ -16,20 +18,58 @@ const TimerContainerItem = styled.div`
   font-size: 1rem;
 `
 
-export const CardTime=({currentTime})=>{
+interface ICardTime{
+  obj: Client | Project
+}
+
+export const CardTime: React.FunctionComponent<ICardTime>=({obj})=>{
+  const [timeChange, setTimeChange] = useState(0)
+
+  const handleIncrease=()=>{
+    setTimeChange(timeChange=>timeChange+.1)
+  }
+
+  const handleDecrease=()=>{
+    let newTime = timeChange -.1;
+    if(newTime<0){newTime=0}
+    setTimeChange(newTime)
+  }
+
+  const getClockColor=()=>{
+    if(timeChange!==0){
+      return 'red'
+    }else{
+      return 'inherit'
+    }
+  }
+
+  const getClockSize=()=>{
+    if(timeChange!==0){
+      return '1rem'
+    }else{
+      return '.8rem'
+    }  
+  }
+
+  const handleQuickTimeEntry=()=>{
+    if(timeChange>0){
+      const t = 
+    }
+  }
+
   return(
     <TimerContainerStyle>
       <TimerContainerItem>
-        <Icons.Increase display color='green'/>
+        <Icons.Increase display color='green'onClick={()=>handleIncrease()}/>
       </TimerContainerItem>
       <TimerContainerStyle>
-        <Icons.Decrease display color= 'red'/>
+        <Icons.Decrease display color= 'red' onClick={()=>handleDecrease()}/>
       </TimerContainerStyle>
       <TimerContainerItem>
-        {convertToTimerFormat(currentTime)}
+        {convertToTimerFormat(obj.currentTime + timeChange)}
       </TimerContainerItem>
       <TimerContainerItem>
-        <Icons.Clock display color='inherit' size='.8rem'/>
+        <Icons.Clock display  size={getClockSize()} color={getClockColor()}/>
       </TimerContainerItem>
     </TimerContainerStyle>
   )

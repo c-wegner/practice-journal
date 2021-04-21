@@ -24,12 +24,18 @@ const Wrapper = styled.div`
   position: relative;
   min-height: 100vh;
 `;
-
+/////////////////////////////////////////////////////////////////////
 
 const Stage = styled.div`
     display: flex;
     flex-direction: column;
 `;
+
+const FakeLane= styled.div `
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+`
 
 
 export const Main = ({ }) => {
@@ -82,13 +88,13 @@ export const Main = ({ }) => {
           <ClientForm obj={currentClient}/>
 
           <br />
-
+            <FakeLane>
           {
             book.clients.map((x,i)=>(
               <ClientCard client={x} currentClient={currentClient} onClientSelect={()=>handleSelectClient(x)} />
             ))
           }
-
+</FakeLane>
           <TimeForm/>
 
         </Stage>

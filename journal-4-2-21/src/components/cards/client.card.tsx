@@ -62,7 +62,7 @@ export const ClientCard=({
           <Text fontSize='.9rem'>
             {client.contact} &nbsp;
           </Text>
-            <CardTime currentTime={client.currentTime}/>
+            <CardTime obj={client}/>
         </Line>
         <Line expanded={expanded}>
           <ContactItem itemType='phone' content={client.phone}/>

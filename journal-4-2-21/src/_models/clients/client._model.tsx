@@ -1,4 +1,5 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
+import { Time } from "..";
 import firebase, { app } from "../firebase";
 
 export const clientPath = 'contacts'
@@ -105,6 +106,14 @@ currentTime = 0;
 
   get active(){
     return !this.archived
+  }
+
+  createNewTimeEntry(){
+    const t = new Time()
+    t.clientId=this.id
+    t.clientName = this.name
+    t.clientDisplay = this.display
+    t.clientShortName= this.shortName
   }
 }
 
