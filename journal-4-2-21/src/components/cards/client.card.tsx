@@ -7,6 +7,13 @@ import *as Icons from '../icons'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
 import { ProjectForm } from '../../forms/project.form';
+import { ClientForm } from '../../forms/client.forms';
+import { TimeForm } from '../../forms/time.form';
+
+const IconHolder = styled.div `
+  padding: 0 3px;
+  margin: 0 2px;
+`
 
 
 
@@ -75,12 +82,28 @@ export const ClientCard = ({
 
           </Text>
           <Text right>
+            <IconHolder>
+            <Icons.Pen display color='blue' size='1.2rem' onClick={()=>setShowPanel('Edit client')} />
+            </IconHolder>
+            <IconHolder>
+            <Icons.ClockDashed display color='blue' size='1.2rem' onClick={()=>setShowPanel('Add time')}/>
+            </IconHolder>
+            <IconHolder>
             <Icons.FolderPlus display color='blue' size='1.2rem' onClick={()=>setShowPanel('Add project')}/>
+            </IconHolder>
           </Text>
         </Line>
       </Card>
       <Panel id='Add project' onExit={()=>setShowPanel('')} current={showPanel}>
         <ProjectForm obj={client.createNewProject()}/>
+      </Panel>
+
+      <Panel id='Edit client' onExit={()=>setShowPanel('')} current={showPanel}>
+        <ClientForm obj={client}/>
+      </Panel>
+
+      <Panel id='Add time' onExit={()=>setShowPanel('')} current={showPanel}>
+        <TimeForm obj={client.createNewTimeEntry()}/>
       </Panel>
     </Fragment>
   )
