@@ -168,3 +168,4 @@ export const _DisplayIcons = ({
   )
 }
 
+const IconStyle = styled.div ``
