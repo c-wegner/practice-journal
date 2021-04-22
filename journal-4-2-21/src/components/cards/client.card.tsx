@@ -78,6 +78,23 @@ export const ClientCard = ({
           <ContactItem itemType='phone' content={client.phone} />
           <ContactItem itemType='email' content={client.email} />
         </Line>
+        <Line expanded={expanded}>
+          <Text>
+          Projects
+          </Text>
+          <Text right>
+         Time
+          </Text>
+        </Line>
+        <Line expanded={expanded}>
+          <Text>
+          Open: {client.currentProjects} Total: {client.currentProjects}
+          </Text>
+
+          <Text right>
+          Current: {client.currentTime} Total: {client.totalTime}
+          </Text>
+        </Line>
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>
 
