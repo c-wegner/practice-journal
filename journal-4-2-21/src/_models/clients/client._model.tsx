@@ -1,5 +1,5 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
-import { Time, convertToDateString } from "..";
+import { Project, Time } from "..";
 import firebase, { app } from "../firebase";
 
 export const clientPath = 'contacts'
@@ -117,6 +117,18 @@ currentTime = 0;
     t.rate = this.billRate
     t.description = 'Handled various items for client.'
     return t
+  }
+
+  createNewProject(){
+const p = new Project()
+p.clientId = this.id;
+p.clientName = this.name;
+p.clientDisplay = this.display;
+p.clientShortName = this.shortName;
+p.billType = this.billType
+p.billRate = this.billRate
+p.firmRelated = this.firmRelated
+return p
   }
 }
 
