@@ -76,6 +76,20 @@ export class Projects{
       }
     }
 
+    getActiveProjects(lane=''){
+      const l = this.projects.length
+      let temp: Project[] = []
+      for(let i=0; i<l; i++){
+        const p = this.projects[i]
+        if(p.open){
+          if(p.lane===lane){
+            temp.push(p)
+          }
+        }
+      }
+      return temp
+    }
+
     static listLanesForDropDown = [
       { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
       { value: '@Client', display: '@Client', active: true },

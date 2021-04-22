@@ -60,6 +60,7 @@ export const ClientCard = ({
           </Title>
           <_DisplayIcons
             archived={client.archived}
+            phone={client.followUpPhone}
             envelopeOpen={client.followUpReadEmail}
             replyAll={client.followUpSendEmail}
             flag={client.flagged}

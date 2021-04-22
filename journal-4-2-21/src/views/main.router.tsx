@@ -18,6 +18,7 @@ import { Client, ClientsContext } from "../_models";
 import { ProjectForm } from "../forms/project.form";
 import { TimeForm } from "../forms/time.form";
 import { ClientCard } from "../components/cards/client.card";
+import { Dashboard } from "./dashboard/dashboard";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -78,24 +79,7 @@ export const Main = ({ }) => {
                           </Link>
             </OptionStyle>
           </Menu>
-          {
-            book.clients.map(x=>(
-              <Fragment>
-          {x.display}
-              </Fragment>
-            ))
-          }
-          <ClientForm obj={currentClient}/>
-
-          <br />
-            <FakeLane>
-          {
-            book.clients.map((x,i)=>(
-              <ClientCard client={x} currentClient={currentClient} onClientSelect={()=>handleSelectClient(x)} />
-            ))
-          }
-</FakeLane>
-          <TimeForm/>
+        <Dashboard/>
 
         </Stage>
         <Switch>

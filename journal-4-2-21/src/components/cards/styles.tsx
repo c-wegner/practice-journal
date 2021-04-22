@@ -33,6 +33,7 @@ export const Styles = {
     overflow: hidden;
     justify-content: ${p=>p.justifyContent};
     line-height: 1.5;
+    padding-right: 4px;
   `,
 
   Title: styled.div `

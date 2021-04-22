@@ -64,7 +64,7 @@ export const CardTime: React.FunctionComponent<ICardTime>=({obj})=>{
       setBaseTime(baseTime+ timeChange)
       setTimeChange(0)
     }else{
-      
+
     }
   }
 
