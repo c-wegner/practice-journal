@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { common } from '../../globals';
-import *as Icons from '../icons'
+import *as Icons from '../icons/_icons.v.2'
 
 const boxShadow = {
   standard: common.values.shadow.standard,
@@ -16,7 +16,7 @@ export const Styles = {
     flex-direction: column;
     border: 1px solid;
     border-radius: 4px;
-    padding: 4px 0 7px 0;
+    padding: 7px;
     opacity: ${p => p.opacity};
     box-shadow: ${p => p.boxShadow};
     transition: 1s box-shadow;
@@ -33,36 +33,34 @@ export const Styles = {
     overflow: hidden;
     justify-content: ${p => p.justifyContent};
     line-height: 1.5;
-    padding-right: 4px;
   `,
 
-  Title: styled.div`
+  Title: styled.div<{margin?: string}>`
       cursor: pointer;
       font-weight: 630;
-      padding: 0 7px 2px 7px;
-      font-size: .9rem;
+      font-size: 1rem;
+      margin:${p=>p.margin};
   `,
 
-  Text: styled.div<{ fontSize?: string; fontWeight?: string, color?: string, justifyContent: string }> `
+  Text: styled.div<{ fontSize?: string; fontWeight?: string, color?: string; justifyContent: string; padding?:string }> `
     display: flex;
     align-items: center;
     font-size: ${p => p.fontSize};
     font-weight: ${p => p.fontWeight};
     color: ${p => p.color};
-          padding: 2px 7px;
-          flex-grow:1;
-          justify-content: ${p => p.justifyContent};
+    padding: ${p=>p.padding};
+    flex-grow:1;
+    justify-content: ${p => p.justifyContent};
   `,
 
   IconBoxes: styled.div`
     display: flex;
     align-items: center;
-    margin-right: 7px;
   `,
 }
 
-export const Text = ({ children, fontSize = '.8rem', fontWeight = 'inherit', color = 'inherit', right = false }) => (
-  <Styles.Text fontSize={fontSize} fontWeight={fontWeight} color={color} justifyContent={right ? 'flex-end' : 'flex-start'}>
+export const Text = ({ children, fontSize = '.9rem', fontWeight = 'inherit', color = 'inherit', right = false, padding='4px 0 0 0' }) => (
+  <Styles.Text fontSize={fontSize} fontWeight={fontWeight} color={color} justifyContent={right ? 'flex-end' : 'flex-start'} padding={padding}>
     {children}
   </Styles.Text>
 )
@@ -102,48 +100,8 @@ export const IconBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 4px;
   cursor: pointer;
 `
-
-export const DisplayIcons = ({
-  archived = false,
-  cash = false,
-  exclamation = false,
-  flag = false,
-  phone = false,
-  envelopeOpen = false,
-  replyAll = false,
-  expanded,
-  onClick,
-}) => {
-  const handleOnClick = (propName = '') => {
-    onClick(propName)
-  }
-
-  const getDisplay = (doesItemDisplay) => {
-    if (expanded) return true
-    return doesItemDisplay
-  }
-
-  const getColor = (normalColor, doesItemDisplay) => {
-    if (doesItemDisplay) { return normalColor }
-    return 'lightgrey'
-  }
-
-  return (
-    <Styles.IconBoxes>
-      &nbsp;
-      <Icons.Archive display={getDisplay(archived)} color={getColor('inherit', archived)} onClick={() => handleOnClick('archived')} />
-      <Icons.Cash display={getDisplay(cash)} color={getColor('green', cash)} onClick={() => handleOnClick('billReminder')} />
-      <Icons.Phone display={getDisplay(phone)} color={getColor('inherit', phone)} onClick={() => handleOnClick('followUpPhone')} />
-      <Icons.EnvelopeOpenFill display={getDisplay(envelopeOpen)} color={getColor('inherit', envelopeOpen)} onClick={() => handleOnClick('followUpReadEmail')} />
-      <Icons.ReplyAll display={getDisplay(replyAll)} color={getColor('inherit', replyAll)} onClick={() => handleOnClick('followUpSendEmail')} />
-      <Icons.Exclamation display={getDisplay(exclamation)} color={getColor('red', exclamation)} onClick={() => handleOnClick('urgent')} />
-      <Icons.Flag display={getDisplay(flag)} color={getColor('red', flag)} onClick={() => handleOnClick('flag')} />
-    </Styles.IconBoxes>
-  )
-}
 
 export const _DisplayIcons = ({
   archived = false,
@@ -157,15 +115,24 @@ export const _DisplayIcons = ({
   return (
     <Styles.IconBoxes>
       &nbsp;
-      <Icons.Archive display={archived} />
-      <Icons.Cash display={cash} color='green' />
-      <Icons.Phone display={phone} />
-      <Icons.EnvelopeOpenFill display={envelopeOpen} />
-      <Icons.ReplyAll display={replyAll} />
-      <Icons.Exclamation display={exclamation} color='red' />
-      <Icons.Flag display={flag} color='red' />
+      <Icons.Archive display={archived} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Cash display={cash} color='green' margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Phone display={phone} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.EnvelopeOpenFill display={envelopeOpen} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.ReplyAll display={replyAll}margin='0 0 0 5px'/>
+      <Icons.Exclamation display={exclamation} color='red' margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Flag display={flag} color='red' margin='0 0 0 5px' size='.8rem'/>
     </Styles.IconBoxes>
   )
 }
 
-const IconStyle = styled.div ``
+export const SizeText=(text: string, targetLength= 25)=>{
+  const l = text.length
+  if(l<targetLength) return text
+  let temp = ''
+  for(let i=0; i<targetLength-2; i++){
+    temp += text[i]
+  }
+  temp+='...'
+  return temp
+}

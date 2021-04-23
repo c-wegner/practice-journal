@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client, Project } from '../../_models';
-import { Card, Line, Text, Title, _DisplayIcons } from './styles';
-import *as Icons from '../icons'
+import { Card, Line, SizeText, Text, Title, _DisplayIcons } from './styles';
+import *as Icons from '../icons/_icons.v.2'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
 import { ProjectForm } from '../../forms/project.form';
@@ -63,7 +63,7 @@ export const ProjectCard = ({
       <Card boxShadow={expanded} opacity={opacity}>
         <Line displayWhenCollapsed expanded={expanded}>
           <Title onClick={() => handleClick()}>
-            {project.display}
+            {SizeText(project.display, 35)}
           </Title>
           <Text right>
             {project.clientShortName}
