@@ -201,8 +201,7 @@ export const ReplyAll = ({ color = 'inherit', display = false, size = '1rem', ma
     </svg>
   </IconBoxStyle>
 )
-
-export const Envelope = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 5px', onClick = () => { } }) => (
+ const Envelope = ({ color = 'inherit', display = false, size = '1rem', margin = '0 0 0 5px', onClick = () => { } }) => (
   <IconBoxStyle display={display ? 'flex' : 'none'} color={color} width={size} height='100%' margin={margin} onClick={() => onClick()}>
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
 

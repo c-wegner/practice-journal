@@ -10,6 +10,12 @@ import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
 
+const HeadHolder= styled.div `
+  display: flex;
+  justify-content: flex-end;
+  font-size: .8rem;
+`
+
 
 export const ProjectCard = ({
   project = new Project(),
@@ -59,7 +65,8 @@ export const ProjectCard = ({
           <Title onClick={() => handleClick()}>
             {SizeText(project.display, 35)}
           </Title>
-
+          <HeadHolder>
+            {project.clientShortName}
           <_DisplayIcons
             archived={!project.open}
             phone={project.followUpPhone}
@@ -69,7 +76,7 @@ export const ProjectCard = ({
             flag={project.flagged}
             cash={project.billReminder}
           />
-
+</HeadHolder>
         </Line>
 
         <Line displayWhenCollapsed expanded={expanded}>

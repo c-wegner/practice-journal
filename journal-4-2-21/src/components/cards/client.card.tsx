@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client } from '../../_models';
 import { Card, Line, Text, Title, _DisplayIcons, IconHolder } from './styles';
-import *as Icons from '../icons'
+import *as Icons from '../icons/_icons.v.2'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
 import { ProjectForm } from '../../forms/project.form';
@@ -124,14 +124,14 @@ export const ClientCard = ({
   )
 }
 
-export const ContactItem = ({ itemType = 'Phone', content = '' }) => {
+export const ContactItem = ({ itemType = 'phone', content = '' }) => {
   if (content === '') {
     return <Fragment>&nbsp;</Fragment>
   }
 
   const getIconType = () => {
-    if (itemType === 'Phone') {
-      return <Icons.Phone display margin='0 5px 0 0' color='blue' />
+    if (itemType === 'phone') {
+      return <Icons.Phone display color='blue' />
     } else {
       return <Icons.Envelope display color='blue' />
     }

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components'
 import { Client, Project } from '../../_models';
-import *as Icons from '../icons'
+import *as Icons from '../icons/_icons.v.2'
 
 const TimerContainerStyle = styled.div `
   display: flex;
