@@ -59,7 +59,12 @@ export const Styles = {
   `,
 }
 
-export const Text = ({ children, fontSize = '.9rem', fontWeight = 'inherit', color = 'inherit', right = false, padding='4px 0 0 0' }) => (
+export const IconHolder = styled.div `
+padding: 0 3px;
+margin: 0 2px;
+`
+
+export const Text = ({ children, fontSize = '.9rem', fontWeight = 'inherit', color = 'inherit', right = false, padding='1px 0 0 0' }) => (
   <Styles.Text fontSize={fontSize} fontWeight={fontWeight} color={color} justifyContent={right ? 'flex-end' : 'flex-start'} padding={padding}>
     {children}
   </Styles.Text>

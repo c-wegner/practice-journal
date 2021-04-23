@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client } from '../../_models';
-import { Card, Line, Text, Title, _DisplayIcons } from './styles';
+import { Card, Line, Text, Title, _DisplayIcons, IconHolder } from './styles';
 import *as Icons from '../icons'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
@@ -10,10 +10,7 @@ import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
 
-const IconHolder = styled.div `
-  padding: 0 3px;
-  margin: 0 2px;
-`
+
 
 
 

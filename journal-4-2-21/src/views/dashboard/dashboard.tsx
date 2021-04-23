@@ -3,25 +3,27 @@ import styled from 'styled-components'
 import { ClientCard } from '../../components/cards/client.card';
 import { ProjectCard } from '../../components/cards/project.card';
 import { Client, ClientsContext, Project, ProjectsContext } from '../../_models';
+import {ClientLane} from './client.lane'
 
 const Stage = styled.div`
   display: flex;
 `
 
-const LaneStyle = styled.div`
+export const LaneStyle = styled.div`
   width: 25%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 `;
 
-const Header = styled.div `
+export const Header = styled.div `
   display: flex;
   justify-content: space-between;
   padding: 14px 7px 3px 10px;
+  align-items: center;
 `
 
-const Heading = styled.div `
+export const Heading = styled.div `
   font-size: 1.7rem;
 `
 
@@ -83,31 +85,6 @@ const ProjectLane=({
             <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject}/>
           ))
         }
-    </LaneStyle>
-  )
-}
-
-const ClientLane=({
-  currentClient,
-  handleSelectClient
-})=>{
-  const [selectedClient, setSelectedClients] = useState('All clients')
-  const book = useContext(ClientsContext)
-
-  return(
-    <LaneStyle>
-      <Header>
-        <Heading>
-          {selectedClient}
-        </Heading>
-
-      </Header>
-      {
-            book.clients.map((x)=>(
-              <ClientCard client={x} currentClient={currentClient} onClientSelect={handleSelectClient}/>
-
-            ))
-          }
     </LaneStyle>
   )
 }

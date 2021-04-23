@@ -2,19 +2,13 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client, Project } from '../../_models';
-import { Card, Line, SizeText, Text, Title, _DisplayIcons } from './styles';
+import { Card, Line, SizeText, Text, Title, _DisplayIcons, IconHolder } from './styles';
 import *as Icons from '../icons/_icons.v.2'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
 import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
-
-const IconHolder = styled.div `
-  padding: 0 3px;
-  margin: 0 2px;
-`
-
 
 
 export const ProjectCard = ({
@@ -65,8 +59,7 @@ export const ProjectCard = ({
           <Title onClick={() => handleClick()}>
             {SizeText(project.display, 35)}
           </Title>
-          <Text right>
-            {project.clientShortName}
+
           <_DisplayIcons
             archived={!project.open}
             phone={project.followUpPhone}
@@ -76,7 +69,7 @@ export const ProjectCard = ({
             flag={project.flagged}
             cash={project.billReminder}
           />
-          </Text>
+
         </Line>
 
         <Line displayWhenCollapsed expanded={expanded}>
