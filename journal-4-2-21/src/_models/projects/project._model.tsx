@@ -83,7 +83,7 @@ export class Project {
       return this.open
     }
 
-    createNewTimeEntry(){
+    createNewTimeEntry(timeInMilliSeconds=0){
       const t = new Time()
       t.projectId = this.id
       t.projectDisplay = this.display

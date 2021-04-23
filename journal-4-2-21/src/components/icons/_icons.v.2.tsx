@@ -264,3 +264,67 @@ export const Clock = ({
 </svg>
   </IconBox>
 )
+
+
+export const Play = ({
+  display = true,
+  color = 'inherit',
+  size = '1.1rem',
+  margin = '0 0 0 0',
+  onClick = () => { }
+}) => (
+  <IconBox display={display} color={color} size={size} margin={margin} onClick={onClick}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+
+<path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+</svg>
+  </IconBox>
+)
+
+
+export const Pause = ({
+  display = true,
+  color = 'inherit',
+  size = '1.1rem',
+  margin = '0 0 0 0',
+  onClick = () => { }
+}) => (
+  <IconBox display={display} color={color} size={size} margin={margin} onClick={onClick}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+
+<path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+</svg>
+  </IconBox>
+)
+
+
+export const Cancel = ({
+  display = true,
+  color = 'inherit',
+  size = '1.1rem',
+  margin = '0 0 0 0',
+  onClick = () => { }
+}) => (
+  <IconBox display={display} color={color} size={size} margin={margin} onClick={onClick}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>
+  </IconBox>
+)
+
+export const Record = ({
+  display = true,
+  color = 'inherit',
+  size = '1.1rem',
+  margin = '0 0 0 0',
+  onClick = () => { }
+}) => (
+  <IconBox display={display} color={color} size={size} margin={margin} onClick={onClick}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1A5 5 0 1 0 8 3a5 5 0 0 0 0 10z"/>
+  <path d="M10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+</svg>
+  </IconBox>
+)
+

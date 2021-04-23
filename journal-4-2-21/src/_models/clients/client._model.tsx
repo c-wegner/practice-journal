@@ -108,7 +108,7 @@ currentTime = 0;
     return !this.archived
   }
 
-  createNewTimeEntry(){
+  createNewTimeEntry(timeInMilliSeconds = 0){
     const t = new Time()
     t.clientId=this.id
     t.clientName = this.name
