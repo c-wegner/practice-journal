@@ -34,4 +34,22 @@ export class Times {
     }
   }
 
+  groupTimes(time: any): Time {
+    const l = this.times.length
+    for (let i = 0; i < l; i++) {
+      const t = this.times[i]
+      if (t.billTo === time.billTo &&
+         t.clientId === time.clientId &&
+          t.description === time.description &&
+            t.billable === time.billable &&
+              t.rate === time.rate &&
+           !t.billed) {
+            t.time += time.time
+            t.lastSave = new Date().getTime()
+            return t
+      }
+    }
+    return time
+  }
+
 }

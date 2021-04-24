@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components'
 import { TimeForm } from '../../forms/time.form';
-import { Client, ClientsContext, Project, ProjectsContext } from '../../_models';
+import { Client, ClientsContext, Project, ProjectsContext, TimesContext } from '../../_models';
 import *as Icons from '../icons/_icons.v.2'
 import { Panel } from '../panel/panels';
 import { useTimekeeper } from './use.timer.card';
@@ -35,6 +35,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
+  const timeSheet = useContext(TimesContext)
 
   useEffect(() => { }, [timeChange])
 
@@ -64,12 +65,17 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
     }
   }
 
-  const handleQuickTimeEntry = () => {
+  const HandleQuickTimeEntry = () => {
+
+    
     if (timeChange > 0) {
+
       const t = obj.createNewTimeEntry()
       let myTimeChange = Math.round(timeChange * 10) / 10
       t.time = myTimeChange
-      t.save()
+      let finalSubmit = timeSheet.groupTimes(t)
+
+      finalSubmit.save()
       if(obj.classType==='project'){
         book.updateProjectTime(obj['clientId'], t.time)
       }
@@ -98,7 +104,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
           {convertToTimerFormat(baseTime + timeChange)}
         </TimerContainerItem>
         <TimerContainerItem>
-          <Icons.Clock display size={getClockSize()} color={getClockColor()} onClick={() => handleQuickTimeEntry()} />
+          <Icons.Clock display size={getClockSize()} color={getClockColor()} onClick={() => HandleQuickTimeEntry()} />
         </TimerContainerItem>
       </TimerContainerStyle>
     )

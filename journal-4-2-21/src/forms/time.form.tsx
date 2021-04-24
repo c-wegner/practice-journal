@@ -85,6 +85,7 @@ function SubmitButton() {
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext);
+  const timeSheet = useContext(TimesContext)
 
   const handleSubmit = () => {
     const submitState = formContext.objectState
@@ -100,9 +101,11 @@ function SubmitButton() {
 
     submitState['lastSave'] = new Date().getTime()
 
+    const finalSubmit = timeSheet.groupTimes(submitState)
 
+    console.table(finalSubmit)
     pivotContext.reset()
-    formContext.submit(submitState)
+    formContext.submit(finalSubmit)
   }
 
   return (
