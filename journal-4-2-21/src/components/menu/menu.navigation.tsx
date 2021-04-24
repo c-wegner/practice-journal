@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+
 import Logo from './logo.menu.png';
 
 const MenuBarStyle = styled.div`
@@ -10,12 +12,18 @@ const MenuBarStyle = styled.div`
 
 const LogoStyle = styled.img`
     height: 45px;
+    cursor: pointer;
 `
 
 export const Menu = ({ children }) => {
+  const history = useHistory()
+  const handleLogoClick=()=>{
+
+    history.push('/')
+  }
   return (
     <MenuBarStyle>
-      <LogoStyle src={Logo} />
+      <LogoStyle src={Logo} onClick={()=>handleLogoClick()}/>
       <MenuOptionsStyle>
         {children}
       </MenuOptionsStyle>

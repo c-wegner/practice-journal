@@ -21,6 +21,12 @@ export const ClientsProvider = ({ children }) => {
       book.clients = [];
       querySnapshot.forEach(function (doc) {
         const c = cloneClient(doc.data());
+        c.timerIsRunning = false;
+        if (localStorage.getItem('wegnerTimerData')) {
+          if(wegnerTimerData.objId===c.id && wegnerTimerData.objType==='contact'){
+            c.timerIsRunning = true
+          }
+        }
         book.addClient(c)
       });
       setClientsData(book.clients);

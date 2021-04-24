@@ -140,6 +140,22 @@ function TimerFace({ obj, onExit }) {
 
   const timer = useTimekeeper(timerRunning, setTimerTime, 0)
 
+  useEffect(()=>{
+    wegnerStoredTimerData.currentTime = timerTime
+    wegnerStoredTimerData.timerRunning = timerRunning
+    wegnerStoredTimerData.lastSave = new Date().getTime();
+    localStorage.setItem('wegnerStoredTimerData', JSON.stringify(wegnerStoredTimerData))
+  }, [timerTime, timerRunning])
+
+  const wegnerStoredTimerData = {
+    objType: obj.classType,
+    objId: obj.id,
+    timerRunning: timerRunning,
+    currentTime: timerTime,
+    lastSave: new Date().getTime()
+  }
+
+
   const handlePlay = () => {
     if (timerRunning) {
       setTimerRunning(false)
@@ -151,6 +167,10 @@ function TimerFace({ obj, onExit }) {
 
   }
 
+  const handleCancel =()=>{
+    localStorage.removeItem('wegnerStoredTimerData')
+    onExit()
+  }
 
   const showPlayOrPause = () => {
     if (timerRunning) {
@@ -176,7 +196,7 @@ function TimerFace({ obj, onExit }) {
           {convertToTimerFormat(timerTime)}
         </TimerContainerItem>
         <TimerContainerItem>
-          <Icons.Cancel display size='.8rem' onClick={() => onExit()} />
+          <Icons.Cancel display size='.8rem' onClick={() => handleCancel()} />
         </TimerContainerItem>
       </TimerContainerStyle>
       <Panel id='Record time' onExit={()=>setShowPanel('')} current={showPanel}>
