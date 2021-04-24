@@ -125,9 +125,6 @@ export const ClientCard = ({
 }
 
 export const ContactItem = ({ itemType = 'phone', content = '' }) => {
-  if (content === '') {
-    return <Fragment>&nbsp;</Fragment>
-  }
 
   const getIconType = () => {
     if (itemType === 'phone') {
@@ -139,7 +136,7 @@ export const ContactItem = ({ itemType = 'phone', content = '' }) => {
   return (
     <Text>
       <Icons.IconBoxStyle display='flex' color='blue'>
-        {getIconType()}
+        {getIconType()} 
       </Icons.IconBoxStyle>&nbsp; {content}
     </Text>
   )
