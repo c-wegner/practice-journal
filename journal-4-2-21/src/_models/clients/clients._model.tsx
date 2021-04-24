@@ -77,6 +77,16 @@ export class Clients {
     this.clients.sort((x,y)=>compareClients(x,y))
   }
 
+  updateProjectTime(clientId, time){
+  
+    const l =  this.clients.length
+    for(let i =0; i<l; i++){
+      const c = this.clients[i]
+      if(c.id === clientId){
+        this.clients[i].currentTime+= time
+      }
+    }
+  }
 }
 
 function compareClients(x:Client, y:Client){

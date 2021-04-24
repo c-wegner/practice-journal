@@ -1,11 +1,12 @@
-import React, {useContext} from 'react'
+import React, {Fragment, useContext} from 'react'
 import styled from 'styled-components'
+import firebase, { app } from "../_models/firebase";
 
 import { useState } from "react";
 import { common } from '../globals';
 import { PivotContext, PivotPage, PivotProvider } from '../components/pivot/pivot.main';
 import { FormContext, FormProvider } from '../controls/forms.context';
-import { Client, Clients, ClientsContext, Project, Projects, ProjectsContext, Time, timePath } from '../_models';
+import { Client, Clients, ClientsContext, Project, Projects, ProjectsContext, Time, timePath, TimesContext } from '../_models';
 import { Col, Row } from '../globals/styles';
 import { Button, ConditionalContent, Dropdown, RadioCheck, TextArea, TextBox } from '../controls';
 import { Checkbox } from '../controls/checkbox';
@@ -23,7 +24,19 @@ const FormStyle = styled.div`
 export const TimeForm = ({
   obj = new Time(),
 }) => {
-
+  const getDeleteButton=()=>{
+    if(obj.id!==''){
+      return(
+        <Fragment>
+          <DeleteButton  currentTime={obj}/>
+        </Fragment>
+      )
+    }else{
+      return(
+        <Fragment></Fragment>
+      )
+    }
+  }
 
   return (
     <FormStyle>
@@ -56,7 +69,7 @@ export const TimeForm = ({
               <Checkbox label='Billable' prop='billable' right />
 
             </Row>
-          </PivotPage><SubmitButton />
+          </PivotPage><SubmitButton />{getDeleteButton()}
         </PivotProvider>
 
 
@@ -95,6 +108,23 @@ function SubmitButton() {
   return (
     <Row justifyContent='flex-end'>
       <Button width='30%' onClick={() => handleSubmit()} label='Submit' />
+    </Row>
+  )
+}
+
+function DeleteButton({currentTime}){
+  const pivotContext = useContext(PivotContext)
+
+  const handleDelete=()=>{
+    const db = firebase.firestore(app);
+    db.collection(timePath)
+      .doc(currentTime.id).delete()
+      pivotContext.reset()
+  }
+
+  return (
+    <Row justifyContent='flex-end'>
+      <Button width='30%' onClick={() => handleDelete()} label='Delete' />
     </Row>
   )
 }

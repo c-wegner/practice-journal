@@ -19,6 +19,7 @@ import { ProjectForm } from "../forms/project.form";
 import { TimeForm } from "../forms/time.form";
 import { ClientCard } from "../components/cards/client.card";
 import { Dashboard } from "./dashboard/dashboard";
+import { TimeSheet } from "../components/timesheet/timesheet.styles";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -79,16 +80,16 @@ export const Main = ({ }) => {
                           </Link>
             </OptionStyle>
           </Menu>
-        <Dashboard/>
+
 
         </Stage>
         <Switch>
           <Route exact path='/'>
-
+          <Dashboard/>
           </Route>
 
           <Route path='/billing'>
-
+            <TimeSheet/>
           </Route>
         </Switch>
       </Router>
