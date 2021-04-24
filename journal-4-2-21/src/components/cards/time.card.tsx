@@ -65,6 +65,14 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
     }
   }
 
+  const getTimeValue=()=>{
+    if(timeChange!==0){
+      return timeChange
+    }else{
+      return baseTime
+    }
+  }
+
   const HandleQuickTimeEntry = () => {
 
     
@@ -101,7 +109,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
           <Icons.Decrease display color='red' onClick={() => handleDecrease()} />
         </TimerContainerStyle>
         <TimerContainerItem>
-          {convertToTimerFormat(baseTime + timeChange)}
+          {convertToTimerFormat(getTimeValue())}
         </TimerContainerItem>
         <TimerContainerItem>
           <Icons.Clock display size={getClockSize()} color={getClockColor()} onClick={() => HandleQuickTimeEntry()} />

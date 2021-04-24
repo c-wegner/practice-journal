@@ -19,7 +19,7 @@ export const LaneStyle = styled.div`
 export const Header = styled.div `
   display: flex;
   justify-content: space-between;
-  padding: 14px 7px 3px 10px;
+  padding: 14px 17px 7px 17px;
   align-items: center;
 `
 

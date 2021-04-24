@@ -10,6 +10,18 @@ import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
 
+const TaskInput = styled.input<{borderColor: string}>`
+  border: 1px solid;
+  border-color: ${p => p.borderColor};
+  display: flex;
+  align-items: center;
+
+  color: ${p => p.color};
+  flex-grow: 1;
+  padding: 0;
+  
+`;
+
 const HeadHolder= styled.div `
   display: flex;
   justify-content: flex-end;
@@ -26,6 +38,13 @@ export const ProjectCard = ({
   const [showPanel, setShowPanel] = useState('')
   const [expanded, setExpanded] = useState(false);
   const [opacity, setOpacity] = useState(1)
+  const [task, setTask] = useState(project.task)
+
+  const handleKeyUp = (event, prop) => {
+    if (event.keyCode === 13) {
+      project.update(prop, event.target.value);
+    }
+  };
 
   useEffect(() => {
 
@@ -81,7 +100,13 @@ export const ProjectCard = ({
 
         <Line displayWhenCollapsed expanded={expanded}>
           <Text fontSize='.9rem'>
-            {project.task} &nbsp;
+          <TaskInput
+            value={task}
+            onChange={e => setTask(e.target.value)}
+            borderColor={expanded ? "lightgrey" : "white"}
+            readOnly={expanded ? false : true}
+            onKeyUp={e => handleKeyUp(e, "task")}
+          />
           </Text>
           <CardTime obj={project} />
         </Line>

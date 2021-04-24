@@ -11,7 +11,7 @@ const boxShadow = {
 export const Styles = {
   Card: styled.div<{ boxShadow: string, opacity: number }> `
     margin: 10px auto;
-    width: 97%;
+    width: 94%;
     display: flex;
     flex-direction: column;
     border: 1px solid;
