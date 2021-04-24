@@ -45,13 +45,6 @@ export const Main = ({ }) => {
 
   const [dialog, setDialog] = useState('')
 
-  const handleSelectClient=(client: Client)=>{
-    if(client.id===currentClient.id){
-      setCurrentClient(new Client())
-    }else{
-      setCurrentClient(client)
-    }
-  }
 
   const book = useContext(ClientsContext)
   return (
