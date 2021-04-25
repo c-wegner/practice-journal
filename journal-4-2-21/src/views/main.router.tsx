@@ -13,13 +13,10 @@ import {
 import { useState } from "react";
 import { Dialog } from "../components/dialog/dialog";
 import { OptionStyle, Menu } from "../components/menu/menu.navigation";
-import { ClientForm } from "../forms/client.forms";
 import { Client, ClientsContext } from "../_models";
-import { ProjectForm } from "../forms/project.form";
-import { TimeForm } from "../forms/time.form";
-import { ClientCard } from "../components/cards/client.card";
 import { Dashboard } from "./dashboard/dashboard";
 import { TimeSheet } from "../components/timesheet/timesheet.styles";
+import { AuthContext, LogIn } from "../_models/auth/auth.model.view.context";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -33,7 +30,7 @@ const Stage = styled.div`
     flex-direction: column;
 `;
 
-const FakeLane= styled.div `
+const FakeLane = styled.div`
   width: 25%;
   display: flex;
   flex-direction: column;
@@ -41,7 +38,7 @@ const FakeLane= styled.div `
 
 
 export const Main = ({ }) => {
-  const [currentClient, setCurrentClient] = useState(new Client())
+  const authContext = useContext(AuthContext);
 
   const [dialog, setDialog] = useState('')
 
@@ -78,11 +75,16 @@ export const Main = ({ }) => {
         </Stage>
         <Switch>
           <Route exact path='/'>
-          <Dashboard/>
+            <SiteHider userState={authContext.user} logInScreen={true}>
+              <LogIn />
+            </SiteHider>
+            <SiteHider userState={authContext.user} logInScreen={false}>
+              <Dashboard />
+            </SiteHider>
           </Route>
 
           <Route path='/billing'>
-            <TimeSheet/>
+            <TimeSheet />
           </Route>
         </Switch>
       </Router>
@@ -92,3 +94,20 @@ export const Main = ({ }) => {
     </Wrapper>
   )
 }
+
+const SiteHiderStyle = styled.div<{ display: string }>`
+  display: ${p => p.display};
+  min-height: 100vh;
+`;
+
+const getDisplay = (user, login) => {
+  if (user && !login) return "block";
+  if (!user && login) return "block";
+  return "none";
+};
+
+const SiteHider = ({ userState, logInScreen, children }) => (
+  <SiteHiderStyle display={getDisplay(userState !== null, logInScreen)}>
+    {children}
+  </SiteHiderStyle>
+);
