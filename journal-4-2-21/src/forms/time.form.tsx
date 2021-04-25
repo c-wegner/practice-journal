@@ -103,9 +103,15 @@ function SubmitButton() {
 
     const finalSubmit = timeSheet.groupTimes(submitState)
 
-    console.table(finalSubmit)
+    let temp = new Object();
+
+    for(const prop in finalSubmit){
+      temp[prop]= finalSubmit[prop]
+    }
+
+    console.table(temp)
     pivotContext.reset()
-    formContext.submit(finalSubmit)
+    formContext.submit(temp)
   }
 
   return (

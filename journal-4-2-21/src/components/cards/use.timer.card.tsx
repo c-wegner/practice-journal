@@ -16,8 +16,8 @@ export const useTimekeeper=(isRunning = false, setTimer, startingValueInSeconds 
 
   const handleTick =()=>{
     if(isRunning){
-      setCurrentTime(currentTime=>currentTime + .1)
-      setTimer(currentTime=>currentTime + .1)
+      setCurrentTime(currentTime=>currentTime + 1)
+      setTimer(currentTime=>currentTime + 1)
     }
   }
 }

@@ -42,16 +42,37 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
   if (localStorage.getItem('wegnerStoredTimerData')) {
     wegnerStoredTimerData = JSON.parse(localStorage.getItem('wegnerStoredTimerData'))
   }
-  let timerStartTime = obj.hasOpenTime? wegnerStoredTimerData.currentTime : 0;
-  useEffect(()=>{
-    if(obj.hasOpenTime && wegnerStoredTimerData){
+  let timerStartTime = 0;
+  if (wegnerStoredTimerData && obj.hasOpenTime) {
+    timerStartTime = wegnerStoredTimerData.currentTime
+    if(wegnerStoredTimerData.timerRunning){
+      let delta = new Date().getTime() - wegnerStoredTimerData.lastSave
+      delta = delta / 1000
+      timerStartTime = timerStartTime + delta
+
+    }
+
+  }else{
+    startTimerRunning = true;
+  }
+  useEffect(() => {
+    if (obj.hasOpenTime && wegnerStoredTimerData) {
+
       timerStartTime = wegnerStoredTimerData.currentTime
+      if(wegnerStoredTimerData.timerRunning){
+        let delta = new Date().getTime() - wegnerStoredTimerData.lastSave
+        delta = delta / 1000
+        timerStartTime = timerStartTime + delta
+  
+      }
+     
+
       startTimerRunning = wegnerStoredTimerData.timerRunning
       setShowTimer(true)
-  
+
     }
   }, [])
- 
+
 
   useEffect(() => { }, [timeChange])
 
@@ -81,17 +102,17 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
     }
   }
 
-  const getTimeValue=()=>{
-    if(timeChange!==0){
+  const getTimeValue = () => {
+    if (timeChange !== 0) {
       return timeChange
-    }else{
+    } else {
       return baseTime
     }
   }
 
   const HandleQuickTimeEntry = () => {
 
-    
+
     if (timeChange > 0) {
 
       const t = obj.createNewTimeEntry()
@@ -100,7 +121,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
       let finalSubmit = timeSheet.groupTimes(t)
 
       finalSubmit.save()
-      if(obj.classType==='project'){
+      if (obj.classType === 'project') {
         book.updateProjectTime(obj['clientId'], t.time)
       }
       setBaseTime(baseTime + timeChange)
@@ -112,7 +133,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
 
   if (showTimer) {
     return (
-      <TimerFace onExit={() => setShowTimer(false)} obj={obj} startingTimeInSeconds={timerStartTime} timerIsRunning={startTimerRunning} />
+      <TimerFace onExit={() => setShowTimer(false)} obj={obj} startingTimeInSeconds={timerStartTime}  />
     )
   } else {
 
@@ -125,7 +146,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
           <Icons.Decrease display color='red' onClick={() => handleDecrease()} />
         </TimerContainerStyle>
         <TimerContainerItem>
-          {convertToTimerFormat(getTimeValue())}
+          {convertToTimekeepperFormat(getTimeValue())}
         </TimerContainerItem>
         <TimerContainerItem>
           <Icons.Clock display size={getClockSize()} color={getClockColor()} onClick={() => HandleQuickTimeEntry()} />
@@ -135,7 +156,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
   }
 }
 
-function convertToTimerFormat(current: number) {
+function convertToTimekeepperFormat(current: number) {
   let temp = Math.round(current * 10) / 10
   if (temp === 0) {
     return '0.0'
@@ -148,7 +169,36 @@ function convertToTimerFormat(current: number) {
   }
 }
 
-function TimerFace({ obj, onExit, startingTimeInSeconds=0, timerIsRunning = true }) {
+function convertToTimerFormat(currentInSeconds: number){
+  let h = Math.floor(currentInSeconds / 3600);
+  let m = Math.floor(currentInSeconds % 3600 / 60);
+  let s = Math.floor(currentInSeconds % 3600 % 60);
+
+  let sec = s.toString()
+  if(s<10){
+    sec= '0' + sec
+  }
+
+  let min = m.toString() 
+  if(m<10){
+    min = '0' + min
+  }
+
+  const colon = (s%2)===0? ':' : ' '
+
+  return h.toString() + colon + min + '.' + sec
+}
+
+function convertToEntryFormat(currentInSeconds){
+  let temp = currentInSeconds / 60
+  temp = temp/60
+  return ((temp*10)/10) + .1
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function TimerFace({ obj, onExit, startingTimeInSeconds = 0}) {
   const [showPanel, setShowPanel] = useState('')
   const [timerTime, setTimerTime] = useState(startingTimeInSeconds)
 
@@ -164,7 +214,7 @@ function TimerFace({ obj, onExit, startingTimeInSeconds=0, timerIsRunning = true
     lastSave: new Date().getTime()
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     wegnerStoredTimerData.currentTime = timerTime
     wegnerStoredTimerData.timerRunning = timerRunning
     wegnerStoredTimerData.lastSave = new Date().getTime();
@@ -183,11 +233,21 @@ function TimerFace({ obj, onExit, startingTimeInSeconds=0, timerIsRunning = true
   }
   const handleRecord = () => {
     setShowPanel('Record time')
+    localStorage.removeItem('wegnerStoredTimerData')
   }
 
-  const handleCancel =()=>{
-    localStorage.removeItem('wegnerStoredTimerData')
+  const handleDoneWithRecording=()=>{
+    setShowPanel('')
     onExit()
+  }
+
+  const handleCancel = () => {
+    if (timerRunning) {
+      handlePlay()
+    } else {
+      localStorage.removeItem('wegnerStoredTimerData')
+      onExit()
+    }
   }
 
   const showPlayOrPause = () => {
@@ -211,14 +271,14 @@ function TimerFace({ obj, onExit, startingTimeInSeconds=0, timerIsRunning = true
           <Icons.Record display color={timerRunning ? 'lightgray' : 'red'} onClick={() => handleRecord()} />
         </TimerContainerStyle>
         <TimerContainerItem>
-          {convertToTimerFormat(timerTime)}
+          {convertToTimerFormat((timerTime))}
         </TimerContainerItem>
         <TimerContainerItem>
           <Icons.Cancel display size='.8rem' onClick={() => handleCancel()} />
         </TimerContainerItem>
       </TimerContainerStyle>
-      <Panel id='Record time' onExit={()=>setShowPanel('')} current={showPanel}>
-        <TimeForm obj={obj.createNewTimeEntry(timerTime)}/>
+      <Panel id='Record time' onExit={() => handleDoneWithRecording()} current={showPanel}>
+        <TimeForm obj={obj.createNewTimeEntry(convertToEntryFormat(timerTime))} />
       </Panel>
     </Fragment>
   )

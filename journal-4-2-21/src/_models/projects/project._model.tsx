@@ -98,7 +98,7 @@ export class Project {
       }
       t.billTo = convertToDateString(new Date().getTime())
       t.rate = this.billRate
-      t.time = timeInSeconds
+      t.time = Math.round(timeInSeconds*10)/10
       return t
     }
 }

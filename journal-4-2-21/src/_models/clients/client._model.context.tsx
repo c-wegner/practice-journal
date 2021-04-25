@@ -23,11 +23,12 @@ export const ClientsProvider = ({ children }) => {
       querySnapshot.forEach(function (doc) {
         const c = cloneClient(doc.data());
         c.hasOpenTime = false;
+        c.timerIsRunning = true;
         if (localStorage.getItem('wegnerStoredTimerData')) {
           if(wegnerStoredTimerData.objId===c.id && wegnerStoredTimerData.objType==='contact'){
             c.hasOpenTime = true
             c.timerIsRunning = wegnerStoredTimerData.timerRunning
-            console.log(c.display + ' has timer ' + wegnerStoredTimerData.currentTime)
+
           }
         }
         book.addClient(c)
@@ -53,4 +54,9 @@ function cloneClient(obj: any): Client {
     temp[p] = obj[p];
   }
   return temp;
+}
+
+function getSecondsFromLastTick(lastTick: number){
+  let delta = new Date().getTime() - lastTick
+  return delta/1000
 }

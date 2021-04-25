@@ -48,9 +48,13 @@ export class Time{
 
 export function submitObject(obj, path) {
     const db = firebase.firestore(app);
+    let temp;
+    for(const prop in obj){
+      temp[prop] = obj[prop]
+    }
     db.collection(path)
         .doc(obj.id)
-        .set(obj);
+        .set(temp);
 }
 
 export function updateObject(obj, propToUpdate, updateValue, path) {
