@@ -83,7 +83,7 @@ export class Project {
       return this.open
     }
 
-    createNewTimeEntry(timeInMilliSeconds=0){
+    createNewTimeEntry(timeInSeconds = 0){
       const t = new Time()
       t.projectId = this.id
       t.projectDisplay = this.display
@@ -98,6 +98,7 @@ export class Project {
       }
       t.billTo = convertToDateString(new Date().getTime())
       t.rate = this.billRate
+      t.time = timeInSeconds
       return t
     }
 }

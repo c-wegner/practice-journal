@@ -32,10 +32,26 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
 
   const [baseTime, setBaseTime] = useState(obj.currentTime)
   const [timeChange, setTimeChange] = useState(0)
+  let wegnerStoredTimerData = null;
+  let startTimerRunning = true;
+
 
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
   const timeSheet = useContext(TimesContext)
+  if (localStorage.getItem('wegnerStoredTimerData')) {
+    wegnerStoredTimerData = JSON.parse(localStorage.getItem('wegnerStoredTimerData'))
+  }
+  let timerStartTime = obj.hasOpenTime? wegnerStoredTimerData.currentTime : 0;
+  useEffect(()=>{
+    if(obj.hasOpenTime && wegnerStoredTimerData){
+      timerStartTime = wegnerStoredTimerData.currentTime
+      startTimerRunning = wegnerStoredTimerData.timerRunning
+      setShowTimer(true)
+  
+    }
+  }, [])
+ 
 
   useEffect(() => { }, [timeChange])
 
@@ -96,7 +112,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
 
   if (showTimer) {
     return (
-      <TimerFace onExit={() => setShowTimer(false)} obj={obj} />
+      <TimerFace onExit={() => setShowTimer(false)} obj={obj} startingTimeInSeconds={timerStartTime} timerIsRunning={startTimerRunning} />
     )
   } else {
 
@@ -132,20 +148,13 @@ function convertToTimerFormat(current: number) {
   }
 }
 
-function TimerFace({ obj, onExit }) {
+function TimerFace({ obj, onExit, startingTimeInSeconds=0, timerIsRunning = true }) {
   const [showPanel, setShowPanel] = useState('')
-  const [timerTime, setTimerTime] = useState(0)
+  const [timerTime, setTimerTime] = useState(startingTimeInSeconds)
 
-  const [timerRunning, setTimerRunning] = useState(true)
+  const [timerRunning, setTimerRunning] = useState(obj.timerIsRunning)
 
-  const timer = useTimekeeper(timerRunning, setTimerTime, 0)
-
-  useEffect(()=>{
-    wegnerStoredTimerData.currentTime = timerTime
-    wegnerStoredTimerData.timerRunning = timerRunning
-    wegnerStoredTimerData.lastSave = new Date().getTime();
-    localStorage.setItem('wegnerStoredTimerData', JSON.stringify(wegnerStoredTimerData))
-  }, [timerTime, timerRunning])
+  const timer = useTimekeeper(timerRunning, setTimerTime, startingTimeInSeconds)
 
   const wegnerStoredTimerData = {
     objType: obj.classType,
@@ -154,6 +163,15 @@ function TimerFace({ obj, onExit }) {
     currentTime: timerTime,
     lastSave: new Date().getTime()
   }
+
+  useEffect(()=>{
+    wegnerStoredTimerData.currentTime = timerTime
+    wegnerStoredTimerData.timerRunning = timerRunning
+    wegnerStoredTimerData.lastSave = new Date().getTime();
+    localStorage.setItem('wegnerStoredTimerData', JSON.stringify(wegnerStoredTimerData))
+  }, [timerTime, timerRunning])
+
+
 
 
   const handlePlay = () => {
@@ -164,7 +182,7 @@ function TimerFace({ obj, onExit }) {
     }
   }
   const handleRecord = () => {
-
+    setShowPanel('Record time')
   }
 
   const handleCancel =()=>{
@@ -200,7 +218,7 @@ function TimerFace({ obj, onExit }) {
         </TimerContainerItem>
       </TimerContainerStyle>
       <Panel id='Record time' onExit={()=>setShowPanel('')} current={showPanel}>
-        <TimeForm obj={obj.createNewTimeEntry()}/>
+        <TimeForm obj={obj.createNewTimeEntry(timerTime)}/>
       </Panel>
     </Fragment>
   )

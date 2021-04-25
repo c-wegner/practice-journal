@@ -108,13 +108,14 @@ currentTime = 0;
     return !this.archived
   }
 
-  createNewTimeEntry(timeInMilliSeconds = 0){
+  createNewTimeEntry(timeInSeconds = 0){
     const t = new Time()
     t.clientId=this.id
     t.clientName = this.name
     t.clientDisplay = this.display
     t.clientShortName= this.shortName
     t.rate = this.billRate
+    t.time = Math.round(10* timeInSeconds)/10
     t.description = 'Handled various items for client.'
     return t
   }

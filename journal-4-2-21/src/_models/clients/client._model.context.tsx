@@ -8,23 +8,26 @@ export const ClientsProvider = ({ children }) => {
   const [clientsData, setClientsData] = useState([])
   const book = new Clients()
 
-  let wegnerTimerData = null;
+  let wegnerStoredTimerData = null;
 
-  if (localStorage.getItem('wegnerTimerData')) {
-    wegnerTimerData = JSON.parse(localStorage.getItem('wegnerTimerData'))
-  }
+
 
   const loadClients = () => {
     const db = firebase.firestore(app);
 
     db.collection(clientPath).onSnapshot(function (querySnapshot) {
       book.clients = [];
+      if (localStorage.getItem('wegnerStoredTimerData')) {
+        wegnerStoredTimerData = JSON.parse(localStorage.getItem('wegnerStoredTimerData'))
+      }
       querySnapshot.forEach(function (doc) {
         const c = cloneClient(doc.data());
-        c.timerIsRunning = false;
-        if (localStorage.getItem('wegnerTimerData')) {
-          if(wegnerTimerData.objId===c.id && wegnerTimerData.objType==='contact'){
-            c.timerIsRunning = true
+        c.hasOpenTime = false;
+        if (localStorage.getItem('wegnerStoredTimerData')) {
+          if(wegnerStoredTimerData.objId===c.id && wegnerStoredTimerData.objType==='contact'){
+            c.hasOpenTime = true
+            c.timerIsRunning = wegnerStoredTimerData.timerRunning
+            console.log(c.display + ' has timer ' + wegnerStoredTimerData.currentTime)
           }
         }
         book.addClient(c)

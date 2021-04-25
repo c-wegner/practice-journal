@@ -29,7 +29,7 @@ export const ClientLane = ({
       </Header>
       {
         book.clients.map((x) => (
-          <ClientCard client={x} currentClient={currentClient} onClientSelect={handleSelectClient} />
+          <ClientCard client={x} currentClient={currentClient} onClientSelect={handleSelectClient} key={x.id}/>
 
         ))
       }
