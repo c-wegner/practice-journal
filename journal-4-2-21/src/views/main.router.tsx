@@ -52,22 +52,22 @@ export const Main = ({ }) => {
             <OptionStyle>
               <Link to='/clients'>
                 Clients
-                                </Link>
+              </Link>
             </OptionStyle>
             <OptionStyle>
               <Link to='/projects'>
                 Projects
-                            </Link>
+              </Link>
             </OptionStyle>
             <OptionStyle>
               <Link to='/billing'>
                 Billing
-                        </Link>
+              </Link>
             </OptionStyle>
             <OptionStyle>
               <Link to='options'>
                 Options
-                          </Link>
+                </Link>
             </OptionStyle>
           </Menu>
 
