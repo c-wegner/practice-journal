@@ -15,7 +15,7 @@ const TaskInput = styled.input<{borderColor: string}>`
   border-color: ${p => p.borderColor};
   display: flex;
   align-items: center;
-
+  font-size: .9rem;
   color: ${p => p.color};
   flex-grow: 1;
   padding: 0;
@@ -85,7 +85,9 @@ export const ProjectCard = ({
             {SizeText(project.display, 35)}
           </Title>
           <HeadHolder>
+      
             {project.clientShortName}
+    
           <_DisplayIcons
             archived={!project.open}
             phone={project.followUpPhone}
@@ -137,23 +139,3 @@ export const ProjectCard = ({
   )
 }
 
-export const ContactItem = ({ itemType = 'Phone', content = '' }) => {
-  if (content === '') {
-    return <Fragment>&nbsp;</Fragment>
-  }
-
-  const getIconType = () => {
-    if (itemType === 'Phone') {
-      return <Icons.Phone display margin='0 5px 0 0' color='blue' />
-    } else {
-      return <Icons.Envelope display color='blue' />
-    }
-  }
-  return (
-    <Text>
-      <Icons.IconBoxStyle display='flex' color='blue'>
-        {getIconType()}
-      </Icons.IconBoxStyle>&nbsp; {content}
-    </Text>
-  )
-}

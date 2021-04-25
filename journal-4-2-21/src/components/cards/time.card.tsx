@@ -5,6 +5,7 @@ import { useState } from 'react';
 import styled from 'styled-components'
 import { TimeForm } from '../../forms/time.form';
 import { Client, ClientsContext, Project, ProjectsContext, TimesContext } from '../../_models';
+import { Dialog } from '../dialog/dialog';
 import *as Icons from '../icons/_icons.v.2'
 import { Panel } from '../panel/panels';
 import { useTimekeeper } from './use.timer.card';
@@ -14,7 +15,6 @@ const TimerContainerStyle = styled.div`
   justify-content: flex-end;
   align-items: center;
 `
-
 const TimerContainerItem = styled.div`
   display: flex;
   justify-content: center;
@@ -35,7 +35,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
   let wegnerStoredTimerData = null;
   let startTimerRunning = true;
 
-
+  const [showDialog, setShowDialog] = useState('')
   const book = useContext(ClientsContext)
   const list = useContext(ProjectsContext)
   const timeSheet = useContext(TimesContext)
@@ -127,7 +127,12 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
       setBaseTime(baseTime + timeChange)
       setTimeChange(0)
     } else {
-      setShowTimer(true)
+      if(localStorage.getItem('wegnerStoredTimerData')){
+        setShowDialog('Timer running error')
+        alert('Cannot have 2 or more timers running at same time. If there are no other timers running and you have reached this message in error, open the Application tab from Web Dev tools and clear local storage.')
+      }else{
+        setShowTimer(true)
+      }
     }
   }
 
@@ -138,6 +143,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
   } else {
 
     return (
+      <Fragment>
       <TimerContainerStyle>
         <TimerContainerItem>
           <Icons.Increase display color='green' onClick={() => handleIncrease()} />
@@ -152,6 +158,8 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
           <Icons.Clock display size={getClockSize()} color={getClockColor()} onClick={() => HandleQuickTimeEntry()} />
         </TimerContainerItem>
       </TimerContainerStyle>
+
+      </Fragment>
     )
   }
 }

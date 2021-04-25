@@ -30,6 +30,7 @@ export class Times {
         t.clientShortName = c.shortName
         t.projectDisplay = p.display
       }
+      t.time = Math.round(t.time * 10)/10
       this.times[i] = t
     }
   }

@@ -48,7 +48,7 @@ export class Time{
 
 export function submitObject(obj, path) {
     const db = firebase.firestore(app);
-    let temp;
+    let temp = new Object();
     for(const prop in obj){
       temp[prop] = obj[prop]
     }

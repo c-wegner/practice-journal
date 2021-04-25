@@ -87,6 +87,21 @@ export class Clients {
       }
     }
   }
+
+  getFilteredCards(filterBy = 'Current clients'){
+    switch(filterBy){
+      case 'Current clients': return this.clients.filter(x=>{
+        if(x.archived || x.firmRelated || x.prospect){
+          return false
+        }
+        return true
+      })
+
+      case 'Active clients': return this.clients.filter(x=>x.currentProjects>0 && !x.firmRelated)
+      case 'Clients with current billables': return this.clients.filter(x=>x.currentTime >0)
+      case 'All clients': return this.clients
+    }
+  }
 }
 
 function compareClients(x:Client, y:Client){

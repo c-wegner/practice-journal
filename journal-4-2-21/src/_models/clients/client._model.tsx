@@ -52,6 +52,9 @@ currentTime = 0;
   lastTimerUpdate: number = 0;
   timerTime: number = 0;
 
+  useDifferentNameForShortName = false;
+  differentNameForShortName = ''
+
   convertToObject() {
     return JSON.parse(JSON.stringify(this));
   }
@@ -85,6 +88,9 @@ currentTime = 0;
   }
 
   get shortName() {
+    if(this.useDifferentNameForShortName){
+      return this.differentNameForShortName
+    }
     if (this.useAltName) {
       return this.altName;
     }

@@ -111,6 +111,7 @@ export const ClientForm = ({
               <Col alignItems='flex-end'>
                 <Checkbox label='Archived' prop='archived' right />
                 <Checkbox label='Firm related' prop='firmRelated' right />
+                <Checkbox label='Use different short name' prop='useDifferentNameForShortName' right/>
               </Col>
               <Col alignItems='flex-end'>
                 <Checkbox
@@ -128,6 +129,10 @@ export const ClientForm = ({
             </Row>
             <ConditionalContent prop='useAltName' conditionState={true}>
               <TextBox label='Alternate name' prop='altName' />
+            </ConditionalContent>
+
+            <ConditionalContent prop='useDifferentNameForShortName' conditionState={true}>
+              <TextBox label='Alternate sort name' prop='differentNameForShortName' />
             </ConditionalContent>
 
             <ConditionalContent prop='isBusiness' conditionState={true}>
