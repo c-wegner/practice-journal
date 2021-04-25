@@ -98,7 +98,7 @@ export class Clients {
       })
 
       case 'Active clients': return this.clients.filter(x=>x.currentProjects>0 && !x.firmRelated)
-      case 'Clients with current billables': return this.clients.filter(x=>x.currentTime >0)
+      case 'Clients with billables': return this.clients.filter(x=>x.currentTime >0)
       case 'All clients': return this.clients
     }
   }

@@ -16,27 +16,39 @@ export const ClientLane = ({
   const [viewClientType, setViewClientType] = useState('Active clients')
   const [showPanel, setShowPanel] = useState('')
 
+  const handleChangeFilter = () => {
+    switch (viewClientType) {
+      case 'Active clients':
+        setViewClientType('Current clients')
+        break
+      case 'Current clients': setViewClientType('Clients with billables')
+        break
+      case 'Clients with billables': setViewClientType( 'All clients')
+      break
+      case 'All clients': setViewClientType( 'Active clients')
+      break
+    }
+  }
+
   return (
     <Fragment>
-    <LaneStyle>
-      <Header>
-        <Heading>
-          {viewClientType}
+      <LaneStyle>
+        <Header>
+          <Heading onClick={() => handleChangeFilter()}>
+            {viewClientType}
+          </Heading>
+          <Icons.PersonPlus size='1.2rem' onClick={() => setShowPanel('Add client')} />
+        </Header>
+        {
+          book.getFilteredCards(viewClientType).map((x) => (
+            <ClientCard client={x} currentClient={currentClient} onClientSelect={handleSelectClient} key={x.id} />
 
-
-        </Heading>
-        <Icons.PersonPlus size='1.2rem' onClick={()=>setShowPanel('Add client')} />
-      </Header>
-      {
-        book.clients.map((x) => (
-          <ClientCard client={x} currentClient={currentClient} onClientSelect={handleSelectClient} key={x.id}/>
-
-        ))
-      }
-    </LaneStyle>
-    <Panel id='Add client' current={showPanel} onExit={()=>setShowPanel('')}>
-      <ClientForm obj={new Client()}/>
-    </Panel>
+          ))
+        }
+      </LaneStyle>
+      <Panel id='Add client' current={showPanel} onExit={() => setShowPanel('')}>
+        <ClientForm obj={new Client()} />
+      </Panel>
     </Fragment>
   )
 }
