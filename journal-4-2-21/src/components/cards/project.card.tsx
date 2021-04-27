@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client, Project } from '../../_models';
-import { Card, Line, SizeText, Text, Title, _DisplayIcons, IconHolder } from './styles';
+import { Card, Line, SizeText, Text, Title, _DisplayIcons, IconHolder, DragableCard } from './styles';
 import *as Icons from '../icons/_icons.v.2'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
@@ -34,6 +34,7 @@ export const ProjectCard = ({
   currentClient = new Client(),
   currentProject = new Project(),
   onProjectSelect,
+  onDragStart
 }) => {
   const [showPanel, setShowPanel] = useState('')
   const [expanded, setExpanded] = useState(false);
@@ -79,7 +80,7 @@ export const ProjectCard = ({
 
   return (
     <Fragment>
-      <Card boxShadow={expanded} opacity={opacity}>
+      <DragableCard boxShadow={expanded} opacity={opacity} onDragStart={()=>onDragStart()}>
         <Line displayWhenCollapsed expanded={expanded}>
           <Title onClick={() => handleClick()}>
             {SizeText(project.display, 35)}
@@ -126,7 +127,7 @@ export const ProjectCard = ({
             </IconHolder>
           </Text>
         </Line>
-      </Card>
+      </DragableCard>
 
       <Panel id='Edit project' onExit={()=>setShowPanel('')} current={showPanel}>
         <ProjectForm obj={project}/>

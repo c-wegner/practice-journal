@@ -30,6 +30,7 @@ export const Heading = styled.div `
 export const Dashboard = ({ }) => {
   const [currentClient, setCurrentClient] = useState(new Client())
   const [currentProject, setCurrentProject] = useState(new Project())
+  const [draggedProjectCard, setDraggedProjectCard] = useState(new Project())
   const book = useContext(ClientsContext)
 
   const handleSelectClient = (client: Client) => {
@@ -51,14 +52,30 @@ export const Dashboard = ({ }) => {
     }
   }
 
+  const handleOnDragStart=(project: Project, e)=>{
+
+    setDraggedProjectCard(project)
+
+  }
+
+  const handleOnDrageEnter=(e)=>{
+    e.preventDefault()
+
+  }
+
+  const handleOnDragDrop=(lane)=>{
+    draggedProjectCard.update('lane', lane)
+  }
+
+
   return (
     <Fragment>
       <Stage>
       <ClientLane currentClient={currentClient} handleSelectClient={handleSelectClient}/>
 
-        <ProjectLane id='@Wegner Law PLLC' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject}/>
-        <ProjectLane id='@Client' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject}/>
-        <ProjectLane id='@3rd party' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject}/>
+        <ProjectLane id='@Wegner Law PLLC' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
+        <ProjectLane id='@Client' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
+        <ProjectLane id='@3rd party' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
       </Stage>
     </Fragment>
   )
@@ -68,12 +85,20 @@ const ProjectLane=({
   id='',
   currentClient,
   currentProject,
-  onSelectProject
+  onSelectProject,
+  onDragStart,
+  onDragEnter,
+  onDrop
 })=>{
   const list = useContext(ProjectsContext)
 
+  
+  const handleOnDrop=(lane)=>{
+    onDrop(lane)
+  }
+
   return(
-    <LaneStyle>
+    <LaneStyle onDragEnter={(e)=>onDragEnter(e)} onDrop={()=>handleOnDrop(id)} onDragOver={e=>e.preventDefault()}>
       <Header>
         <Heading>
           {id}
@@ -82,7 +107,7 @@ const ProjectLane=({
       </Header>
       {
           list.getActiveProjects(id).map(x=>(
-            <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id}/>
+            <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e)=>onDragStart(x, e)}           />
           ))
         }
     </LaneStyle>
