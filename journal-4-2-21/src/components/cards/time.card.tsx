@@ -114,7 +114,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
 
 
     if (timeChange > 0) {
-
+      localStorage.removeItem('wegnerStoredTimerData')
       const t = obj.createNewTimeEntry()
       let myTimeChange = Math.round(timeChange * 10) / 10
       t.time = myTimeChange
@@ -226,7 +226,9 @@ function TimerFace({ obj, onExit, startingTimeInSeconds = 0}) {
     wegnerStoredTimerData.currentTime = timerTime
     wegnerStoredTimerData.timerRunning = timerRunning
     wegnerStoredTimerData.lastSave = new Date().getTime();
-    localStorage.setItem('wegnerStoredTimerData', JSON.stringify(wegnerStoredTimerData))
+    if(timerRunning){
+ 
+    }
   }, [timerTime, timerRunning])
 
 
@@ -241,6 +243,7 @@ function TimerFace({ obj, onExit, startingTimeInSeconds = 0}) {
   }
   const handleRecord = () => {
     setShowPanel('Record time')
+    setTimerRunning(false)
     localStorage.removeItem('wegnerStoredTimerData')
   }
 
@@ -253,6 +256,7 @@ function TimerFace({ obj, onExit, startingTimeInSeconds = 0}) {
     if (timerRunning) {
       handlePlay()
     } else {
+      setTimerRunning(false)
       localStorage.removeItem('wegnerStoredTimerData')
       onExit()
     }
