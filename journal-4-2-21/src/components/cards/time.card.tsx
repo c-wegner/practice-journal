@@ -227,7 +227,7 @@ function TimerFace({ obj, onExit, startingTimeInSeconds = 0}) {
     wegnerStoredTimerData.timerRunning = timerRunning
     wegnerStoredTimerData.lastSave = new Date().getTime();
     if(timerRunning){
- 
+   localStorage.setItem('wegnerStoredTimerData', JSON.stringify(wegnerStoredTimerData))
     }
   }, [timerTime, timerRunning])
 
