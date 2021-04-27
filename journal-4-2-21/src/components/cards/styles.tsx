@@ -70,12 +70,17 @@ export const Text = ({ children, fontSize = '.9rem', fontWeight = 'inherit', col
   </Styles.Text>
 )
 
-export const Card = ({ children, boxShadow = false, opacity = 1 }) => (
-  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity}>
+export const Card = ({ children, boxShadow = false, opacity = 1,  }) => (
+  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity} >
     {children}
   </Styles.Card>
 )
 
+export const DragableCard = ({ children, boxShadow = false, opacity = 1, onDragStart }) => (
+  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity}  draggable onDragStart={()=>onDragStart()}>
+    {children}
+  </Styles.Card>
+)
 const getMaxHeight = (displayWhenCollapsed: boolean, expanded: boolean) => {
   if (displayWhenCollapsed) { return '7rem' }
   return expanded ? '7rem' : '0'
