@@ -22,12 +22,18 @@ export class Time{
 
     subscription: boolean = false;
     flatFee: boolean = false;
-    expense: boolean = false;
+    isExpense: boolean = false;
 
     lastSave: number = 0;
 
     createdOn: number = 0;
     billTo: string = convertToDateString(new Date().getTime());
+
+    prepare(){
+      if(this.isExpense){
+        this.time = 1;
+      }
+    }
 
     convertToObject() {
         return JSON.parse(JSON.stringify(this));

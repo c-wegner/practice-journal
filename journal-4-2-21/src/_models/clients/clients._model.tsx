@@ -62,7 +62,7 @@ export class Clients {
 
           } else if (t.flatFee) {
 
-          } else if (t.expense) {
+          } else if (t.isExpense) {
 
           } else {
             c.totalTime += t.time

@@ -57,10 +57,22 @@ export const TimeForm = ({
               <TextArea label='Notes' prop='notes' rows={2} />
             </Row>
           </PivotPage>
-          <PivotPage id='Expense'>
+          <PivotPage id='Fixed feee'>
+            <Row justifyContent='flex-end'>
+              <Checkbox label='Fixed fee' prop='flatFee' right/>
+            </Row>
             <Row>
               <TextBox label='Description' prop='description' width='70%'/>
-              <TextBox label = 'Amount' prop='charge' width='30%' inputType='number'/>
+              <TextBox label = 'Amount' prop='rate' width='30%' inputType='number'/>
+            </Row>
+          </PivotPage>
+          <PivotPage id='Expense'>
+            <Row justifyContent='flex-end'>
+              <Checkbox label='Expense' prop='isExpense' right/>
+            </Row>
+            <Row>
+              <TextBox label='Description' prop='description' width='70%'/>
+              <TextBox label = 'Amount' prop='rate' width='30%' inputType='number'/>
             </Row>
           </PivotPage>
           <PivotPage id='Options'>
@@ -100,6 +112,13 @@ function SubmitButton() {
     }
 
     submitState['lastSave'] = new Date().getTime()
+
+    const isExpense = submitState['isExpense']
+    const isFlatFee = submitState['flatFee']
+
+    if(isExpense || isFlatFee){
+      submitState['time'] = 1;
+    }
 
     const finalSubmit = timeSheet.groupTimes(submitState)
 

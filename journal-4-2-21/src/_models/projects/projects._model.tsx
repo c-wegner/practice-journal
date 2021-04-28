@@ -61,7 +61,7 @@ export class Projects{
 
             } else if (t.flatFee) {
   
-            } else if (t.expense) {
+            } else if (t.isExpense) {
   
             } else {
               p.totalTime += t.time
