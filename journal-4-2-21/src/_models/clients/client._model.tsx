@@ -110,8 +110,6 @@ currentTime = 0;
         return this.name;
       }
     }else{
-
-      console.log(fullName)
       return lastName
     }
 
