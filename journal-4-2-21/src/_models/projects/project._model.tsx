@@ -101,6 +101,23 @@ export class Project {
       t.time = Math.round(timeInSeconds*10)/10
       return t
     }
+
+    getCreationDate(){
+      const createdOn = new Date(parseInt(this.id))
+      const M = MonthArray[createdOn.getMonth()]
+      const d = createdOn.getDate()
+      let dString = d.toString()
+      if(d<10){
+        dString='0' + dString
+      }
+      const y = createdOn.getFullYear()
+      const currentYear = new Date().getFullYear()
+      let yString = ''
+      if(currentYear!==y){
+        yString = ', ' + y
+      }
+      return M + ' ' + dString + yString
+    }
 }
 
 export function submitObject(obj, path) {
@@ -122,3 +139,4 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
     })
 }
 
+export const MonthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

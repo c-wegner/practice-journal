@@ -116,7 +116,7 @@ export const ProjectCard = ({
 
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>
-
+              Created: {project.getCreationDate()}
           </Text>
           <Text right>
             <IconHolder>
