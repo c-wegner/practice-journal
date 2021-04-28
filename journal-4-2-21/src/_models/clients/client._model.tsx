@@ -84,7 +84,7 @@ currentTime = 0;
       return this.name;
     }
     const lastName = fullName[l - 1];
-    console.log(this.name + ' | '+lastName + ", " + this.name.replace(lastName, "").trim())
+
     return lastName + ", " + this.name.replace(lastName, "").trim()
   }
 
@@ -97,7 +97,7 @@ currentTime = 0;
     }
 
     const tempName = this.name.trim()
-    const fullName = this.name.split(tempName);
+    const fullName = tempName.split(' ');
     const l = fullName.length;
     if (l < 2) {
       return this.name;
@@ -109,8 +109,12 @@ currentTime = 0;
       } else {
         return this.name;
       }
+    }else{
+
+      console.log(fullName)
+      return lastName
     }
-    return lastName;
+
   }
 
   get active(){

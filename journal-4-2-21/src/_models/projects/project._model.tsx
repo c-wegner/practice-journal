@@ -91,6 +91,8 @@ export class Project {
       t.clientName = this.clientName
       t.clientDisplay = this.clientDisplay
       t.clientShortName= this.clientShortName
+
+    
       if(this.task!==''){
         t.description = this.task
       }else{
