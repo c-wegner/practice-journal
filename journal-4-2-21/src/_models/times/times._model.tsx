@@ -52,5 +52,8 @@ export class Times {
     }
     return time
   }
+}
 
+export const StoreTimerData =()=>{
+  
 }

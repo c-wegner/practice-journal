@@ -84,7 +84,8 @@ currentTime = 0;
       return this.name;
     }
     const lastName = fullName[l - 1];
-    return lastName + ", " + this.name.replace(lastName, "").trim();
+    console.log(this.name + ' | '+lastName + ", " + this.name.replace(lastName, "").trim())
+    return lastName + ", " + this.name.replace(lastName, "").trim()
   }
 
   get shortName() {
@@ -94,7 +95,9 @@ currentTime = 0;
     if (this.useAltName) {
       return this.altName;
     }
-    const fullName = this.name.split(" ");
+
+    const tempName = this.name.trim()
+    const fullName = this.name.split(tempName);
     const l = fullName.length;
     if (l < 2) {
       return this.name;
