@@ -144,14 +144,13 @@ return p
   }
 }
 
-const businessEndings = [".", " LL ", " PA ", " PL ", " INC ", " CORP ", " LTD "];
+const businessEndings = [".", " LL", " PL", " INC", " CORP", " LTD"];
 
 function checkEnding(str: string): boolean {
-  const comp = " " + str.toUpperCase()+ ' ';
-  for (let s of businessEndings) {
-    if (comp.includes(s)) {
-      return true;
-    }
+  const comp = " " + str.toUpperCase();
+  for(let s of businessEndings){
+
+    if(comp.includes(s))return true
   }
   return false;
 }
