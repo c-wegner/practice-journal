@@ -89,7 +89,7 @@ export const ClientCard = ({
           </Text>
 
           <Text right>
-          Current: {client.currentTime} Total: {client.totalTime}
+          Current: {roundNumbers(client.currentTime)} Total: {roundNumbers(client.totalTime)}
           </Text>
         </Line>
         <Line expanded={expanded} justifyContent='flex-end'>
@@ -140,4 +140,10 @@ export const ContactItem = ({ itemType = 'phone', content = '' }) => {
       </Icons.IconBoxStyle>&nbsp; {content}
     </Text>
   )
+}
+
+function roundNumbers(num: number){
+  let temp = Math.round(num * 10)
+  temp = temp/10
+  return temp
 }
