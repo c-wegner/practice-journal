@@ -1,4 +1,4 @@
-import firebase, { app } from "../firebase";
+import firebase, { app } from "../../_models/firebase";
 
 export const projectPath = 'projects_new'
 

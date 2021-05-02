@@ -1,5 +1,5 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
-import firebase, { app } from "../../models/firebase";
+import firebase, { app } from "../firebase";
 
 export const timePath = 'times'
 

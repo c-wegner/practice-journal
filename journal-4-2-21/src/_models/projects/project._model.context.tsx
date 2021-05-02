@@ -1,6 +1,6 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 
-import firebase, { app } from "../../models/firebase";
+import firebase, { app } from "../firebase";
 import { Projects, projectPath, Project } from "./projects._model";
 export {Projects, Project, projectPath}
 

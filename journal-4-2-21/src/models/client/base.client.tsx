@@ -1,4 +1,4 @@
-import firebase, { app } from "../firebase";
+import firebase, { app } from "../../_models/firebase";
 import {Project_V2} from '../project/project'
 import {Projects_V2} from '../project/projects';
 
