@@ -1,6 +1,6 @@
 import React, {Fragment, useContext} from 'react'
 import styled from 'styled-components'
-import firebase, { app } from "../_models/firebase";
+import firebase, { app } from "../models/firebase";
 
 import { useState } from "react";
 import { common } from '../globals';

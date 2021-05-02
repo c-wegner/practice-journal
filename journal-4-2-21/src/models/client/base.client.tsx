@@ -1,3 +1,9 @@
+import firebase, { app } from "../firebase";
+import {Project_V2} from '../project/project'
+import {Projects_V2} from '../project/projects';
+
+export const clientPath = 'contacts_new'
+
 export class Client_Base{
   id: string = '';
   name: string = '';
@@ -40,12 +46,26 @@ export class Client_Base{
   listOfCurrentProjects: string[] = []
 
   lastSave: number = 0;
-  itemClass: string = 'contact'
+  itemType: string = 'contact'
 
-  hasOpenTime: boolean =false;
-  timerRunning: boolean = true;
-  lastTimerUpdate: number =0;
-  lastTime: number = 0;
+
+
+  convertToObject() {
+    return JSON.parse(JSON.stringify(this));
+  }
+
+  save() {
+    if (this.id === undefined || this.id === "") {
+      this.id = new Date().getTime().toString();
+    }
+    this.lastSave = new Date().getTime();
+    submitObject(this.convertToObject(), clientPath);
+  }
+
+  edit(prop: string, val: string) {
+    editObject(this, prop, val, clientPath)
+  }
+
 
   get display(){
     if(this.useAltName){
@@ -81,12 +101,17 @@ export class Client_Base{
     return lastName
   }
 
-  getCurrentTime(){
-    return roundNumber(this.currentTime)
-  }
 
-  getTotalTime(){
-    return roundNumber(this.totalTime)
+
+  generateProject(list: Projects_V2){
+    const temp = list.getNextProject()
+    temp.clientId = this.id
+    temp.clientDisplay = this.display
+    temp.clientName = this.name
+    temp.clientShortName = this.shortName
+    temp.billType = this.billType
+    temp.billRate = this.billRate
+    return temp
   }
 }
 
@@ -101,7 +126,19 @@ function checkEnding(str: string): boolean {
   return false;
 }
 
-function roundNumber(num: number){
-  let temp = Math.round(num*10)
-  return temp/10
+
+export function submitObject(obj, path) {
+  const db = firebase.firestore(app);
+  db.collection(path)
+    .doc(obj.id)
+    .set(obj);
 }
+
+export function editObject(obj, propToUpdate, newPropValue, path) {
+  const db = firebase.firestore(app);
+  db.collection(path)
+    .doc(obj.id)
+    .update({
+      [propToUpdate]: newPropValue
+    });
+  }

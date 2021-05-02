@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
-import firebase, { app } from "../_models/firebase";
+import firebase, { app } from "../models/firebase";
 
 export class IFormContext {
   objectState: object;

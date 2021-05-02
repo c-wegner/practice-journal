@@ -1,6 +1,6 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 
-import firebase, { app } from "../firebase";
+import firebase, { app } from "../../models/firebase";
 import { Time, timePath, convertToDateString } from "./time._model";
 import { Times } from "./times._model"
 export {Time, Times, convertToDateString, timePath}

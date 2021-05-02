@@ -2,7 +2,7 @@ import React, {createContext, useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import {LegacyTextBox, Button, } from '../../controls';
 import { values, Row } from "../../globals/styles";
-import { auth } from "../firebase";
+import { auth } from "../../models/firebase";
 
 const Styles={
   Stage: styled.div `

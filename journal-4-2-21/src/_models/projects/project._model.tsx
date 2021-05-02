@@ -1,6 +1,6 @@
 import React, { createContext, Fragment, useEffect, useState } from "react";
 import { convertToDateString, Time } from "..";
-import firebase, { app } from "../firebase";
+import firebase, { app } from "../../models/firebase";
 
 export const projectPath = 'projects'
 
