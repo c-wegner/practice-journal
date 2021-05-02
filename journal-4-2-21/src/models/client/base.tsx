@@ -1,4 +1,4 @@
-export class Client{
+export class Client_Base{
   id: string = '';
   name: string = '';
   useAltName: boolean = false;
@@ -37,6 +37,71 @@ export class Client{
   currentProjects: number = 0;
   totalProjects: number = 0;
 
+  listOfCurrentProjects: string[] = []
+
   lastSave: number = 0;
   itemClass: string = 'contact'
+
+  hasOpenTime: boolean =false;
+  timerRunning: boolean = true;
+  lastTimerUpdate: number =0;
+  lastTime: number = 0;
+
+  get display(){
+    if(this.useAltName){
+      return this.altName
+    }
+
+    if(this.isBusiness){
+      return this.name
+    }
+
+    const fullName = this.name.trim().split(' ')
+    const l = fullName.length
+    if(l<2){
+      return this.name
+    }
+    const lastName = fullName[l-1]
+    return lastName + ', '+ this.name.replace(lastName, '').trim()
+  }
+
+  get shortName(){
+    if(this.useAltShortName){return this.altShortName}
+    const fullName = this.name.trim().split(' ')
+    const l = fullName.length
+    if(l<2) {return this.name}
+    const lastName = fullName[l-1]
+    if(this.isBusiness){
+      if(checkEnding(lastName)){
+        return this.name.replace(lastName,'').trim()
+    }else{
+      return this.name
+      }
+    }
+    return lastName
+  }
+
+  getCurrentTime(){
+    return roundNumber(this.currentTime)
+  }
+
+  getTotalTime(){
+    return roundNumber(this.totalTime)
+  }
+}
+
+const businessEndings = [".", " LL", " PL", " INC", " CORP", " LTD"];
+
+function checkEnding(str: string): boolean {
+  const comp = " " + str.toUpperCase();
+  for(let s of businessEndings){
+
+    if(comp.includes(s))return true
+  }
+  return false;
+}
+
+function roundNumber(num: number){
+  let temp = Math.round(num*10)
+  return temp/10
 }
