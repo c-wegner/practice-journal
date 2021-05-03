@@ -42,10 +42,10 @@ export class Client {
 
   totalProjects: number = 0;
   currentProjects: number = 0;
-  openProjects: string[]=[]
+  openProjects: string[] = []
 
-totalTime = 0;
-currentTime = 0;
+  totalTime = 0;
+  currentTime = 0;
 
   hasOpenTime: boolean = false;
   timerIsRunning: boolean = false;
@@ -89,7 +89,7 @@ currentTime = 0;
   }
 
   get shortName() {
-    if(this.useDifferentNameForShortName){
+    if (this.useDifferentNameForShortName) {
       return this.differentNameForShortName
     }
     if (this.useAltName) {
@@ -109,38 +109,48 @@ currentTime = 0;
       } else {
         return this.name;
       }
-    }else{
+    } else {
       return lastName
     }
 
   }
 
-  get active(){
+  get active() {
     return !this.archived
   }
 
-  createNewTimeEntry(timeInSeconds = 0){
+  createNewTimeEntry(timeInSeconds = 0) {
     const t = new Time()
-    t.clientId=this.id
+    t.clientId = this.id
     t.clientName = this.name
     t.clientDisplay = this.display
-    t.clientShortName= this.shortName
+    t.clientShortName = this.shortName
     t.rate = this.billRate
-    t.time = Math.round(10* timeInSeconds)/10
+    t.time = Math.round(10 * timeInSeconds) / 10
     t.description = 'Handled various items for client.'
     return t
   }
 
-  createNewProject(){
-const p = new Project()
-p.clientId = this.id;
-p.clientName = this.name;
-p.clientDisplay = this.display;
-p.clientShortName = this.shortName;
-p.billType = this.billType
-p.billRate = this.billRate
-p.firmRelated = this.firmRelated
-return p
+  createNewProject() {
+    const p = new Project()
+    p.clientId = this.id;
+    p.clientName = this.name;
+    p.clientDisplay = this.display;
+    p.clientShortName = this.shortName;
+    p.billType = this.billType
+    p.billRate = this.billRate
+    p.firmRelated = this.firmRelated
+    return p
+  }
+
+  getCurrentTime(){
+    const temp = Math.round(this.currentTime * 10)
+    return temp/10
+  }
+
+  getTotalTime(){
+    const temp = Math.round(this.totalTime * 10)
+    return temp/10
   }
 }
 
@@ -148,9 +158,9 @@ const businessEndings = [".", " LL", " PL", " INC", " CORP", " LTD"];
 
 function checkEnding(str: string): boolean {
   const comp = " " + str.toUpperCase();
-  for(let s of businessEndings){
+  for (let s of businessEndings) {
 
-    if(comp.includes(s))return true
+    if (comp.includes(s)) return true
   }
   return false;
 }
@@ -169,4 +179,4 @@ export function editObject(obj, propToUpdate, newPropValue, path) {
     .update({
       [propToUpdate]: newPropValue
     });
-  }
+}
