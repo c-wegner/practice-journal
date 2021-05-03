@@ -1,4 +1,5 @@
-import {Client_Base} from './base.client';
+import {Client_Base, clientPath} from './base.client';
+export {clientPath}
 
 export class Client_New extends Client_Base{
   hasOpenTime: boolean =false;
