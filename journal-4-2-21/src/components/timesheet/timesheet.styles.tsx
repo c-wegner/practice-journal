@@ -2,7 +2,9 @@ import React, { Fragment } from 'react'
 import { useState } from 'react';
 import { useContext } from 'react';
 import styled from 'styled-components';
+import { LegacyDropdown } from '../../controls';
 import { TimeForm } from '../../forms/time.form';
+import { Row } from '../../globals/styles';
 import { Time, TimesContext } from '../../_models';
 import { Panel } from '../panel/panels';
 
@@ -33,13 +35,21 @@ width: ${p=>p.width};
 font-weight: 700;
 margin-bottom: 10px;
 `
+const initialFilters={
+  showBilled: false,
+  startDate: new Date().getTime()- (86400000 * 30),
+  endDate: new Date().getTime() + 86400000,
+  client: '',
+}
 
 
 export const TimeSheet=({})=>{
   const timeSheet= useContext(TimesContext)
   const [showPanel, setShowPanel] = useState('')
-
   const [currentTime, setCurrentTime] = useState(new Time())
+  const [currentClientFilter, setCurrentClientFilter] = useState('')
+
+  const [currentFilter, setCurrentFilter] = useState(initialFilters)
 
 
   const onSelectTime=(selectedTime: Time)=>{
@@ -67,6 +77,25 @@ export const TimeSheet=({})=>{
   return(
     <Fragment>
     <SheetStyle>
+      <Row>
+        <LegacyDropdown
+          label='Client'
+          value={currentClientFilter}
+          onChange={(x)=>{
+            
+            setCurrentClientFilter(x)
+          }}
+          options={timeSheet.getEligableClients(
+            currentFilter.showBilled,
+            currentFilter.startDate,
+            currentFilter.endDate,
+            currentFilter.client,
+            true
+          )}
+
+          width='30%'
+        />
+      </Row>
       <HeaderStyle>
         <HeadingStyle width='10%'>
           Entry date
@@ -88,7 +117,13 @@ export const TimeSheet=({})=>{
         </HeadingStyle>
       </HeaderStyle>
       {
-        timeSheet.times.map((x, i)=>(
+        timeSheet.filterEntries(
+          true,
+          0,
+          new Date().getTime(),
+          currentClientFilter, 
+          true
+        ).map((x, i)=>(
           <LineStyle backgroundColor={getBackgroundColor(i)} key={x.id} onClick={()=>onSelectTime(x)}>
             <CellStyle width='10%'>
               {x.billTo}

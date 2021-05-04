@@ -52,8 +52,62 @@ export class Times {
     }
     return time
   }
+
+  filterEntries(showBilled = false, startDate=0, endDate=new Date().getTime(), client='', showExpenses = true){
+    const l = this.times.length
+    let temp = []
+    for(let i = 0; i<l; i++){
+      const t = this.times[i]
+
+      if(!t.billed || showBilled){
+
+
+          if(client==='' || t.clientDisplay === client){
+  
+            temp.push(t)
+          }
+        
+      }
+    }
+
+ return temp
+  }
+
+  getEligableClients(showBilled = false, startDate=0, endDate=new Date().getTime(), client='', showExpenses = true){
+    let temp:Time[] = this.filterEntries(showBilled, startDate, endDate,client, showExpenses)
+
+    console.table(temp)   
+
+
+    let tempClients = []
+
+    const l = temp.length;
+    for(let i=0; i<l; i++){
+      const t = temp[i]
+if(!checkForClient(t.clientDisplay, tempClients)){
+  tempClients.push({
+    display: t.clientDisplay,
+    value: t.clientDisplay,
+    active: true
+  })
+}
+
+ 
+    }
+    return tempClients
+  }
 }
 
 export const StoreTimerData =()=>{
   
+}
+
+function checkForClient(client, priorClients){
+  const l= priorClients.length
+  for(let i = 0; i<l; i++){
+    if(priorClients[i].display===client){
+      return true
+    }
+  }
+  return false
 }
