@@ -15,6 +15,7 @@ export class Project {
     clientShortName: string = '';
     title: string = '';
     open: boolean = true;
+    checkInOn: boolean = false;
     notes: string = '';
 
     billType: string = '';

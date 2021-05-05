@@ -9,17 +9,19 @@ const boxShadow = {
 }
 
 export const Styles = {
-  Card: styled.div<{ boxShadow: string, opacity: number }> `
+  Card: styled.div<{ boxShadow: string, opacity: number, borderColor?:string, backgroundColor?:string }> `
     margin: 10px auto;
     width: 94%;
     display: flex;
     flex-direction: column;
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 4px;
     padding: 7px;
     opacity: ${p => p.opacity};
     box-shadow: ${p => p.boxShadow};
     transition: 1s box-shadow;
+    border-color: ${p=>p.borderColor};
+    background-color: ${p=>p.backgroundColor};
     &:hover{
       box-shadow: ${boxShadow.hover};
     }
@@ -70,14 +72,14 @@ export const Text = ({ children, fontSize = '.9rem', fontWeight = 'inherit', col
   </Styles.Text>
 )
 
-export const Card = ({ children, boxShadow = false, opacity = 1,  }) => (
-  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity} >
+export const Card = ({ children, boxShadow = false, opacity = 1, borderColor='inherit' }) => (
+  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity} borderColor={borderColor} >
     {children}
   </Styles.Card>
 )
 
-export const DragableCard = ({ children, boxShadow = false, opacity = 1, onDragStart }) => (
-  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity}  draggable onDragStart={()=>onDragStart()}>
+export const DragableCard = ({ children, boxShadow = false, opacity = 1, onDragStart, borderColor='inherit', backGroundColor='inherit' }) => (
+  <Styles.Card boxShadow={boxShadow ? common.values.shadow.hover : common.values.shadow.standard} opacity={opacity}  draggable onDragStart={()=>onDragStart()} borderColor={borderColor} backgroundColor={backGroundColor}>
     {children}
   </Styles.Card>
 )

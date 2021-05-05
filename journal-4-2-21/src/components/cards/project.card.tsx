@@ -10,7 +10,7 @@ import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
 
-const TaskInput = styled.input<{borderColor: string}>`
+const TaskInput = styled.input<{borderColor: string, backgroundColor?:string}>`
   border: 1px solid;
   border-color: ${p => p.borderColor};
   display: flex;
@@ -19,6 +19,7 @@ const TaskInput = styled.input<{borderColor: string}>`
   color: ${p => p.color};
   flex-grow: 1;
   padding: 0;
+  background-color: ${p=>p.backgroundColor};
   
 `;
 
@@ -78,9 +79,25 @@ export const ProjectCard = ({
     onProjectSelect(project)
   }
 
+  const getBorderColor=()=>{
+    if(project.checkInOn){
+      return 'blue'
+    }else{
+      return 'inherit'
+    }
+  }
+
+  const getBackgroundColor=()=>{
+    if(project.checkInOn){
+      return 'inherit'
+    }else{
+      return 'inherit'
+    }
+  }
+
   return (
     <Fragment>
-      <DragableCard boxShadow={expanded} opacity={opacity} onDragStart={()=>onDragStart()}>
+      <DragableCard boxShadow={expanded} opacity={opacity} onDragStart={()=>onDragStart()} borderColor={getBorderColor()} backGroundColor={getBackgroundColor()}>
         <Line displayWhenCollapsed expanded={expanded}>
           <Title onClick={() => handleClick()}>
             {SizeText(project.display, 35)}
@@ -109,6 +126,7 @@ export const ProjectCard = ({
             borderColor={expanded ? "lightgrey" : "white"}
             readOnly={expanded ? false : true}
             onKeyUp={e => handleKeyUp(e, "task")}
+            backgroundColor={getBackgroundColor()}
           />
           </Text>
           <CardTime obj={project} />

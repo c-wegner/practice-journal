@@ -46,6 +46,12 @@ export const ProjectForm = ({
                 options={Projects.listLanesForDropDown}
                 width='30%'
               />
+
+              <Checkbox
+                label='Follow up'
+                prop='checkInOn'
+                right
+                />
           </Row>
           <Row>
               <Dropdown
