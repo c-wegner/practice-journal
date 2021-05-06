@@ -37,11 +37,13 @@ export const Styles = {
     line-height: 1.5;
   `,
 
-  Title: styled.div<{margin?: string}>`
+  Title: styled.div<{margin?: string, color?: string}>`
       cursor: pointer;
       font-weight: 630;
       font-size: 1rem;
       margin:${p=>p.margin};
+
+      color: ${p=>p.color};
   `,
 
   Text: styled.div<{ fontSize?: string; fontWeight?: string, color?: string; justifyContent: string; padding?:string }> `
@@ -102,8 +104,8 @@ export const Line = ({ displayWhenCollapsed = false, expanded = true, children, 
   )
 }
 
-export const Title = ({ children, onClick }) => (
-  <Styles.Title onClick={() => onClick()}>
+export const Title = ({ children, onClick, color = 'inherit' }) => (
+  <Styles.Title onClick={() => onClick()} color={color}>
     {children}
   </Styles.Title>
 )

@@ -20,7 +20,7 @@ const TaskInput = styled.input<{borderColor: string, backgroundColor?:string}>`
   flex-grow: 1;
   padding: 0;
   background-color: ${p=>p.backgroundColor};
-  
+
 `;
 
 const HeadHolder= styled.div `
@@ -35,7 +35,8 @@ export const ProjectCard = ({
   currentClient = new Client(),
   currentProject = new Project(),
   onProjectSelect,
-  onDragStart
+  onDragStart,
+  currentLane=''
 }) => {
   const [showPanel, setShowPanel] = useState('')
   const [expanded, setExpanded] = useState(false);
@@ -88,18 +89,45 @@ export const ProjectCard = ({
   }
 
   const getBackgroundColor=()=>{
-    if(project.checkInOn){
+    if(project.urgent){
+      return 'rgba(212, 44, 44, 0.82)'
+    }
+    if(currentLane==='@Wegner Law PLLC'){
       return 'inherit'
+    }
+    if(project.checkInOn){
+      return 'rgba(38, 38, 255, 0.59)'
     }else{
       return 'inherit'
     }
+  }
+
+  const getTitleColor =()=>{
+    if(project.urgent){
+      return 'white'
+    }
+    if(project.checkInOn && currentLane!=='@Wegner Law PLLC'){
+      return 'white'
+    }
+
+    return 'inherit'
+  }
+
+  const getTaskBoxBorder=()=>{
+    if(expanded){
+
+      return 'lightgray'
+    }
+  
+    return 'transparent'
+
   }
 
   return (
     <Fragment>
       <DragableCard boxShadow={expanded} opacity={opacity} onDragStart={()=>onDragStart()} borderColor={getBorderColor()} backGroundColor={getBackgroundColor()}>
         <Line displayWhenCollapsed expanded={expanded}>
-          <Title onClick={() => handleClick()}>
+          <Title onClick={() => handleClick()} color={getTitleColor()}>
             {SizeText(project.display, 35)}
           </Title>
           <HeadHolder>
@@ -119,14 +147,14 @@ export const ProjectCard = ({
         </Line>
 
         <Line displayWhenCollapsed expanded={expanded}>
-          <Text fontSize='.9rem'>
+          <Text fontSize='.9rem' color={getTitleColor()}>
           <TaskInput
             value={task}
             onChange={e => setTask(e.target.value)}
-            borderColor={expanded ? "lightgrey" : "white"}
+            borderColor={getTaskBoxBorder()}
             readOnly={expanded ? false : true}
             onKeyUp={e => handleKeyUp(e, "task")}
-            backgroundColor={getBackgroundColor()}
+            backgroundColor={'transparent'}
           />
           </Text>
           <CardTime obj={project} />

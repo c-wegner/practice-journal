@@ -111,6 +111,7 @@ export const CardTime: React.FunctionComponent<ICardTime> = ({ obj }) => {
     }
   }
 
+
   const HandleQuickTimeEntry = () => {
 
 

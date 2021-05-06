@@ -107,7 +107,7 @@ const ProjectLane=({
       </Header>
       {
           list.getActiveProjects(id).map(x=>(
-            <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e)=>onDragStart(x, e)}           />
+            <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e)=>onDragStart(x, e)} currentLane={id}          />
           ))
         }
     </LaneStyle>
