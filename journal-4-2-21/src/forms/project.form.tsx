@@ -68,6 +68,9 @@ export const ProjectForm = ({
             <Row>
               <TextBox label='Current task' prop='task' />
             </Row>
+            <Row>
+              <TextBox label='Sub task' prop='subTask'/>
+            </Row>
 
             
             <Row justifyContent='flex-end'>

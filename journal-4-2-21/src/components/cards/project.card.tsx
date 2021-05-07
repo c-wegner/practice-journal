@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Client, Project } from '../../_models';
-import { Card, Line, SizeText, Text, Title, _DisplayIcons, IconHolder, DragableCard } from './styles';
+import { Line, SizeText, Text, Title, _DisplayIcons, IconHolder, DragableCard } from './styles';
 import *as Icons from '../icons/_icons.v.2'
 import { CardTime } from './time.card';
 import { Panel } from '../panel/panels';
@@ -10,7 +10,7 @@ import { ProjectForm } from '../../forms/project.form';
 import { ClientForm } from '../../forms/client.forms';
 import { TimeForm } from '../../forms/time.form';
 
-const TaskInput = styled.input<{borderColor: string, backgroundColor?:string}>`
+const TaskInput = styled.input<{ borderColor: string, backgroundColor?: string }>`
   border: 1px solid;
   border-color: ${p => p.borderColor};
   display: flex;
@@ -19,11 +19,11 @@ const TaskInput = styled.input<{borderColor: string, backgroundColor?:string}>`
   color: ${p => p.color};
   flex-grow: 1;
   padding: 0;
-  background-color: ${p=>p.backgroundColor};
+  background-color: ${p => p.backgroundColor};
 
 `;
 
-const HeadHolder= styled.div `
+const HeadHolder = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: .8rem;
@@ -36,7 +36,7 @@ export const ProjectCard = ({
   currentProject = new Project(),
   onProjectSelect,
   onDragStart,
-  currentLane=''
+  currentLane = ''
 }) => {
   const [showPanel, setShowPanel] = useState('')
   const [expanded, setExpanded] = useState(false);
@@ -54,20 +54,20 @@ export const ProjectCard = ({
     setShowPanel('')
     setOpacity(1)
 
-    if(currentProject.id!==''){
-      if(currentProject.id=== project.id){
+    if (currentProject.id !== '') {
+      if (currentProject.id === project.id) {
         setExpanded(true)
-      }else{
+      } else {
         setOpacity(.6)
         setExpanded(false)
       }
       return
     }
 
-    if(currentClient.id!==''){
-      if(currentClient.id===project.clientId){
+    if (currentClient.id !== '') {
+      if (currentClient.id === project.clientId) {
 
-      }else{
+      } else {
         setOpacity(.6)
         setExpanded(false)
       }
@@ -80,109 +80,122 @@ export const ProjectCard = ({
     onProjectSelect(project)
   }
 
-  const getBorderColor=()=>{
-    if(project.checkInOn){
-      return 'blue'
-    }else{
-      return 'inherit'
-    }
+  const getBorderColor = () => {
+    return 'inherit'
   }
 
-  const getBackgroundColor=()=>{
-    if(project.urgent){
+  const getBackgroundColor = () => {
+    if (project.urgent) {
       return 'rgba(212, 44, 44, 0.82)'
     }
-    if(currentLane==='@Wegner Law PLLC'){
+    if (currentLane === '@Wegner Law PLLC') {
       return 'inherit'
     }
-    if(project.checkInOn){
+    if (project.checkInOn) {
       return 'rgba(38, 38, 255, 0.59)'
-    }else{
+    } else {
       return 'inherit'
     }
   }
 
-  const getTitleColor =()=>{
-    if(project.urgent){
+  const getTitleColor = () => {
+    if (project.urgent) {
       return 'white'
     }
-    if(project.checkInOn && currentLane!=='@Wegner Law PLLC'){
+    if (project.checkInOn && currentLane !== '@Wegner Law PLLC') {
       return 'white'
     }
 
     return 'inherit'
   }
 
-  const getTaskBoxBorder=()=>{
-    if(expanded){
+  const getTaskBoxBorder = () => {
+    if (expanded) {
 
       return 'lightgray'
     }
-  
+
     return 'transparent'
 
   }
 
   return (
     <Fragment>
-      <DragableCard boxShadow={expanded} opacity={opacity} onDragStart={()=>onDragStart()} borderColor={getBorderColor()} backGroundColor={getBackgroundColor()}>
+      <DragableCard boxShadow={expanded}
+        opacity={opacity}
+        onDragStart={() => onDragStart()}
+        borderColor={getBorderColor()} 
+        backGroundColor={getBackgroundColor()}
+      >
         <Line displayWhenCollapsed expanded={expanded}>
           <Title onClick={() => handleClick()} color={getTitleColor()}>
             {SizeText(project.display, 35)}
           </Title>
           <HeadHolder>
-      
+
             {project.clientShortName}
-    
-          <_DisplayIcons
-            archived={!project.open}
-            phone={project.followUpPhone}
-            envelopeOpen={project.followUpReadEmail}
-            replyAll={project.followUpSendEmail}
-            exclamation={project.urgent}
-            flag={project.flagged}
-            cash={project.billReminder}
-          />
-</HeadHolder>
+
+            <_DisplayIcons
+              archived={!project.open}
+              phone={project.followUpPhone}
+              envelopeOpen={project.followUpReadEmail}
+              replyAll={project.followUpSendEmail}
+              exclamation={project.urgent}
+              flag={project.flagged}
+              cash={project.billReminder}
+            />
+          </HeadHolder>
         </Line>
 
         <Line displayWhenCollapsed expanded={expanded}>
           <Text fontSize='.9rem' color={getTitleColor()}>
-          <TaskInput
-            value={task}
-            onChange={e => setTask(e.target.value)}
-            borderColor={getTaskBoxBorder()}
-            readOnly={expanded ? false : true}
-            onKeyUp={e => handleKeyUp(e, "task")}
-            backgroundColor={'transparent'}
-          />
+            <TaskInput
+              value={task}
+              onChange={e => setTask(e.target.value)}
+              borderColor={getTaskBoxBorder()}
+              readOnly={expanded ? false : true}
+              onKeyUp={e => handleKeyUp(e, "task")}
+              backgroundColor={'transparent'}
+            />
           </Text>
           <CardTime obj={project} />
         </Line>
 
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>
-              Created: {project.getCreationDate()}
+            Created: {project.getCreationDate()}
           </Text>
           <Text right>
             <IconHolder>
-            <Icons.Pen display color='blue' size='1.2rem' onClick={()=>setShowPanel('Edit project')} />
+              <Icons.Pen display color='blue' size='1.2rem' onClick={() => setShowPanel('Edit project')} />
             </IconHolder>
             <IconHolder>
-            <Icons.ClockDashed display color='blue' size='1.2rem' onClick={()=>setShowPanel('Add time')}/>
+              <Icons.ClockDashed display color='blue' size='1.2rem' onClick={() => setShowPanel('Add time')} />
             </IconHolder>
           </Text>
         </Line>
       </DragableCard>
 
-      <Panel id='Edit project' onExit={()=>setShowPanel('')} current={showPanel}>
-        <ProjectForm obj={project}/>
+      <Panel id='Edit project' onExit={() => setShowPanel('')} current={showPanel}>
+        <ProjectForm obj={project} />
       </Panel>
 
-      <Panel id='Add time' onExit={()=>setShowPanel('')} current={showPanel}>
-        <TimeForm obj={project.createNewTimeEntry()}/>
+      <Panel id='Add time' onExit={() => setShowPanel('')} current={showPanel}>
+        <TimeForm obj={project.createNewTimeEntry()} />
       </Panel>
     </Fragment>
   )
 }
 
+function checkIfCardHasSpecialStatus(card: Project){
+  if(card.urgent){
+    return true
+  }
+
+  if(card.checkInOn){
+    if(card.lane!=='@Wegner Law PLLC'){
+      return true
+    }
+  }
+  return false
+}
