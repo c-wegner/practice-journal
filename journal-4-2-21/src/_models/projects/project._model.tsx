@@ -36,6 +36,7 @@ export class Project {
     lane = '@Wegner Law PLLC';
     laneContact = '';
     task = '';
+    subTask= '';
     enteredLaneOn: number = 0;
 
     lastSave: number = 0;

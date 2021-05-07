@@ -69,7 +69,7 @@ export const ClientCard = ({
           <Text fontSize='.9rem'>
             {client.contact} &nbsp;
           </Text>
-          <CardTime obj={client} />
+
         </Line>
         <Line expanded={expanded}>
           <ContactItem itemType='phone' content={client.phone} />
@@ -79,18 +79,14 @@ export const ClientCard = ({
           <Text>
           Projects
           </Text>
-          <Text right>
-         Time
-          </Text>
+
         </Line>
         <Line expanded={expanded}>
           <Text>
           Open: {client.currentProjects} Total: {client.currentProjects}
           </Text>
 
-          <Text right>
-          Current: {roundNumbers(client.currentTime)} Total: {roundNumbers(client.totalTime)}
-          </Text>
+
         </Line>
         <Line expanded={expanded} justifyContent='flex-end'>
           <Text>

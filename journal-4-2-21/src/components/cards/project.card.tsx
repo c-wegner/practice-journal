@@ -42,6 +42,7 @@ export const ProjectCard = ({
   const [expanded, setExpanded] = useState(false);
   const [opacity, setOpacity] = useState(1)
   const [task, setTask] = useState(project.task)
+  const [subTask, setSubTask]= useState(project.subTask)
 
   const handleKeyUp = (event, prop) => {
     if (event.keyCode === 13) {
@@ -158,7 +159,18 @@ export const ProjectCard = ({
               backgroundColor={'transparent'}
             />
           </Text>
-          <CardTime obj={project} />
+        </Line>
+        <Line expanded={expanded}>
+        <Text fontSize='.9rem' color={getTitleColor()}>
+            <TaskInput
+              value={subTask}
+              onChange={e => setSubTask(e.target.value)}
+              borderColor={getTaskBoxBorder()}
+              readOnly={expanded ? false : true}
+              onKeyUp={e => handleKeyUp(e, "subTask")}
+              backgroundColor={'transparent'}
+            />
+          </Text>
         </Line>
 
         <Line expanded={expanded} justifyContent='flex-end'>

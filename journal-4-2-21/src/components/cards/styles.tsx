@@ -22,6 +22,7 @@ export const Styles = {
     transition: 1s box-shadow;
     border-color: ${p=>p.borderColor};
     background-color: ${p=>p.backgroundColor};
+    min-height: 4rem;
     &:hover{
       box-shadow: ${boxShadow.hover};
     }
