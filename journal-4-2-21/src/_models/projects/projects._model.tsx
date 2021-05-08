@@ -99,3 +99,10 @@ export class Projects{
       {value: 'Winding down', display: 'Winding down', active: true}
   ]
 }
+
+
+function compareProjects(x:Project, y:Project):number{
+  if(x.urgent && y.urgent){
+    return -1
+  }
+}

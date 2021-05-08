@@ -6,7 +6,7 @@ import { common } from '../globals';
 import { PivotPage, PivotProvider } from '../components/pivot/pivot.main';
 import { FormContext, FormProvider } from '../controls/forms.context';
 import { Client, ClientsContext, Project, Projects, ProjectsContext } from '../_models';
-import { projectPath } from '../_models/projects/project._model';
+import { projectPath, TimeKeepers } from '../_models/projects/project._model';
 import { Col, Row } from '../globals/styles';
 import { Button, ConditionalContent, Dropdown, RadioCheck, TextArea, TextBox } from '../controls';
 import { Checkbox } from '../controls/checkbox';
@@ -119,6 +119,9 @@ export const ProjectForm = ({
             </Row>
           </PivotPage>
           <PivotPage id='Options'>
+            <Row justifyContent='flex-end'>
+              <Dropdown width='30%' options={TimeKeepers} prop='assignedTo' label='Assigned to:'/>
+            </Row>
             <Row>
               <Col alignItems='flex-end'>
                 <Checkbox label='Urgent' prop='urgent' right />

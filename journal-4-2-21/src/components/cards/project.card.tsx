@@ -20,7 +20,7 @@ const TaskInput = styled.input<{ borderColor: string, backgroundColor?: string }
   flex-grow: 1;
   padding: 0;
   background-color: ${p => p.backgroundColor};
-
+  
 `;
 
 const HeadHolder = styled.div`
@@ -157,6 +157,7 @@ export const ProjectCard = ({
               readOnly={expanded ? false : true}
               onKeyUp={e => handleKeyUp(e, "task")}
               backgroundColor={'transparent'}
+              color={getTitleColor()}
             />
           </Text>
         </Line>

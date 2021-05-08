@@ -42,6 +42,7 @@ export class Project {
     lastSave: number = 0;
 
     classType = 'project'
+    assignedTo='cwegner'
 
     hasOpenTime: boolean = false;
     timerIsRunning: boolean = false;
@@ -144,3 +145,5 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
 }
 
 export const MonthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export const TimeKeepers= ['cwegner', 'cthomson']
