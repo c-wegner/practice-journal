@@ -126,17 +126,26 @@ export const _DisplayIcons = ({
   phone = false,
   envelopeOpen = false,
   replyAll = false,
+  color='',
 }) => {
+  const getColor=(def='inherit')=>{
+    if(color==='inherit'){
+      return def
+    }else{
+      return 'white'
+    }
+  }
+
   return (
     <Styles.IconBoxes>
       &nbsp;
-      <Icons.Archive display={archived} margin='0 0 0 5px' size='.8rem'/>
-      <Icons.Cash display={cash} color='green' margin='0 0 0 5px' size='.8rem'/>
-      <Icons.Phone display={phone} margin='0 0 0 5px' size='.8rem'/>
-      <Icons.EnvelopeOpenFill display={envelopeOpen} margin='0 0 0 5px' size='.8rem'/>
-      <Icons.ReplyAll display={replyAll}margin='0 0 0 5px'/>
-      <Icons.Exclamation display={exclamation} color='red' margin='0 0 0 5px' size='.8rem'/>
-      <Icons.Flag display={flag} color='red' margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Archive display={archived} margin='0 0 0 5px' size='.8rem' color={getColor()}/>
+      <Icons.Cash display={cash} color={getColor('green')} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Phone display={phone} margin='0 0 0 5px' size='.8rem' color={getColor()}/>
+      <Icons.EnvelopeOpenFill display={envelopeOpen} margin='0 0 0 5px' size='.8rem'color={getColor()}/>
+      <Icons.ReplyAll display={replyAll}margin='0 0 0 5px'color={getColor()}/>
+      <Icons.Exclamation display={exclamation} color={getColor('red')} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Flag display={flag} color={getColor('red')} margin='0 0 0 5px' size='.8rem'/>
     </Styles.IconBoxes>
   )
 }

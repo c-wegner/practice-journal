@@ -90,7 +90,9 @@ export const ProjectCard = ({
       return 'rgba(212, 44, 44, 0.82)'
     }
     if (currentLane === '@Wegner Law PLLC') {
-      return 'inherit'
+      if(project.assignedTo==='cwegner'){
+        return 'inherit'
+      }
     }
     if (project.checkInOn) {
       return 'rgba(38, 38, 255, 0.59)'
@@ -103,7 +105,14 @@ export const ProjectCard = ({
     if (project.urgent) {
       return 'white'
     }
-    if (project.checkInOn && currentLane !== '@Wegner Law PLLC') {
+    if (project.checkInOn ) {
+      if(currentLane==='Wegner Law PLLC'){
+        if(project.assignedTo==='cwegner'){
+          return 'inherit'
+        }
+        return 'white'
+      }
+
       return 'white'
     }
 
@@ -119,6 +128,8 @@ export const ProjectCard = ({
     return 'transparent'
 
   }
+
+
 
   return (
     <Fragment>
@@ -144,6 +155,7 @@ export const ProjectCard = ({
               exclamation={project.urgent}
               flag={project.flagged}
               cash={project.billReminder}
+              color={getTitleColor()}
             />
           </HeadHolder>
         </Line>

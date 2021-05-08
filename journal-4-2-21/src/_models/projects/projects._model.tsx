@@ -79,6 +79,7 @@ export class Projects{
     getActiveProjects(lane=''){
       const l = this.projects.length
       let temp: Project[] = []
+      this.projects.sort((x,y)=>compareProjects(x,y))
       for(let i=0; i<l; i++){
         const p = this.projects[i]
         if(p.open){
@@ -89,6 +90,8 @@ export class Projects{
       }
       return temp
     }
+
+
 
     static listLanesForDropDown = [
       { value: '@Wegner Law PLLC', display: '@Wegner Law PLLC', active: true },
@@ -103,6 +106,24 @@ export class Projects{
 
 function compareProjects(x:Project, y:Project):number{
   if(x.urgent && y.urgent){
+    return x.projectId.localeCompare(y.projectId)
+  }
+  if(x.urgent){
     return -1
   }
+  if(y.urgent){
+    return 1;
+  }
+
+  if(x.checkInOn && y.checkInOn){
+    return x.projectId.localeCompare(y.projectId)
+  }
+  if(x.checkInOn){
+    return -1
+  }
+  if(y.checkInOn){
+    return 1;
+  }
+
+  return x.projectId.localeCompare(y.projectId)
 }

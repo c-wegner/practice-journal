@@ -146,4 +146,8 @@ export function updateObject(obj, propToUpdate, updateValue, path) {
 
 export const MonthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const TimeKeepers= ['cwegner', 'cthomson']
+export const TimeKeepers= [
+
+  {display: 'cwegner', value: 'cwegner', active: true},
+  {display: 'cthomson', value: 'cthomson', active: true}
+]

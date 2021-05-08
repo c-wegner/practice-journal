@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ClientCard } from '../../components/cards/client.card';
 import { ProjectCard } from '../../components/cards/project.card';
 import { Client, ClientsContext, Project, ProjectsContext } from '../../_models';
-import {ClientLane} from './client.lane'
+import { ClientLane } from './client.lane'
 
 const Stage = styled.div`
   display: flex;
@@ -16,14 +16,14 @@ export const LaneStyle = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.div `
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 14px 17px 7px 17px;
   align-items: center;
 `
 
-export const Heading = styled.div `
+export const Heading = styled.div`
   font-size: 1.7rem;
 `
 
@@ -41,29 +41,29 @@ export const Dashboard = ({ }) => {
     }
   }
 
-  const handleSelectProject=(project: Project)=>{
-    if(project.id === currentProject.id){
+  const handleSelectProject = (project: Project) => {
+    if (project.id === currentProject.id) {
       setCurrentProject(new Project())
-    }else{
+    } else {
       setCurrentProject(new Project())
-      if(currentProject.clientId!==currentClient.id){
+      if (currentProject.clientId !== currentClient.id) {
         setCurrentClient(book.getClient(project.clientId))
       }
     }
   }
 
-  const handleOnDragStart=(project: Project, e)=>{
+  const handleOnDragStart = (project: Project, e) => {
 
     setDraggedProjectCard(project)
 
   }
 
-  const handleOnDrageEnter=(e)=>{
+  const handleOnDrageEnter = (e) => {
     e.preventDefault()
 
   }
 
-  const handleOnDragDrop=(lane)=>{
+  const handleOnDragDrop = (lane) => {
     draggedProjectCard.update('lane', lane)
   }
 
@@ -71,34 +71,34 @@ export const Dashboard = ({ }) => {
   return (
     <Fragment>
       <Stage>
-      <ClientLane currentClient={currentClient} handleSelectClient={handleSelectClient}/>
+        <ClientLane currentClient={currentClient} handleSelectClient={handleSelectClient} />
 
-        <ProjectLane id='@Wegner Law PLLC' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
-        <ProjectLane id='@Client' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
-        <ProjectLane id='@3rd party' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop}/>
+        <FirmLane id='@Wegner Law PLLC' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
+        <ProjectLane id='@Client' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
+        <ProjectLane id='@3rd party' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
       </Stage>
     </Fragment>
   )
 }
 
-const ProjectLane=({
-  id='',
+const ProjectLane = ({
+  id = '',
   currentClient,
   currentProject,
   onSelectProject,
   onDragStart,
   onDragEnter,
   onDrop
-})=>{
+}) => {
   const list = useContext(ProjectsContext)
 
-  
-  const handleOnDrop=(lane)=>{
+
+  const handleOnDrop = (lane) => {
     onDrop(lane)
   }
 
-  return(
-    <LaneStyle onDragEnter={(e)=>onDragEnter(e)} onDrop={()=>handleOnDrop(id)} onDragOver={e=>e.preventDefault()}>
+  return (
+    <LaneStyle onDragEnter={(e) => onDragEnter(e)} onDrop={() => handleOnDrop(id)} onDragOver={e => e.preventDefault()}>
       <Header>
         <Heading>
           {id}
@@ -106,10 +106,70 @@ const ProjectLane=({
 
       </Header>
       {
-          list.getActiveProjects(id).map(x=>(
-            <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e)=>onDragStart(x, e)} currentLane={id}          />
-          ))
-        }
+        list.getActiveProjects(id).map(x => (
+          <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e) => onDragStart(x, e)} currentLane={id} />
+        ))
+      }
+
     </LaneStyle>
   )
+}
+
+const FirmLane = ({
+  id = '',
+  currentClient,
+  currentProject,
+  onSelectProject,
+  onDragStart,
+  onDragEnter,
+  onDrop
+}) => {
+  const list = useContext(ProjectsContext)
+
+
+  const handleOnDrop = (lane) => {
+    onDrop(lane)
+  }
+
+  const [cwegner, cthomson] = getProjectAssignments(list.getActiveProjects('@Wegner Law PLLC'))
+
+  return (
+    <LaneStyle onDragEnter={(e) => onDragEnter(e)} onDrop={() => handleOnDrop(id)} onDragOver={e => e.preventDefault()}>
+      <Header>
+        <Heading>
+          {id}
+        </Heading>
+
+      </Header>
+      {
+        cwegner.map(x => (
+          <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e) => onDragStart(x, e)} currentLane={id} />
+        ))
+      }
+      <hr />
+      {
+        cthomson.map(x => (
+          <ProjectCard project={x} currentProject={currentProject} currentClient={currentClient} onProjectSelect={onSelectProject} key={x.id} onDragStart={(e) => onDragStart(x, e)} currentLane={id} />
+        ))
+      }
+
+    </LaneStyle>
+  )
+}
+
+
+function getProjectAssignments(projects): [Project[], Project[]] {
+  let cwegner = []
+  let cthomson = []
+  const l = projects.length
+  for (let i = 0; i < l; i++) {
+    const p: Project = projects[i]
+    if (p.assignedTo === 'cthomson') {
+      cthomson.push(p)
+    } else {
+      cwegner.push(p)
+    }
+  }
+
+  return [cwegner, cthomson]
 }
