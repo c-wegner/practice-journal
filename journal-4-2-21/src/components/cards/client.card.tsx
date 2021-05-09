@@ -69,7 +69,9 @@ export const ClientCard = ({
           <Text fontSize='.9rem'>
             {client.contact} &nbsp;
           </Text>
-
+          <Text right>
+         {client.totalTime} &nbsp; <Icons.Clock display={true} size='.8rem' onClick={()=>setShowPanel('Add time')}/>
+          </Text>
         </Line>
         <Line expanded={expanded}>
           <ContactItem itemType='phone' content={client.phone} />
@@ -86,6 +88,9 @@ export const ClientCard = ({
           Open: {client.currentProjects} Total: {client.currentProjects}
           </Text>
 
+
+        </Line>
+        <Line expanded={expanded} justifyContent='flex-end'>
 
         </Line>
         <Line expanded={expanded} justifyContent='flex-end'>

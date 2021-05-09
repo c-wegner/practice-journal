@@ -18,6 +18,7 @@ import { Dashboard } from "./dashboard/dashboard";
 import { TimeSheet } from "../components/timesheet/timesheet.styles";
 import { AuthContext, LogIn } from "../_models/auth/auth.model.view.context";
 import { ProjectsView } from "./project/projects.view";
+import { TimerClock } from "../components/timer/timer";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -29,6 +30,7 @@ const Wrapper = styled.div`
 const Stage = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
 `;
 
 const FakeLane = styled.div`
@@ -73,7 +75,7 @@ export const Main = ({ }) => {
             </OptionStyle>
           </Menu>
 
-
+            <TimerClock/>
         </Stage>
         <Switch>
           <Route exact path='/'>
