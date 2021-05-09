@@ -17,6 +17,7 @@ import { Client, ClientsContext } from "../_models";
 import { Dashboard } from "./dashboard/dashboard";
 import { TimeSheet } from "../components/timesheet/timesheet.styles";
 import { AuthContext, LogIn } from "../_models/auth/auth.model.view.context";
+import { ProjectsView } from "./project/projects.view";
 
 const Wrapper = styled.div`
   overflow-x: hidden;
@@ -56,6 +57,7 @@ export const Main = ({ }) => {
             </OptionStyle>
             <OptionStyle>
               <Link to='/projects'>
+
                 Projects
               </Link>
             </OptionStyle>
@@ -82,7 +84,9 @@ export const Main = ({ }) => {
               <Dashboard />
             </SiteHider>
           </Route>
-
+          <Route path='/projects'>
+            <ProjectsView/>
+          </Route>
           <Route path='/billing'>
             <TimeSheet />
           </Route>

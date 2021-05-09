@@ -51,6 +51,7 @@ const CheckboxContainer = styled.div<{ width: string; justifyContent: string }>`
   width: ${p => p.width};
   flex-grow: 1;
   justify-content: ${p => p.justifyContent};
+
 `;
 
 const Box = styled.div<{ backgroundColor: string, borderColor: string }>`

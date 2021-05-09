@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 
 import { useState } from "react";
@@ -29,31 +29,42 @@ export const ProjectForm = ({
     <FormStyle>
       <FormProvider obj={obj} nextObject={new Project()} path={projectPath}>
         <Row justifyContent='flex-end'>
-          <Checkbox label='Flag project' prop='flagged' right/>
+          <Checkbox label='Flag project' prop='flagged' right />
+
         </Row>
 
-      
+
         <PivotProvider>
           <PivotPage id='General'>
             <Row justifyContent='flex-end' >
               <Checkbox label='Open' prop='open' right />
             </Row>
-            <Row>
-  
+            <Row >
+    <Col width='30%' alignItems='flex-end'>
               <Dropdown
                 label='Lane'
                 prop='lane'
                 options={Projects.listLanesForDropDown}
-                width='30%'
-              />
+ 
+    
 
+              />
+</Col>
+              <Col alignItems='flex-start' width='70%'>
               <Checkbox
                 label='Follow up'
                 prop='checkInOn'
-                right
-                />
-          </Row>
-          <Row>
+                boxFirst
+
+              />
+              </Col>
+
+
+
+
+
+            </Row>
+            <Row>
               <Dropdown
                 label='Client'
                 prop='clientDisplay'
@@ -61,21 +72,31 @@ export const ProjectForm = ({
                 width='30%'
               />
 
-              <TextBox label='Description' prop='title' width='70%'/>
-              </Row>
+              <TextBox label='Description' prop='title' width='70%' />
+            </Row>
 
 
             <Row>
               <TextBox label='Current task' prop='task' />
             </Row>
             <Row>
-              <TextBox label='Sub task' prop='subTask'/>
+              <TextBox label='Sub task' prop='subTask' />
             </Row>
 
-            
+
+
             <Row justifyContent='flex-end'>
-              <TextBox label='Current contact' prop='laneContact' width='30%' />
+            <Checkbox
+                label='Follow up'
+                prop='checkInOn'
+                right
+              />
             </Row>
+           
+            <Row justifyContent='flex-end'>
+
+<TextBox label='Current contact' prop='laneContact' width='30%' />
+</Row>
             <Row>
               <TextArea label='Notes' prop='notes' rows={4} />
             </Row>
@@ -88,7 +109,7 @@ export const ProjectForm = ({
               <Checkbox
                 label='Read email'
                 prop='followUpReadEmail'
-        
+
               />
 
               <Checkbox
@@ -120,7 +141,7 @@ export const ProjectForm = ({
           </PivotPage>
           <PivotPage id='Options'>
             <Row justifyContent='flex-end'>
-              <Dropdown width='30%' options={TimeKeepers} prop='assignedTo' label='Assigned to:'/>
+              <Dropdown width='30%' options={TimeKeepers} prop='assignedTo' label='Assigned to:' />
             </Row>
             <Row>
               <Col alignItems='flex-end'>
@@ -169,7 +190,7 @@ function SubmitButton() {
       submitState['id'] = new Date().getTime().toString()
     }
 
-    if(submitState['projectId']===undefined || submitState['projectId']===''){
+    if (submitState['projectId'] === undefined || submitState['projectId'] === '') {
       submitState['projectId'] = list.getNextProjectId()
     }
     submitState['lastSave'] = new Date().getTime()

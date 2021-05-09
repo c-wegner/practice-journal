@@ -110,6 +110,7 @@ const ColStyle = styled.div<{justifyContent: string, alignItems: string, width: 
         justify-content: ${p=>p.justifyContent};
         align-items: ${p=>p.alignItems};
         height: 100%;
+
     }
 `
 
