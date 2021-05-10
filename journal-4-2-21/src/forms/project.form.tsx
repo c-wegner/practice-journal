@@ -85,13 +85,6 @@ export const ProjectForm = ({
 
 
 
-            <Row justifyContent='flex-end'>
-            <Checkbox
-                label='Follow up'
-                prop='checkInOn'
-                right
-              />
-            </Row>
            
             <Row justifyContent='flex-end'>
 

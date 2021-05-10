@@ -47,8 +47,12 @@ export class Clients {
         if (p.clientId === c.id) {
           c.totalProjects++;
           if (p.open) {
+            if(p.lane==='On hold' || p.lane==='Winding down'){
+
+            }else{
             c.currentProjects++
             c.openProjects.push(p.display)
+            }
           }
         }
       }
