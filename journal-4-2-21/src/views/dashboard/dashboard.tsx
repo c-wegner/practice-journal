@@ -2,15 +2,20 @@ import React, { useState, useContext, Fragment } from 'react';
 import styled from 'styled-components'
 import { ClientCard } from '../../components/cards/client.card';
 import { ProjectCard } from '../../components/cards/project.card';
+import { Panel } from '../../components/panel/panels';
 import { Client, ClientsContext, Project, ProjectsContext } from '../../_models';
 import { ClientLane } from './client.lane'
+
+const FrameStyle = styled.div `
+display: flex;
+flex-direction: column;
+`
 
 const Stage = styled.div`
   display: flex;
 `
 
 export const LaneStyle = styled.div`
-  width: 25%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -27,10 +32,26 @@ export const Heading = styled.div`
   font-size: 1.7rem;
 `
 
+const AltLaneSelectStyle = styled.div `
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const AltLaneSelecterStyle = styled.div `
+  color: blue;
+  cursor: pointer;
+  margin: 0 10px 10px 10px;
+`
+
+const AltLanePanelStyle = styled.div`
+  display: flex;
+`
+
 export const Dashboard = ({ }) => {
   const [currentClient, setCurrentClient] = useState(new Client())
   const [currentProject, setCurrentProject] = useState(new Project())
   const [draggedProjectCard, setDraggedProjectCard] = useState(new Project())
+  const [showPanel, setShowPanel] = useState('')
   const book = useContext(ClientsContext)
 
   const handleSelectClient = (client: Client) => {
@@ -70,6 +91,8 @@ export const Dashboard = ({ }) => {
 
   return (
     <Fragment>
+      <FrameStyle>
+
       <Stage>
         <ClientLane currentClient={currentClient} handleSelectClient={handleSelectClient} />
 
@@ -77,11 +100,23 @@ export const Dashboard = ({ }) => {
         <ProjectLane id='@Client' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
         <ProjectLane id='@3rd party' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
       </Stage>
+      <AltLaneSelectStyle>
+          <AltLaneSelecterStyle onClick={()=>setShowPanel('Alt lanes')}>
+            Alt lanes
+          </AltLaneSelecterStyle>
+        </AltLaneSelectStyle>
+      </FrameStyle>
+      <Panel id='Alt lanes' current={showPanel} onExit={()=>setShowPanel('')}>
+      <AltLanePanelStyle>
+        <ProjectLane id='On hold' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
+        <ProjectLane id='Winding down' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
+        </AltLanePanelStyle>
+      </Panel>
     </Fragment>
   )
 }
 
-const ProjectLane = ({
+export const ProjectLane = ({
   id = '',
   currentClient,
   currentProject,

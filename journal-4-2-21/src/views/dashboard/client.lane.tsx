@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ClientCard } from '../../components/cards/client.card';
 import { ProjectCard } from '../../components/cards/project.card';
 import { Client, ClientsContext, Project, ProjectsContext } from '../../_models';
-import { Header, Heading, LaneStyle } from './dashboard';
+import { Header, Heading, LaneStyle, ProjectLane } from './dashboard';
 import * as Icons from '../../components/icons/_icons.v.2'
 import { Panel } from '../../components/panel/panels';
 import { ClientForm } from '../../forms/client.forms';
@@ -23,12 +23,13 @@ export const ClientLane = ({
         break
       case 'Current clients': setViewClientType('Clients with billables')
         break
-      case 'Clients with billables': setViewClientType( 'All clients')
-      break
-      case 'All clients': setViewClientType( 'Active clients')
-      break
+      case 'Clients with billables': setViewClientType('All clients')
+        break
+      case 'All clients': setViewClientType('Active clients')
+        break
     }
   }
+
 
   return (
     <Fragment>
