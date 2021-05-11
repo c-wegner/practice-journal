@@ -35,7 +35,7 @@ export const ProjectCard = ({
   currentClient = new Client(),
   currentProject = new Project(),
   onProjectSelect,
-  onDragStart,
+  onDragStart = null,
   currentLane = ''
 }) => {
   const [showPanel, setShowPanel] = useState('')

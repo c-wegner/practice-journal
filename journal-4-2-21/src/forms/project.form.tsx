@@ -39,24 +39,47 @@ export const ProjectForm = ({
             <Row justifyContent='flex-end' >
               <Checkbox label='Open' prop='open' right />
             </Row>
+            <ConditionalContent prop='open' conditionState={false}>
+            <Row justifyContent='flex-end'>
+              <Col alignItems='flex-start'>
+                <Checkbox
+                  label='Project on hold'
+                  prop='isOnHold'
+
+                  right
+
+                />
+              </Col>
+
+              <Col>
+
+                <Checkbox
+                  label='Winding down'
+                  prop='isWindingDown'
+  
+            right
+                />
+              </Col>
+            </Row>
+            </ConditionalContent>
             <Row >
-    <Col width='30%' alignItems='flex-end'>
-              <Dropdown
-                label='Lane'
-                prop='lane'
-                options={Projects.listLanesForDropDown}
- 
-    
+              <Col width='30%' alignItems='flex-end'>
+                <Dropdown
+                  label='Lane'
+                  prop='lane'
+                  options={Projects.listLanesForDropDown}
 
-              />
-</Col>
+
+
+                />
+              </Col>
               <Col alignItems='flex-start' width='70%'>
-              <Checkbox
-                label='Follow up'
-                prop='checkInOn'
-                boxFirst
+                <Checkbox
+                  label='Follow up'
+                  prop='checkInOn'
+                  boxFirst
 
-              />
+                />
               </Col>
 
 
@@ -83,23 +106,14 @@ export const ProjectForm = ({
               <TextBox label='Sub task' prop='subTask' />
             </Row>
 
-
-
             <Row justifyContent='flex-end'>
-            <Checkbox
-                label='Follow up'
-                prop='checkInOn'
-                right
-              />
+
+              <TextBox label='Current contact' prop='laneContact' width='30%' />
             </Row>
-           
-            <Row justifyContent='flex-end'>
-
-<TextBox label='Current contact' prop='laneContact' width='30%' />
-</Row>
             <Row>
               <TextArea label='Notes' prop='notes' rows={4} />
             </Row>
+
           </PivotPage>
           <PivotPage id='Follow up'>
             <Row>

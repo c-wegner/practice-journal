@@ -38,6 +38,8 @@ export class Project {
     task = '';
     subTask= '';
     enteredLaneOn: number = 0;
+    isWindingDown: boolean = false;
+    isOnHold: boolean = false;
 
     lastSave: number = 0;
 

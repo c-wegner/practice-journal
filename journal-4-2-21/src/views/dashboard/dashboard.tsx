@@ -109,8 +109,8 @@ export const Dashboard = ({ }) => {
       </FrameStyle>
       <Panel id='Alt lanes' current={showPanel} onExit={()=>setShowPanel('')}>
       <AltLanePanelStyle>
-        <ProjectLane id='On hold' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
-        <ProjectLane id='Winding down' currentClient={currentClient} currentProject={currentProject} onSelectProject={handleSelectProject} onDragStart={handleOnDragStart} onDragEnter={handleOnDrageEnter} onDrop={handleOnDragDrop} />
+        <AltLane id='On hold'  onSelectProject={handleSelectProject}  />
+        <AltLane id='Winding down' onSelectProject={handleSelectProject}  />
         </AltLanePanelStyle>
       </Panel>
     </Fragment>
@@ -208,4 +208,36 @@ function getProjectAssignments(projects): [Project[], Project[]] {
   }
 
   return [cwegner, cthomson]
+}
+
+const AltLane =({id='',   onSelectProject})=>{
+
+  const list = useContext(ProjectsContext)
+  const handleDragState=()=>{
+
+  }
+
+  const getProjectsForLane=()=>{
+    if(id==='Winding down'){
+      return list.getProjectsWindingDown()
+    }else{
+      return list.getProjectsOnHold()
+    }
+  }
+  return(
+    <LaneStyle >
+      <Header>
+        <Heading>
+          {id}
+        </Heading>
+
+      </Header>
+      {
+        getProjectsForLane().map(x => (
+          <ProjectCard project={x} currentProject={new Project()} currentClient={new Client()} onProjectSelect={onSelectProject} key={x.id} currentLane={id} onDragStart={handleDragState} />
+        ))
+      }
+
+    </LaneStyle>
+  )
 }
