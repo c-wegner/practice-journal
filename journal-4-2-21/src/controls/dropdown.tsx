@@ -134,15 +134,15 @@ export const LegacyDropdown = ({
           <OptionBoxStyle maxHeight={showOptions()}>
             <ComboOption
               onClick={() => handleSelect({ value: "", display: "" })}
-            >
+            key='blank'>
    
             </ComboOption>
-            {options.map(x => {
+            {options.map((x,i)=> {
               if (!x.active) {
                 return <Fragment />;
               }
               return (
-                <ComboOption onClick={() => handleSelect(x)} key={x.display}>
+                <ComboOption onClick={() => handleSelect(x)} key={x.display + i}>
                   {x.display}
                 </ComboOption>
               );

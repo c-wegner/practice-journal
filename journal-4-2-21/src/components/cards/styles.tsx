@@ -136,6 +136,14 @@ export const _DisplayIcons = ({
     }
   }
 
+  const getColorForUrgent=(def='inherit')=>{
+    if(color==='inherit'){
+      return def
+    }else{
+      return 'yellow'
+    }
+  }
+
   return (
     <Styles.IconBoxes>
       &nbsp;
@@ -144,7 +152,7 @@ export const _DisplayIcons = ({
       <Icons.Phone display={phone} margin='0 0 0 5px' size='.8rem' color={getColor()}/>
       <Icons.EnvelopeOpenFill display={envelopeOpen} margin='0 0 0 5px' size='.8rem'color={getColor()}/>
       <Icons.ReplyAll display={replyAll}margin='0 0 0 5px'color={getColor()}/>
-      <Icons.Exclamation display={exclamation} color={getColor('red')} margin='0 0 0 5px' size='.8rem'/>
+      <Icons.Exclamation display={exclamation} color={getColorForUrgent('red')} margin='0 0 0 5px' size='.8rem'/>
       <Icons.Flag display={flag} color={getColor('red')} margin='0 0 0 5px' size='.8rem'/>
     </Styles.IconBoxes>
   )
