@@ -104,15 +104,7 @@ export const ProjectForm = ({
             </Row>
             <Row>
               <TextBox label='Sub task' prop='subTask' />
-            </Row>
-
-<<<<<<< HEAD
-
-
-           
-=======
->>>>>>> d9d3a679fd5f9ac0318e54d28902923f2e3730f8
-            <Row justifyContent='flex-end'>
+            </Row><Row justifyContent='flex-end'>
 
               <TextBox label='Current contact' prop='laneContact' width='30%' />
             </Row>
